@@ -1,4 +1,5 @@
 <template>
+    <AppHeaderPropose />
     <div class="p-3 pt-0 mb-10 bg-white">
         <div class="Form mb-10">
             <div class="Form-Item">
@@ -91,12 +92,12 @@
 </template>
 
 <script>
-//import IdeaCards from '../components/IdeaCards.vue'
+import AppHeaderPropose from '../components/AppHeaderPropose.vue'
 
 export default {
   name: 'propose-form',
   components: {
-    //IdeaCards
+    AppHeaderPropose
   },
   data() {
     return {
@@ -159,7 +160,7 @@ export default {
 .radio-button-group .radio-button + label {
     padding: 6px 10px;
     cursor: pointer;
-    border: 1px solid #CCC;
+    border: 1px solid #dadada;
     margin-right: -2px;
     color: #555;
     background-color: #ffffff;
@@ -181,16 +182,17 @@ export default {
 
 .file {
     width: 100%;
+    background: #fbfdff;
 }
 
 label.file > input[type='file'] {
   display: none;
 }
-label.file::after {
+label.file::before {
   content: '+';
   font-size: 1rem;
   color: #888;
-  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .preview-item {
@@ -298,7 +300,7 @@ label.file::after {
   flex: 1;
   width: 100%;
   max-width: 410px;
-  background: #eef4ff;
+  background: #fbfdff;
   font-size: 18px;
 }
 @media screen and (max-width: 480px) {
@@ -320,7 +322,7 @@ label.file::after {
   flex: 1;
   width: 100%;
   max-width: 410px;
-  background: #eef4ff;
+  background: #fbfdff;
   font-size: 18px;
 }
 @media screen and (max-width: 480px) {

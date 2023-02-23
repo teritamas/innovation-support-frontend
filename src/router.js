@@ -4,6 +4,7 @@ import IdeaListsView from './views/IdeaLists.vue'
 import ProposeView from './views/Propose.vue'
 import ProposeConfirmView from './views/ProposeConfirm.vue'
 import MypageView from './views/Mypage.vue'
+import GiftView from './views/Gift.vue'
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
         path: '/mypage',
         name: 'mypage',
         component: MypageView
+    },
+    {
+        path: '/gift',
+        name: 'gift',
+        component: GiftView
     },
     //{
     //    name: 'notFound',

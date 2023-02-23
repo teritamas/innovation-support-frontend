@@ -53,6 +53,9 @@ export default {
 </script>
 
 <style scoped>
+footer {
+    border-radius: 30px;
+}
 .router-link-active {
     background: rgb(251 191 36);
     color: white;

@@ -1,4 +1,5 @@
 <template>
+    <AppHeaderPropose />
     <div class="p-3 pt-0 mb-10 bg-white">
         <div class="Form mb-10">
             <div class="Form-Item">
@@ -44,12 +45,12 @@
 </template>
 
 <script>
-//import IdeaCards from '../components/IdeaCards.vue'
+import AppHeaderPropose from '../components/AppHeaderPropose.vue'
 
 export default {
   name: 'propose-form',
   components: {
-    //IdeaCards
+    AppHeaderPropose
   },
   data() {
     return {
