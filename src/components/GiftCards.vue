@@ -1,7 +1,7 @@
 <template>
-    <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div class="w-full max-w-sm bg-white border border-gray-200 rounded-sm shadow dark:bg-gray-800 dark:border-gray-700">
     <a href="#">
-        <img class="rounded-t-lg" :src="require(`@/assets/img/${img}`)" alt="product image" />
+        <img class="rounded-t-sm" :src="require(`@/assets/img/${img}`)" alt="product image" />
         <div class="p-1">
             <div class="justify-between">
             <span class="text-xs font-semibold text-gray-900 dark:text-white">{{ points }} pts</span>

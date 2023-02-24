@@ -1,6 +1,8 @@
 <template>
     <AppHeaderPropose />
     <ProposeInnocations v-if="showContentsType == 'propose'" />
+    <ProposeInnocations v-if="showContentsType == 'survey'" />
+    <ProposeInnocations v-if="showContentsType == 'tester'" />
 </template>
 
 <script>
@@ -15,15 +17,6 @@ export default {
   },
   data() {
     return {
-      newProposion: {
-        businessName: this.$store.state.newProposion.businessName,
-        businessSummary: this.$store.state.newProposion.businessSummary,
-        targetAmount: this.$store.state.newProposion.targetAmount,
-        fileName: this.$store.state.newProposion.fileName,
-        filePath: this.$store.state.newProposion.filePath,
-        members: this.$store.state.newProposion.members,
-        remarks: this.$store.state.newProposion.remarks,
-      },
      showContentsType: this.$store.state.showContentsType,
     };
   },
@@ -31,27 +24,27 @@ export default {
   },
   methods: {
     showConfirmView : function () {
-        this.setNewProposion();
+        this.setNewProposal();
         this.$router.push('/proposeConfirm');
     },
-    setNewProposion : function(){
-      this.$store.commit('setNewProposion', this.newProposion);
+    setNewProposal : function(){
+      this.$store.commit('setNewProposal', this.newProposal);
     },
     onFileChange(e) {
       const files = e.target.files || e.dataTransfer.files;
       this.createImage(files[0]);
-      this.newProposion.fileName = files[0].name;
+      this.newProposal.fileName = files[0].name;
     },
     // アップロードした画像を表示
     createImage(file) {
       const reader = new FileReader();
       reader.onload = e => {
-        this.newProposion.filePath = e.target.result;
+        this.newProposal.filePath = e.target.result;
       };
       reader.readAsDataURL(file);
     },
     remove() {
-      this.newProposion.filePath = false;
+      this.newProposal.filePath = false;
     },
   },
 }

@@ -48,16 +48,16 @@
 </template>
 
 <script>
-//import IdeaCards from '../components/IdeaCards.vue'
+//import ProposalCards from '../components/ProposalCards.vue'
 
 export default {
   name: 'propose-form',
   components: {
-    //IdeaCards
+    //ProposalCards
   },
   data() {
     return {
-      newProposion: this.$store.state.newProposion
+      newProposal: this.$store.state.newProposal
     };
   },
   computed: {
@@ -255,6 +255,7 @@ body{
     float: none;
     margin-left: auto;
     margin-right: auto;
+    z-index: 100;
   }
 }
 
@@ -371,18 +372,15 @@ body{
 
 
 @keyframes animate {
-
     0%{
         transform: translateY(0) rotate(0deg);
         opacity: 1;
         border-radius: 0;
     }
-
     100%{
         transform: translateY(-1000px) rotate(720deg);
         opacity: 0;
         border-radius: 50%;
     }
-
 }
 </style>

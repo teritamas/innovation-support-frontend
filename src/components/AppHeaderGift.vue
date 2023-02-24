@@ -38,7 +38,7 @@ export default {
   methods: {
     changeShowContentsType : function (type) {
         this.select(type);
-        this.setShowContentsType();
+        this.setShowContentsGiftType();
     },
     select: function (type) {
       this.show = type;

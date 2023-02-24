@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from './views/Home.vue'
-import IdeaListsView from './views/IdeaLists.vue'
+import ProposalListsView from './views/ProposalLists.vue'
 import ProposeView from './views/Propose.vue'
 import ProposeConfirmView from './views/ProposeConfirm.vue'
 import MypageView from './views/Mypage.vue'
@@ -17,7 +17,7 @@ const router = createRouter({
     {
       path: '/list',
       name: 'list',
-      component: IdeaListsView
+      component: ProposalListsView
     },
     {
         path: '/propose',

@@ -4,38 +4,38 @@
         <div class="Form mb-10">
             <div class="Form-Item">
                 <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>事業名（30字以内）</p>
-                <p>{{ $store.state.newProposion.businessName }}</p>
+                <p>{{ newProposal.title }}</p>
             </div>
             <div class="Form-Item">
                 <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Required">必須</span>事業概要（300字以内）</p>
-                <p>{{ $store.state.newProposion.businessSummary }}</p>
+                <p>{{ newProposal.descriptions }}</p>
             </div>
             <div class="Form-Item">
                 <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>目標金額</p>
-                <p>{{ $store.state.newProposion.targetAmount }}</p>
+                <p>{{ newProposal.targetAmount }}</p>
             </div>
             <div class="Form-Item">
                 <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Option">任意</span>添付資料（PDF）</p>
                 <div class="preview-item w-100 mt-2">
                 <embed
-                    v-show="$store.state.newProposion.filePath"
+                    v-show="newProposal.filePath"
                     class="preview-item-file"
-                    :src="$store.state.newProposion.filePath"
+                    :src="newProposal.filePath"
                     alt=""
                 />
-                <div v-show="$store.state.newProposion.filePath" class="preview-item-btn">
-                    <p class="preview-item-name isMsg py-2">ファイル名：{{ $store.state.newProposion.fileName }}</p>
+                <div v-show="newProposal.filePath" class="preview-item-btn">
+                    <p class="preview-item-name isMsg py-2">ファイル名：{{ newProposal.fileName }}</p>
                 </div>
                 </div>
             </div>
             <div class="Form-Item">
                 <p class="Form-Item-Label mb-2"><span class="Form-Item-Label-Option">任意</span>仲間募集</p>
-                <p v-if="$store.state.newProposion.members == 'YES'">募集する</p>
-                <p v-if="$store.state.newProposion.members == 'NO'">募集しない</p>
+                <p v-if="newProposal.isRecruitingTeammates">募集する</p>
+                <p v-if="!newProposal.isRecruitingTeammates">募集しない</p>
              </div>
             <div class="Form-Item">
                 <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Option">任意</span>その他（500字以内）</p>
-                <p>{{ $store.state.newProposion.remarks }}</p>
+                <p>{{ newProposal.otherContents }}</p>
             </div>
             <input type="submit" class="Form-Btn" value="上記の内容で投稿する">
             <button class="Form-Retern-Btn mb-10" v-on:click="returnProposeView">入力画面に戻る</button>
@@ -54,10 +54,12 @@ export default {
   },
   data() {
     return {
-      newProposion: this.$store.state.newProposion
     };
   },
   computed: {
+    newProposal() { // dataの値と一緒
+      return this.$store.getters['proposalStore/newProposal'];
+    },
   },
   methods: {
     returnProposeView : function () {

@@ -21,7 +21,7 @@ import GiftCards from '../components/GiftCards.vue'
 import AppHeaderGift from '../components/AppHeaderGift.vue'
 
 export default {
-  name: 'idea-list',
+  name: 'proposa-list',
   components: {
     GiftCards,
     AppHeaderGift,

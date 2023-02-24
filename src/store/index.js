@@ -1,25 +1,22 @@
 import { createStore } from 'vuex'
+import ProposalStore from './modules/ProposalStore';
+import createPersistedState from 'vuex-persistedstate';
 
 export default createStore({
+  plugins: [
+    createPersistedState({
+        key: 'innoSuppo',
+        paths: ['permission.token'],
+        storage: window.sessionStorage,
+    }),
+  ],
   state: {
-    newProposion: {
-        businessName: '',
-        businessSummary: '',
-        targetAmount: '',
-        fileName: '',
-        filePath: '',
-        members: 'NO', // NO:募集しない, YES:募集する
-        remarks: '',
-    },
     showContentsType: 'propose',
     showContentsGiftType: 'study',
   },
   getters: {
   },
   mutations: {
-    setNewProposion(state, newProposion) {
-        state.newProposion = newProposion;
-    },
     setShowContentsType(state, showContentsType) {
         state.showContentsType = showContentsType;
     },
@@ -28,7 +25,8 @@ export default createStore({
     },
   },
   actions: {
-  },
+    },
   modules: {
+    proposalStore: ProposalStore,
   }
 })
