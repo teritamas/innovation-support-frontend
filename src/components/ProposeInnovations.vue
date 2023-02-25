@@ -1,6 +1,6 @@
 <template>
-    <div class="p-3 pt-0 mb-10 bg-white">
-        <div class="Form mb-10">
+    <!--<div class="p-3 pt-0 mb-10 bg-white">-->
+        <div class="Form">
             <div class="Form-Item">
                 <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>事業名（30字以内）</p>
                 <input
@@ -86,7 +86,7 @@
             </div>
             <button class="Form-Btn mb-10" v-on:click="showConfirmView">確認画面へ進む</button>
             </div>
-        </div>
+        <!--</div>-->
 
 </template>
 
@@ -131,6 +131,13 @@ export default {
 </script>
 
 <style scoped>
+	::-webkit-scrollbar-track{
+        background-color: #ccc;
+	}
+	::-webkit-scrollbar-thumb{
+        background-color: #17585d;
+	}
+
 .radio-button-group {
   display: flex;
   width: 100%;
@@ -347,7 +354,7 @@ label.file::before {
 }
 
 label {
-color: #555; /* ラベルテキストの色を指定する */
-padding: 10px; /* ラベルとテキスト間の余白を指定する */
+    color: #555; /* ラベルテキストの色を指定する */
+    padding: 10px; /* ラベルとテキスト間の余白を指定する */
 }
 </style>

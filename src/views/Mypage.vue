@@ -1,5 +1,4 @@
 <template>
-    <div class="context">
         <div class="card card-one">
         <div class="head">
         <div class="avatar">
@@ -30,21 +29,7 @@
             <p class="text-white">test</p>
         </div>
     </div>
-    </div>
-    <div class="area" >
-            <ul class="circles">
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-            </ul>
-    </div >
+
 </template>
 
 <script>

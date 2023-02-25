@@ -1,8 +1,12 @@
 <template>
     <AppHeaderPropose />
-    <ProposeInnocations v-if="showContentsType == 'propose'" />
-    <ProposeInnocations v-if="showContentsType == 'survey'" />
-    <ProposeInnocations v-if="showContentsType == 'tester'" />
+        <div class="content-center">
+            <div class="card card-one">
+            <ProposeInnocations v-if="showContentsType == 'propose'" />
+            <ProposeInnocations v-if="showContentsType == 'survey'" />
+            <ProposeInnocations v-if="showContentsType == 'tester'" />
+        </div>
+    </div>
 </template>
 
 <script>
@@ -52,6 +56,22 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  float: left;
+  margin-top: 1rem;
+  max-width: 900px;
+}
+
+.card-one {
+  position: relative;
+  overflow-y: scroll;
+  overflow-x: none;
+  height: 80vh;
+  width: 90vw;
+  background: white;
+  box-shadow: 0 10px 7px -5px rgba(#000,.4);
+}
+
 .radio-button-group {
   display: flex;
   width: 100%;
@@ -91,6 +111,7 @@ export default {
 .file {
     width: 100%;
     background: #fbfdff;
+    margin-left: 40px;
 }
 
 label.file > input[type='file'] {

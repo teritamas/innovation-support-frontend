@@ -31,6 +31,8 @@ export default {
 <style scoped>
     nav {
         background: white;
+        z-index: 10000;
+        position: sticky;
     }
 
     span {
@@ -42,6 +44,5 @@ export default {
     span.text-small {
         letter-spacing: 0.01em;
         font-size: 0.7rem;
-
     }
 </style>
