@@ -16,7 +16,7 @@
                     <span class="bg-gray text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">5.0</span>
                 </div>
             </div>
-            <h5 class="text-lg py-2 font-semibold tracking-tight text-gray-900 dark:text-white">【アノテーション】雇用の機会を提供することによって社会問題の解決にも貢献する事業です。</h5>
+            <h5 class="text-lg py-2 font-semibold tracking-tight text-gray-900 dark:text-white">{{ title }}</h5>
         </a>
         <div class="flex items-center justify-between">
             <span class="text-2xl font-bold text-gray-900 dark:text-white">$599～$1999</span>
@@ -31,6 +31,18 @@
 export default {
   name: 'proposaCars',
   components: {
+  },
+  props: {
+    proposalId: String,
+    title: String,
+    descriptions: String,
+    filePath: String,
+    target_amount: String,
+    isRecruitingTeammates: Boolean,
+    otherContents: String,
+    tags: String,
+    proposerWalletAddress: String,
+    nftTokenId: String,
   }
 }
 </script>

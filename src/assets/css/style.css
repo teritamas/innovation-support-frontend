@@ -6,3 +6,15 @@
     display: flex;
     justify-content: center;
 }
+
+.bg-beige {
+    background: #fffbeb;
+}
+
+.bg-orange {
+    background: #ffe364;
+}
+
+.bg-yellow {
+    background: #ffefbb;
+}

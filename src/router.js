@@ -39,11 +39,6 @@ const router = createRouter({
         name: 'gift',
         component: GiftView
     },
-    //{
-    //    name: 'notFound',
-    //    path: '/:pathMatch(.*)*',
-    //    component: () => import('../views/NotFoundView.vue')
-    //}
   ],
   scrollBehavior(to) {
     if (to.hash) {
