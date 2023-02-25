@@ -12,7 +12,7 @@ export default {
         isRecruitingTeammates: false,
         otherContents: '',
     },
-    proposalLists : []
+    proposalLists : '',
   },
   getters: {
     newProposal(state) {
@@ -21,16 +21,13 @@ export default {
     proposalLists(state) {
         return state.proposalLists;
     },
-    token(state, getters, rootState, rootGetters) {
-        return rootGetters['token'];
-      },
   },
   mutations: {
     setNewProposal(state, newProposal) {
         state.newProposal = newProposal;
     },
     setProposalLists(state, proposalLists) {
-        state.proposalLists = proposalLists;
+        state.proposalLists = proposalLists.proposals;
     },
   },
   actions: {
@@ -40,12 +37,9 @@ export default {
           return axios
           .get(termRequestUri, {
             withCredentials: false,
-            headers: {
-              Authorization: state.getters.token,
-            },
           })
           .then(response => {
-            state.commit('setMembers', response.data);
+            state.commit('setProposalLists', response.data);
           })
           .catch(err => {
             (this.errored = true), (this.error = err);

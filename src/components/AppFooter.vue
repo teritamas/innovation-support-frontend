@@ -55,6 +55,7 @@ export default {
 <style scoped>
 footer {
     border-radius: 30px;
+    z-index: 10000;
 }
 .router-link-active {
     background: rgb(251 191 36);
