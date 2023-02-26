@@ -1,5 +1,5 @@
 <template>
-    <AppHeaderPropose />
+    <AppHeaderProposal />
     <div class="horizontal-list">
     <div v-for="proposal in proposalLists" :key=proposal.index class="p-3 item">
         <!--{{ proposal }}-->
@@ -8,11 +8,11 @@
         :title = proposal.title
         :descriptions = proposal.descriptions
         :filePath = proposal.filePath
-        :targetAmount = proposal.target_amount
-        :isRecruitingTeammates = proposal.is_recruiting_teammates
-        :otherContents = proposal.other_contents
+        :targetAmount = proposal.targetAmount
+        :isRecruitingTeammates = proposal.isRecruitingTeammates
+        :otherContents = proposal.otherContents
         :tags = proposal.tags
-        :proposerWalletAddress = proposal.proposer_wallet_address
+        :proposalrWalletAddress = proposal.proposalr_wallet_address
         :nftTokenId = proposal.nft_token_id
         />
     </div>
@@ -21,13 +21,13 @@
 
 <script>
 import ProposalCards from '../components/ProposalCards.vue'
-import AppHeaderPropose from '../components/AppHeaderPropose.vue'
+import AppHeaderProposal from '../components/AppHeaderProposal.vue'
 
 export default {
   name: 'proposa-list',
   components: {
     ProposalCards,
-    AppHeaderPropose,
+    AppHeaderProposal,
   },
   data() {
     return {

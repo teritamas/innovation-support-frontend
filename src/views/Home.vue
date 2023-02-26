@@ -30,60 +30,13 @@ export default {
     }
   },
   computed: {
-    hasBrowserExtension() {
-        // getterの値をファイルで扱いやすくする
-        return this.$store.getters['userStore/hasBrowserExtension'];
-    },
-    walletAddress() {
-        return this.$store.getters['userStore/walletAddress'];
-    },
-    chainId() {
-        return this.$store.getters['userStore/chainId'];
-    },
-    userId() {
-        return this.$store.getters['userStore/userId'];
-    },
-    user() {
-        return this.$store.getters['userStore/user'];
-    },
   },
   created() {
-    // メソッドを実行する
-    this.getHasBrowserExtension();
   },
   mounted() {
-        //var userAccount = window.ethereum.accounts[0];
-        //this.userAccount = userAccount;
-        //console.log(userAccount);
-    },
+  },
   methods: {
     // storeのactionsをたたきにいく
-    getWalletAddress() {
-        return this.$store
-        .dispatch('userStore/getWalletAddress')
-        .then(() => {});
-    },
-    getChainId() {
-        return this.$store
-        .dispatch('userStore/getChainID')
-        .then(() => {});
-    },
-    getHasBrowserExtension() {
-        return this.$store
-        .dispatch('userStore/getHasBrowserExtension')
-        .then(() => {});
-    },
-    initializeAccount :async function () {
-        await this.setWalletAddress();
-        //await this.getChainID(); うまくいかないのでいったんコメントアウト
-    },
-    registUserName () {
-        const userName = this.newUserName;
-        const walletAddress = this.walletAddress;
-        return this.$store
-        .dispatch('userStore/registUserName', {userName, walletAddress})
-        .then(() => {});
-    },
   }
 }
 </script>

@@ -3,7 +3,7 @@
         <ul class="grid grid-cols-3 -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
             <li class="mr-2">
                 <a
-                    @click="changeShowContentsType('propose')" :class="{'active': show == 'propose'}"
+                    @click="changeShowContentsType('proposal')" :class="{'active': show == 'proposal'}"
                     class="inline-flex p-2 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
                     >
                     <svg aria-hidden="true" class="w-5 h-5 mr-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -43,7 +43,7 @@ export default {
   name: 'app-headrer',
   data() {
     return {
-        show: "propose",
+        show: "proposal",
     };
   },
   methods: {

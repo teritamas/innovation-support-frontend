@@ -6,16 +6,22 @@ import createPersistedState from 'vuex-persistedstate';
 export default createStore({
   plugins: [
     createPersistedState({
-        key: 'innoSuppo',
-        paths: ['permission.token'],
+        key: 'inno',
+        //paths: ['permission.token'],
         storage: window.sessionStorage,
     }),
   ],
   state: {
-    showContentsType: 'propose',
+    showContentsType: 'proposal',
     showContentsGiftType: 'study',
+    permission: {
+        token: '',
+      },
   },
   getters: {
+    token(state) {
+        return state.permission.token;
+      },
   },
   mutations: {
     setShowContentsType(state, showContentsType) {
@@ -24,9 +30,12 @@ export default createStore({
     setShowContentsGiftType(state, showContentsGiftType) {
         state.showContentsGiftType = showContentsGiftType;
     },
+    setToken(state, token) {
+        state.permission.token = token;
+      },
   },
   actions: {
-    },
+  },
   modules: {
     proposalStore: ProposalStore,
     userStore: UserStore,

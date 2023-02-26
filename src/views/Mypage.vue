@@ -1,7 +1,7 @@
 <template>
 
-<LoginStep v-if="!user.user_id"/>
-<MypageProfile v-if="user.user_id"/>
+<LoginStep v-if="!detail.userId"/>
+<MypageProfile v-if="detail.userId"/>
 
 </template>
 
@@ -21,8 +21,8 @@ export default {
     };
   },
   computed: {
-    user() {
-        return this.$store.getters['userStore/user'];
+    detail() {
+        return this.$store.getters['userStore/detail'];
     },
   },
 }
