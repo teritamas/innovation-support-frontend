@@ -57,9 +57,9 @@ export default {
   },
   created() {
     // メソッドを実行する
-    if (!this.isAuthorized) {
-      this.$router.push({ name: 'mypage' });
-    }
+    //if (!this.isAuthorized) {
+    //  this.$router.push({ name: 'mypage' });
+    //}
     if (this.userId) {
         this.getDetail().then(() => {});
     }
