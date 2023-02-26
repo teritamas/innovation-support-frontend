@@ -132,8 +132,6 @@ export default {
     });
   },
   mounted() {
-        //var userAccount = window.ethereum.accounts[0];
-        //this.userAccount = userAccount;
         //if (this.userId) this.getDetail();
     },
   methods: {
@@ -146,7 +144,6 @@ export default {
         .dispatch('userStore/getWalletAddress', {
             walletAddress
         })
-        .then(() => {});
     },
     getChainId() {
         return this.$store
