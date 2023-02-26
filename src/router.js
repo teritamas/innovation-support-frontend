@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from './views/Home.vue'
 import ProposalListsView from './views/ProposalLists.vue'
-import ProposeView from './views/Propose.vue'
-import ProposeConfirmView from './views/ProposeConfirm.vue'
+import ProposalView from './views/Proposal.vue'
+import ProposalDetailView from './views/ProposalDetail.vue'
+import ProposalConfirmView from './views/ProposalConfirm.vue'
 import MypageView from './views/Mypage.vue'
 import GiftView from './views/Gift.vue'
 
@@ -15,19 +16,24 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/list',
-      name: 'list',
+      path: '/lists',
+      name: 'lists',
       component: ProposalListsView
     },
     {
-        path: '/propose',
-        name: 'propose',
-        component: ProposeView
+        path: '/proposal',
+        name: 'proposal',
+        component: ProposalView
     },
     {
-        path: '/proposeConfirm',
-        name: 'proposeConfirm',
-        component: ProposeConfirmView
+        path: '/proposal/:proposal_id',
+        name: 'proposalDetail',
+        component: ProposalDetailView
+    },
+    {
+        path: '/proposalConfirm',
+        name: 'proposalConfirm',
+        component: ProposalConfirmView
     },
     {
         path: '/mypage',

@@ -6,7 +6,7 @@
     </div>
     </div>
 
-    <h3>{{ user.user_name }}</h3>
+    <h3>{{ detail.user_name }}</h3>
     <div class="stats px-5">
     <div class="stat text-center">
     <i>獲得したNFT</i>
@@ -36,20 +36,20 @@
 //import ProposalCards from '../components/ProposalCards.vue'
 
 export default {
-name: 'propose-form',
+name: 'proposal-form',
 components: {
 //ProposalCards
 },
 data() {
-return {
-  newProposal: this.$store.state.newProposal
-};
+    return {
+        newProposal: this.$store.state.newProposal
+    };
 },
 computed: {
-user() {
-    return this.$store.getters['userStore/user'];
-},
-},
+    detail() {
+        return this.$store.getters['userStore/detail'];
+    },
+  },
 }
 
 </script>

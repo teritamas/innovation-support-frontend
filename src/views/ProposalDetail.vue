@@ -1,21 +1,21 @@
 <template>
-    <AppHeaderPropose />
     <div class="p-3 pt-0 mb-10 bg-white">
+        {{ proposalLists }}
         <div class="Form mb-10">
             <div class="Form-Item">
-                <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>事業名（30字以内）</p>
+                <p class="Form-Item-Label"><span class="Form-Item-Label-Required"></span>事業名（30字以内）</p>
                 <p>{{ newProposal.title }}</p>
             </div>
             <div class="Form-Item">
-                <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Required">必須</span>事業概要（300字以内）</p>
+                <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Required"></span>事業概要（300字以内）</p>
                 <p>{{ newProposal.descriptions }}</p>
             </div>
             <div class="Form-Item">
-                <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>目標金額</p>
+                <p class="Form-Item-Label"><span class="Form-Item-Label-Required"></span>目標金額</p>
                 <p>{{ newProposal.targetAmount }}</p>
             </div>
             <div class="Form-Item">
-                <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Option">任意</span>添付資料（PDF）</p>
+                <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Option"></span>添付資料（PDF）</p>
                 <div class="preview-item w-100 mt-2">
                 <embed
                     v-show="newProposal.filePath"
@@ -37,33 +37,102 @@
                 <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Option">任意</span>その他（500字以内）</p>
                 <p>{{ newProposal.otherContents }}</p>
             </div>
-            <input type="submit" class="Form-Btn" value="上記の内容で投稿する">
-            <button class="Form-Retern-Btn mb-10" v-on:click="returnProposeView">入力画面に戻る</button>
+
+
+            <div class="Form-Item">
+                <p class="Form-Item-Label mb-2"><span class="Form-Item-Label-Required">必須</span>賛否</p>
+                <div class="radio-button-group mts w-100">
+                    <div class="item">
+                        <div class="item">
+                        <input
+                            type="radio"
+                            v-model="judgement"
+                            class="radio-button"
+                            value=true
+                            id="button1"
+                        />
+                        <label for="button1">賛成</label>
+                    </div>
+                        <input
+                            type="radio"
+                            v-model="judgement"
+                            class="radio-button"
+                            value=false
+                            id="button2"
+                        />
+                        <label for="button2">反対</label>
+                    </div>
+                </div>
+             </div>
+             <div class="Form-Item">
+                <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Option">任意</span>賛否の理由</p>
+                <textarea
+                    v-model="newProposal.descriptions"
+                    class="Form-Item-Textarea"
+                ></textarea>
+            </div>
+            <!--≪TODO≫すぐvoteじゃなくて、確認画面＋ログイン確認してから投票-->
+            <button class="Form-Btn" @click="vote()">投票する</button>
+            <button class="Form-Retern-Btn mb-10" @click="returnProposalLists()">戻る</button>
             </div>
         </div>
 
 </template>
 
 <script>
-import AppHeaderPropose from '../components/AppHeaderPropose.vue'
+//import AppHeaderProposal from '../components/AppHeaderProposal.vue'
 
 export default {
-  name: 'propose-form',
+  name: 'proposal-form',
   components: {
-    AppHeaderPropose
+    //AppHeaderProposal
   },
   data() {
     return {
+        judgement: '',
+        judgement_reason: '',
     };
   },
   computed: {
-    newProposal() { // dataの値と一緒
+    proposal_id() {
+      return this.$route.params['proposal_id'];
+    },
+    newProposal() {
       return this.$store.getters['proposalStore/newProposal'];
     },
+    proposalLists() {
+      return this.$store.getters['proposalStore/proposalLists'];
+    },
+    newVote() {
+      return this.$store.getters['proposalStore/newVote'];
+    },
+    user() {
+      return this.$store.getters['userStore/user'];
+    },
+  },
+  created() {
+    // メソッドを実行する
+    this.getProposalLists()
   },
   methods: {
-    returnProposeView : function () {
-        this.$router.push('/propose');
+    getProposalLists() {
+        return this.$store
+        .dispatch('proposalStore/getProposalList')
+        .then(() => {});
+    },
+    returnProposalLists : function () {
+        this.$router.push('/lists');
+    },
+    vote() {
+        const newVote = {
+            user_id: this.user.user_id,
+            judgement: this.judgement,
+            judgement_reason : this.judgement_reason,
+        };
+        const proposal_id = this.$route.params['proposal_id'];
+        return this.$store
+        .dispatch('proposalStore/vote', {proposal_id, newVote})
+        .then(() => {});
     },
   },
 }

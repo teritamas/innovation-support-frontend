@@ -1,23 +1,23 @@
 <template>
-    <AppHeaderPropose />
+    <AppHeaderProposal />
         <div class="content-center">
             <div class="card card-one">
-            <ProposeInnocations v-if="showContentsType == 'propose'" />
-            <ProposeInnocations v-if="showContentsType == 'survey'" />
-            <ProposeInnocations v-if="showContentsType == 'tester'" />
+            <ProposalInnocations v-if="showContentsType == 'proposal'" />
+            <ProposalInnocations v-if="showContentsType == 'survey'" />
+            <ProposalInnocations v-if="showContentsType == 'tester'" />
         </div>
     </div>
 </template>
 
 <script>
-import AppHeaderPropose from '../components/AppHeaderPropose.vue'
-import ProposeInnocations from '../components/ProposeInnovations.vue'
+import AppHeaderProposal from '../components/AppHeaderProposal.vue'
+import ProposalInnocations from '../components/ProposalInnovations.vue'
 
 export default {
-  name: 'propose-form',
+  name: 'proposal-form',
   components: {
-    AppHeaderPropose,
-    ProposeInnocations,
+    AppHeaderProposal,
+    ProposalInnocations,
   },
   data() {
     return {
@@ -29,7 +29,7 @@ export default {
   methods: {
     showConfirmView : function () {
         this.setNewProposal();
-        this.$router.push('/proposeConfirm');
+        this.$router.push('/proposalConfirm');
     },
     setNewProposal : function(){
       this.$store.commit('setNewProposal', this.newProposal);
