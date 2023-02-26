@@ -1,41 +1,40 @@
 <template>
     <div class="p-3 pt-0 mb-10 bg-white">
-        {{ proposalLists }}
         <div class="Form mb-10">
             <div class="Form-Item">
-                <p class="Form-Item-Label"><span class="Form-Item-Label-Required"></span>事業名（30字以内）</p>
-                <p>{{ newProposal.title }}</p>
+                <p class="Form-Item-Label"><span class="Form-Item-List"></span>事業名（30字以内）</p>
+                <p>{{ proposal.title }}</p>
             </div>
             <div class="Form-Item">
-                <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Required"></span>事業概要（300字以内）</p>
-                <p>{{ newProposal.descriptions }}</p>
+                <p class="Form-Item-Label isMsg"><span class="Form-Item-List"></span>事業概要（300字以内）</p>
+                <p>{{ proposal.descriptions }}</p>
             </div>
             <div class="Form-Item">
-                <p class="Form-Item-Label"><span class="Form-Item-Label-Required"></span>目標金額</p>
-                <p>{{ newProposal.targetAmount }}</p>
+                <p class="Form-Item-Label"><span class="Form-Item-List"></span>目標金額</p>
+                <p>{{ proposal.targetAmount }}</p>
             </div>
             <div class="Form-Item">
-                <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Option"></span>添付資料（PDF）</p>
+                <p class="Form-Item-Label isMsg"><span class="Form-Item-List"></span>添付資料（PDF）</p>
                 <div class="preview-item w-100 mt-2">
                 <embed
-                    v-show="newProposal.filePath"
+                    v-show="proposal.filePath"
                     class="preview-item-file"
-                    :src="newProposal.filePath"
+                    :src="proposal.filePath"
                     alt=""
                 />
-                <div v-show="newProposal.filePath" class="preview-item-btn">
-                    <p class="preview-item-name isMsg py-2">ファイル名：{{ newProposal.fileName }}</p>
+                <div v-show="proposal.filePath" class="preview-item-btn">
+                    <p class="preview-item-name isMsg py-2">ファイル名：{{ proposal.fileName }}</p>
                 </div>
                 </div>
             </div>
             <div class="Form-Item">
-                <p class="Form-Item-Label mb-2"><span class="Form-Item-Label-Option">任意</span>仲間募集</p>
-                <p v-if="newProposal.isRecruitingTeammates">募集する</p>
-                <p v-if="!newProposal.isRecruitingTeammates">募集しない</p>
+                <p class="Form-Item-Label mb-2"><span class="Form-Item-List"></span>仲間募集</p>
+                <p v-if="proposal.isRecruitingTeammates">募集する</p>
+                <p v-if="!proposal.isRecruitingTeammates">募集しない</p>
              </div>
             <div class="Form-Item">
-                <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Option">任意</span>その他（500字以内）</p>
-                <p>{{ newProposal.otherContents }}</p>
+                <p class="Form-Item-Label isMsg"><span class="Form-Item-List"></span>その他（500字以内）</p>
+                <p>{{ proposal.otherContents }}</p>
             </div>
 
 
@@ -67,7 +66,7 @@
              <div class="Form-Item">
                 <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Option">任意</span>賛否の理由</p>
                 <textarea
-                    v-model="newProposal.descriptions"
+                    v-model="proposal.descriptions"
                     class="Form-Item-Textarea"
                 ></textarea>
             </div>
@@ -97,41 +96,39 @@ export default {
     proposal_id() {
       return this.$route.params['proposal_id'];
     },
-    newProposal() {
-      return this.$store.getters['proposalStore/newProposal'];
-    },
-    proposalLists() {
-      return this.$store.getters['proposalStore/proposalLists'];
+    proposal() {
+      return this.$store.getters['proposalStore/proposal'];
     },
     newVote() {
       return this.$store.getters['proposalStore/newVote'];
     },
-    user() {
-      return this.$store.getters['userStore/user'];
+    detail() {
+      return this.$store.getters['userStore/detail'];
     },
   },
   created() {
     // メソッドを実行する
-    this.getProposalLists()
+    this.getProposal()
   },
   methods: {
-    getProposalLists() {
+    getProposal() {
+        const proposalId = this.proposal_id;
         return this.$store
-        .dispatch('proposalStore/getProposalList')
+        .dispatch('proposalStore/getProposal', proposalId)
         .then(() => {});
     },
     returnProposalLists : function () {
         this.$router.push('/lists');
     },
     vote() {
-        const newVote = {
-            user_id: this.user.user_id,
+        const vote = {
+            user_id: this.detail.userId,
             judgement: this.judgement,
             judgement_reason : this.judgement_reason,
         };
-        const proposal_id = this.$route.params['proposal_id'];
+        const proposalId = this.$route.params['proposal_id'];
         return this.$store
-        .dispatch('proposalStore/vote', {proposal_id, newVote})
+        .dispatch('proposalStore/vote', {proposalId, vote})
         .then(() => {});
     },
   },
@@ -193,6 +190,7 @@ export default {
     margin-top: 0;
   }
 }
+
 .Form-Item-Label-Required {
   border-radius: 6px;
   margin-right: 8px;
@@ -215,6 +213,19 @@ export default {
   display: inline-block;
   text-align: center;
   background: #545454;
+  color: #fff;
+  font-size: 14px;
+}
+
+.Form-Item-List {
+  border-radius: 6px;
+  margin-right: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: 4px;
+  display: inline-block;
+  text-align: center;
+  background: rgb(251 191 36);
   color: #fff;
   font-size: 14px;
 }

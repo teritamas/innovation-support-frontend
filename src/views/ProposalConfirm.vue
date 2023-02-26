@@ -14,6 +14,7 @@
                 <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>目標金額</p>
                 <p>{{ newProposal.targetAmount }}</p>
             </div>
+            {{  file }}
             <div class="Form-Item">
                 <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Option">任意</span>添付資料（PDF）</p>
                 <div class="preview-item w-100 mt-2">
@@ -41,7 +42,6 @@
             <button class="Form-Retern-Btn mb-10" @click="returnProposalView()">入力画面に戻る</button>
             </div>
         </div>
-
 </template>
 
 <script>
@@ -58,7 +58,13 @@ export default {
   },
   computed: {
     newProposal() { // dataの値と一緒
-      return this.$store.getters['proposalStore/newProposal'];
+        return this.$store.getters['proposalStore/newProposal'];
+    },
+    userId() {
+        return this.$store.getters['userStore/userId'];
+    },
+    file() {
+        return this.$store.getters['proposalStore/file'];
     },
   },
   methods: {
@@ -66,22 +72,8 @@ export default {
         this.$router.push('/proposal');
     },
     registProposal () {
-        //const newProposal = this.newProposal;
-        const newProposal ={
-  "title": "string",
-  "descriptions": "string",
-  "targetAmount": 1000,
-  "isRecruitingTeammates": false,
-  "otherContents": "その他コメント",
-  "tags": [],
-  "proposalr_wallet_address": "string",
-  "slack_notification_channels": [
-    "string"
-  ]
-};
-    const file = {
-        file: newProposal.filePath
-    }
+        const file = this.file;
+        const newProposal = this.newProposal;
         return this.$store
         .dispatch('proposalStore/registProposal', {newProposal, file})
         .then(() => {});

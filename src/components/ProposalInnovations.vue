@@ -20,7 +20,7 @@
             <div class="Form-Item">
                 <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>目標金額</p>
                 <input
-                    type="text"
+                    type="number"
                     v-model="newProposal.targetAmount"
                     class="Form-Item-Input"
                     placeholder="例）500万円"
@@ -36,7 +36,7 @@
                     v-show="newProposal.filePath"
                     class="preview-item-file"
                     :src="newProposal.filePath"
-                    alt=""
+                    alt="添付資料"
                 />
                 <div
                     v-show="newProposal.filePath"
@@ -84,7 +84,7 @@
                     class="Form-Item-Textarea"
                 ></textarea>
             </div>
-            <button class="Form-Btn mb-10" v-on:click="showConfirmView">確認画面へ進む</button>
+            <button class="Form-Btn mb-10" @click="showConfirmView">確認画面へ進む</button>
             </div>
         <!--</div>-->
 
@@ -104,15 +104,29 @@ export default {
     newProposal() {
         return this.$store.getters['proposalStore/newProposal'];
     },
+    file() {
+        return this.$store.getters['proposalStore/file'];
+    },
   },
   methods: {
     showConfirmView : function () {
+        const newProposal = this.newProposal;
+        const file = this.file;
+        this.$store
+        .dispatch('proposalStore/storeNewProposal', {newProposal, file})
+        .then(() => {});
         this.$router.push('/proposalConfirm');
     },
     onFileChange(e) {
-      const files = e.target.files || e.dataTransfer.files;
-      this.createImage(files[0]);
-      this.newProposal.fileName = files[0].name;
+        const files = e.target.files || e.dataTransfer.files;
+        this.setFile(files[0]);
+        this.createImage(files[0]);
+        this.newProposal.file = files[0]; // いらないかも
+    },
+    setFile(file) {
+        this.$store
+        .dispatch('proposalStore/storeFile', file)
+        .then(() => {});
     },
     // アップロードした画像を表示
     createImage(file) {
