@@ -1,23 +1,27 @@
 import axios from 'axios';
+import applyCaseMiddleware from 'axios-case-converter';
 
 export default {
   namespaced: true,
   state: {
-    Chains: {
-        1: "Mainnet",
-        3: "Ropsten",
-        4: "Rinkeby",
-        42: "Kovan",
-        1337: "Geth private chain(default )",
-        61: "Ethereum Classic Mainnet",
-        62: "Morden",
-    },
-    Wei: 1000000000000000000,
-    walletAddress : '',
-    chainId : '',
-    hasBrowserExtension: '',
-    user: {}, // いのさぽのニックネーム
     userId: '', // いのさぽのID
+    detail: {}, // いのさぽのニックネーム
+    walletAddress : '',
+    metamask : {
+        walletAddress : '',
+        chainId : '',
+        Chains: {
+            1: "Mainnet",
+            3: "Ropsten",
+            4: "Rinkeby",
+            42: "Kovan",
+            1337: "Geth private chain(default )",
+            61: "Ethereum Classic Mainnet",
+            62: "Morden",
+        },
+        Wei: 1000000000000000000,
+    },
+    hasBrowserExtension: '',
   },
   getters: {
     account(state) {
@@ -29,12 +33,15 @@ export default {
     hasBrowserExtension(state) {
         return state.hasBrowserExtension;
     },
-    user(state) {
-        return state.user;
+    detail(state) {
+        return state.detail;
     },
-    userName(state) {
-        return state.userName;
+    userId(state) {
+        return state.userId;
     },
+    token(state, getters, rootState, rootGetters) {
+        return rootGetters['token'];
+      },
   },
   mutations: {
     setAccount(state, account) {
@@ -43,8 +50,8 @@ export default {
     setChainId(state, chainId) {
         state.chainId = chainId;
     },
-    setUser(state, user) {
-        state.user = user;
+    setDetail(state, detail) {
+        state.detail = detail;
     },
     setWalletAddress(state, walletAddress) {
         state.walletAddress = walletAddress;
@@ -57,6 +64,26 @@ export default {
     },
   },
   actions: {
+    getDetail(state, commit) {
+        // キャメルケースとスネークケースの変換
+        const client = applyCaseMiddleware(axios.create());
+        const termRequestUri =
+          process.env.VUE_APP_API_ENDPOINT + 'user/'
+          + commit.userId;
+          return client
+          .get(termRequestUri, {
+            withCredentials: false,
+            headers: {
+                Authorization: state.getters.token,
+            },
+          })
+          .then(response => {
+            state.commit('setDetail', response.data);
+          })
+          .catch(err => {
+            (this.errored = true), (this.error = err);
+          });
+    },
     getUser(state, commit) {
         const termRequestUri =
           process.env.VUE_APP_API_ENDPOINT + 'user/wallet_address/'
@@ -64,6 +91,9 @@ export default {
           return axios
           .get(termRequestUri, {
             withCredentials: false,
+            headers: {
+                Authorization: state.getters.token,
+            },
           })
           .then(response => {
             console.log(response.data);
@@ -80,34 +110,18 @@ export default {
             return state.commit('setHasBrowserExtension', false);
         }
     },
-    getWalletAddress : async function (state) {
-        try {
-            const account = await window.ethereum.request({ method: 'eth_requestAccounts' });
-            if (account.length > 0) {
-                return state.commit('setWalletAddress', account[0]);
-            } else {
-                return "";
-            }
-        } catch (err) {
-            if (err.code === 4001) {
-                // EIP-1193 userRejectedRequest error
-                // If this happens, the user rejected the connection request.
-                console.log('Please connect to MetaMask.');
-            } else {
-                console.error(err);
-            }
-            return "";
-        }
+    getWalletAddress : async function (state, commit) {
+        return state.commit('setWalletAddress', commit.walletAddress);
     },
-    registUserName(state, commit) {
+    registUser(state, commit) {
+        const client = applyCaseMiddleware(axios.create());
         const termRequestUri =
-          process.env.VUE_APP_API_ENDPOINT +'/user';
+          process.env.VUE_APP_API_ENDPOINT +'user';
           const userInfo = {
-            "user_name": commit.userName,
+            "user_name": commit.newUserName,
             "wallet_address": commit.walletAddress,
           };
-          state.commit('setUserName', commit.userName);
-          return axios
+          return client
           .post(
             termRequestUri,
             userInfo,
@@ -118,7 +132,7 @@ export default {
             }
           )
           .then((response) => {
-            state.commit('setUserId', response.data.user_id);
+            state.commit('setUserId', response.data.userId);
           })
           .catch(err => {
             (this.errored = true), (this.error = err);

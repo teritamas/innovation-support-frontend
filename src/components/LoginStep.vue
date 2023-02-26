@@ -64,11 +64,11 @@
             </div>
             <div class="bg-white">
                 <h4 class="title pt-10">ステップ３ ニックネームの登録</h4>
-                <div v-if="user.user_name" class="desc align-middle">
+                <div v-if="detail.userName" class="desc align-middle">
                     <svg class="inline" role="img" xmlns="http://www.w3.org/2000/svg" width="56px" height="56px" viewBox="0 0 24 24" aria-labelledby="circleOkIconTitle" stroke="#2329D6" stroke-width="1.2857142857142858" stroke-linecap="square" stroke-linejoin="miter" fill="none" color="#2329D6"> <title id="circleOkIconTitle">OK</title> <polyline points="7 13 10 16 17 9"/> <circle cx="12" cy="12" r="10"/> </svg>
-                    {{ user.user_name }} さん、こんにちは！
+                    {{ detail.userName }} さん、こんにちは！
                 </div>
-                <div v-if="!user.user_name" class="desc">
+                <div v-if="!detail.userName" class="desc">
                     <p class="p-1">
                         システム上で利用するニックネームを登録してください。<br>
                         ニックネームはあとから変更することもできます。
@@ -82,7 +82,7 @@
                             >
                         <button
                             v-if="hasBrowserExtension"
-                            @click="registUserName()"
+                            @click="registUser()"
                             type="button"
                             class="mt-2 w-full text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
                             登録をする
@@ -121,24 +121,31 @@ export default {
     userId() {
         return this.$store.getters['userStore/userId'];
     },
-    user() {
-        return this.$store.getters['userStore/user'];
+    detail() {
+        return this.$store.getters['userStore/detail'];
     },
   },
   created() {
     // メソッドを実行する
-    this.getHasBrowserExtension();
+    this.getHasBrowserExtension().then(() => {
+        if (this.userId) this.getDetail();
+    });
   },
   mounted() {
         //var userAccount = window.ethereum.accounts[0];
         //this.userAccount = userAccount;
-        //console.log(userAccount);
+        //if (this.userId) this.getDetail();
     },
   methods: {
+    handleAccountChanged() {
+        this.initializeAccount();
+    },
     // storeのactionsをたたきにいく
-    getWalletAddress() {
+    getWalletAddress(walletAddress) {
         return this.$store
-        .dispatch('userStore/getWalletAddress')
+        .dispatch('userStore/getWalletAddress', {
+            walletAddress
+        })
         .then(() => {});
     },
     getChainId() {
@@ -148,18 +155,42 @@ export default {
     },
     getHasBrowserExtension() {
         return this.$store
-        .dispatch('userStore/getHasBrowserExtension')
-        .then(() => {});
+        .dispatch('userStore/getHasBrowserExtension');
     },
-    initializeAccount :async function () {
-        await this.setWalletAddress();
+    async initializeAccount() {
+        try {
+            const account = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            if (account.length > 0) {
+                this.getWalletAddress(account[0]);
+            } else {
+                return "";
+            }
+        } catch (err) {
+            if (err.code === 4001) {
+                // EIP-1193 userRejectedRequest error
+                // If this happens, the user rejected the connection request.
+                console.log('Please connect to MetaMask.');
+            } else {
+                console.error(err);
+            }
+            return "";
+        }
+        //await this.getWalletAddress();
         //await this.getChainID(); うまくいかないのでいったんコメントアウト
     },
-    registUserName () {
-        const userName = this.newUserName;
+    registUser () {
+        const newUserName = this.newUserName;
         const walletAddress = this.walletAddress;
         return this.$store
-        .dispatch('userStore/registUserName', {userName, walletAddress})
+        .dispatch('userStore/registUser', {newUserName, walletAddress})
+        .then(() => {
+            this.getDetail();
+        });
+    },
+    getDetail() {
+        const userId = this.userId;
+        return this.$store
+        .dispatch('userStore/getDetail', {userId})
         .then(() => {});
     },
   }
