@@ -142,7 +142,7 @@ export default {
         try {
             const account = await window.ethereum.request({ method: 'eth_requestAccounts' });
             if (account.length > 0) {
-                this.getWalletAddress(account[0]);
+                return this.getWalletAddress(account[0]);
             } else {
                 return "";
             }
@@ -164,9 +164,13 @@ export default {
         this.$store
         .dispatch('userStore/getWalletAddress', {
             walletAddress
-        }).then(() =>{
-            this.$store.dispatch('userStore/getDetailByWalletAddress', {walletAddress}).then(()=>{
-                this.getDetail();
+        })
+        .then(() => {
+            this.$store.dispatch('userStore/getDetailByWalletAddress', {walletAddress})
+            .then(()=>{
+                if(this.userId !== undefined){
+                    this.getDetail();
+                }
             })
         })
     },
