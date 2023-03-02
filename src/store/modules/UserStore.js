@@ -54,7 +54,7 @@ export default {
         state.detail = detail;
     },
     setWalletAddress(state, walletAddress) {
-        state.walletAddress = walletAddress;
+        state.metamask.walletAddress = walletAddress;
     },
     setHasBrowserExtension(state, hasBrowserExtension) {
         state.hasBrowserExtension = hasBrowserExtension;
@@ -84,9 +84,9 @@ export default {
             (this.errored = true), (this.error = err);
           });
     },
-    getUser(state, commit) {
+    getDetailByWalletAddress(state, commit) {
         const termRequestUri =
-          process.env.VUE_APP_API_ENDPOINT + 'user/wallet_address/'
+          process.env.VUE_APP_API_ENDPOINT + 'login/wallet_address/'
           + commit.walletAddress;
           return axios
           .get(termRequestUri, {
@@ -96,8 +96,8 @@ export default {
             },
           })
           .then(response => {
-            console.log(response.data);
-            state.commit('setUser', response.data);
+            state.commit('setUserId', response.data.user_id);
+            state.commit("setToken", response.data.user_id, { root: true });
           })
           .catch(err => {
             (this.errored = true), (this.error = err);
@@ -111,12 +111,12 @@ export default {
         }
     },
     getWalletAddress : async function (state, commit) {
-        return state.commit('setWalletAddress', commit.walletAddress);
+        state.commit('setWalletAddress', commit.walletAddress);
     },
-    registUser(state, commit) {
+    registerUser(state, commit) {
         const client = applyCaseMiddleware(axios.create());
         const termRequestUri =
-          process.env.VUE_APP_API_ENDPOINT +'user';
+          process.env.VUE_APP_API_ENDPOINT +'signup';
           const userInfo = {
             "user_name": commit.newUserName,
             "wallet_address": commit.walletAddress,
@@ -132,6 +132,7 @@ export default {
             }
           )
           .then((response) => {
+            state.commit("setToken", response.data.userId, { root: true });
             state.commit('setUserId', response.data.userId);
           })
           .catch(err => {
