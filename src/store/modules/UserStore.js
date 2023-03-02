@@ -6,7 +6,6 @@ export default {
   state: {
     userId: '', // いのさぽのID
     detail: {}, // いのさぽのニックネーム
-    walletAddress : '',
     metamask : {
         walletAddress : '',
         chainId : '',
@@ -28,7 +27,7 @@ export default {
         return state.account;
     },
     walletAddress(state) {
-        return state.walletAddress;
+        return state.metamask.walletAddress;
     },
     hasBrowserExtension(state) {
         return state.hasBrowserExtension;
