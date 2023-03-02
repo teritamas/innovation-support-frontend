@@ -80,7 +80,6 @@ export default {
             },
           })
           .then(response => {
-            console.log(response.data)
             state.commit('setProposal', response.data);
           })
           .catch(err => {
