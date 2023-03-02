@@ -7,8 +7,8 @@ export default createStore({
   plugins: [
     createPersistedState({
         key: 'inno',
-        //paths: ['permission.token'],
-        storage: window.sessionStorage,
+        paths: ['permission.token'],
+        storage: window.localStorage,
     }),
   ],
   state: {
