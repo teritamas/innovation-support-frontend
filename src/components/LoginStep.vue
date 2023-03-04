@@ -118,8 +118,8 @@ export default {
     chainId() {
         return this.$store.getters['userStore/chainId'];
     },
-    userId() {
-        return this.$store.getters['userStore/userId'];
+    token() {
+        return this.$store.getters['userStore/token'];
     },
     detail() {
         return this.$store.getters['userStore/detail'];
@@ -128,11 +128,10 @@ export default {
   created() {
     // メソッドを実行する
     this.getHasBrowserExtension().then(() => {
-        if (this.userId) this.getDetail();
+        if (this.token) this.getDetail();
     });
   },
   mounted() {
-        //if (this.userId) this.getDetail();
     },
   methods: {
     handleAccountChanged() {
@@ -168,7 +167,7 @@ export default {
         .then(() => {
             this.$store.dispatch('userStore/getDetailByWalletAddress', {walletAddress})
             .then(()=>{
-                if(this.userId !== undefined){
+                if(this.token !== undefined){
                     this.getDetail();
                 }
             })
@@ -193,9 +192,9 @@ export default {
         });
     },
     getDetail() {
-        const userId = this.userId;
+        const token = this.token;
         return this.$store
-        .dispatch('userStore/getDetail', {userId})
+        .dispatch('userStore/getDetail', token)
         .then(() => {});
     },
   }

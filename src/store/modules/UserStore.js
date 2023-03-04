@@ -63,12 +63,12 @@ export default {
     },
   },
   actions: {
-    getDetail(state, commit) {
+    getDetail(state, token) {
         // キャメルケースとスネークケースの変換
         const client = applyCaseMiddleware(axios.create());
         const termRequestUri =
           process.env.VUE_APP_API_ENDPOINT + 'user/'
-          + commit.userId;
+          + token;
           return client
           .get(termRequestUri, {
             withCredentials: false,
