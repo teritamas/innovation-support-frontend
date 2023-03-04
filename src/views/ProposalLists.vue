@@ -6,7 +6,6 @@
       :key="proposal.index"
       class="p-3 item"
     >
-      <!--{{ proposal }}-->
       <ProposalCards
         :proposalId="proposal.proposal_id"
         :title="proposal.title"

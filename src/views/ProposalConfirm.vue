@@ -2,21 +2,21 @@
     <AppHeaderProposal />
     <div class="content-center">
         <div class="card card-one">
-            <div class="Form mb-10">
-                <div class="Form-Item">
-                    <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>事業名（30字以内）</p>
+            <div class="form mb-10">
+                <div class="form-Item">
+                    <p class="form-Item-Label"><span class="form-Item-Label-Required">必須</span>事業名（30字以内）</p>
                     <p>{{ newProposal.title }}</p>
                 </div>
-                <div class="Form-Item">
-                    <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Required">必須</span>事業概要（300字以内）</p>
+                <div class="form-Item">
+                    <p class="form-Item-Label isMsg"><span class="form-Item-Label-Required">必須</span>事業概要（300字以内）</p>
                     <p>{{ newProposal.description }}</p>
                 </div>
-                <div class="Form-Item">
-                    <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>目標金額</p>
+                <div class="form-Item">
+                    <p class="form-Item-Label"><span class="form-Item-Label-Required">必須</span>目標金額</p>
                     <p>{{ newProposal.targetAmount }}</p>
                 </div>
-                <div class="Form-Item">
-                    <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Option">任意</span>添付資料（PDF）</p>
+                <div class="form-Item">
+                    <p class="form-Item-Label isMsg"><span class="form-Item-Label-Option">任意</span>添付資料（PDF）</p>
                     <div class="preview-item w-100 mt-2">
                     <embed
                         v-show="newProposal.filePath"
@@ -27,17 +27,17 @@
                     <div v-show="newProposal.filePath" class="preview-item-btn">
                         <p class="preview-item-name isMsg py-2">ファイル名：{{ newProposal.fileName }}</p>
                     </div>
-                    <div class="Form-Item">
-                        <p class="Form-Item-Label mb-2"><span class="Form-Item-Label-Option">任意</span>仲間募集</p>
+                    <div class="form-Item">
+                        <p class="form-Item-Label mb-2"><span class="form-Item-Label-Option">任意</span>仲間募集</p>
                         <p v-if="newProposal.isRecruitingTeammates">募集する</p>
                         <p v-if="!newProposal.isRecruitingTeammates">募集しない</p>
                     </div>
-                    <div class="Form-Item">
-                        <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Option">任意</span>その他（500字以内）</p>
+                    <div class="form-Item">
+                        <p class="form-Item-Label isMsg"><span class="form-Item-Label-Option">任意</span>その他（500字以内）</p>
                         <p>{{ newProposal.otherContents }}</p>
                     </div>
-                    <button class="Form-Btn" @click="registProposal()">上記の内容で投稿する</button>
-                    <button class="Form-Retern-Btn mb-10" @click="returnProposalView()">入力画面に戻る</button>
+                    <button class="form-btn" @click="registerProposal()">上記の内容で投稿する</button>
+                    <button class="form-return-btn mb-10" @click="returnProposalView()">入力画面に戻る</button>
                     </div>
                 </div>
             </div>
@@ -71,30 +71,30 @@ export default {
     file() {
         return this.$store.getters['proposalStore/file'];
     },
+    registeredProposalId() {
+        return this.$store.getters['proposalStore/registeredProposalId'];
+    },
   },
   methods: {
     returnProposalView : function () {
         this.$router.push('/proposal');
     },
-    registProposal () {
+    registerProposal () {
         this.setLoading(true);
+        setTimeout(() => {
+            this.inCheck('regist-check');
+        }, 2000);
         const file = this.file;
         const newProposal = this.newProposal;
         return this.$store
-        .dispatch('proposalStore/registProposal', {newProposal, file})
+        .dispatch('proposalStore/registerProposal', {newProposal, file})
         .then(() => {
+            this.inCheck('nft-check');
             setTimeout(() => {
-                setTimeout(() => {
-                    setTimeout(() => {
-                        this.inCheck('regist-check');
-                }, 2000);
-                this.inCheck('nft-check');
-            }, 4000);
-            this.setLoading(false);
-            this.outCheck('regist-check');
-            this.outCheck('nft-check');
-            // 【prpposal_idを渡す】
-            this.$router.push('/proposal/test_proposal_id')
+                this.setLoading(false);
+                this.outCheck('regist-check');
+                this.outCheck('nft-check');
+                this.$router.push(`/proposal/${this.registeredProposalId}`)
             }, 5000);
         });
     },
@@ -143,19 +143,19 @@ export default {
     min-height: 300px;
 }
 
-.Form {
+.form {
   margin-left: auto;
   margin-right: auto;
   max-width: 720px;
 }
-.Form-Item {
+.form-Item {
   padding-bottom: 24px;
   width: 100%;
   display: flex;
   align-items: center;
 }
 @media screen and (max-width: 480px) {
-  .Form-Item {
+  .form-Item {
     padding-left: 14px;
     padding-right: 14px;
     padding-top: 16px;
@@ -164,7 +164,7 @@ export default {
   }
 }
 
-.Form-Item-Label {
+.form-Item-Label {
   width: 100%;
   max-width: 248px;
   letter-spacing: 0.05em;
@@ -172,23 +172,23 @@ export default {
   font-size: 18px;
 }
 @media screen and (max-width: 480px) {
-  .Form-Item-Label {
+  .form-Item-Label {
     max-width: inherit;
     display: flex;
     align-items: center;
     font-size: 15px;
   }
 }
-.Form-Item-Label.isMsg {
+.form-Item-Label.isMsg {
   margin-top: 8px;
   margin-bottom: auto;
 }
 @media screen and (max-width: 480px) {
-  .Form-Item-Label.isMsg {
+  .form-Item-Label.isMsg {
     margin-top: 0;
   }
 }
-.Form-Item-Label-Required {
+.form-Item-Label-Required {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;
@@ -201,7 +201,7 @@ export default {
   font-size: 14px;
 }
 
-.Form-Item-Label-Option {
+.form-Item-Label-Option {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;
@@ -214,7 +214,7 @@ export default {
   font-size: 14px;
 }
 @media screen and (max-width: 480px) {
-  .Form-Item-Label-Required {
+  .form-Item-Label-Required {
     border-radius: 4px;
     padding-top: 4px;
     padding-bottom: 4px;
@@ -222,7 +222,7 @@ export default {
     font-size: 10px;
   }
 
-  .Form-Item-Label-Option {
+  .form-Item-Label-Option {
     border-radius: 4px;
     padding-top: 4px;
     padding-bottom: 4px;
@@ -231,7 +231,7 @@ export default {
   }
 }
 
-.Form-Btn {
+.form-btn {
   border-radius: 6px;
   margin-top: 32px;
   margin-left: auto;
@@ -247,7 +247,7 @@ export default {
   font-size: 20px;
 }
 
-.Form-Retern-Btn {
+.form-return-btn {
   border-radius: 6px;
   margin-top: 32px;
   margin-left: auto;
@@ -263,7 +263,7 @@ export default {
   font-size: 20px;
 }
 @media screen and (max-width: 480px) {
-  .Form-Btn {
+  .form-btn {
     margin-top: 24px;
     padding-top: 8px;
     padding-bottom: 8px;
@@ -271,7 +271,7 @@ export default {
     font-size: 16px;
   }
 
-  .Form-Retern-Btn {
+  .form-return-btn {
     margin-top: 12px;
     padding-top: 8px;
     padding-bottom: 8px;

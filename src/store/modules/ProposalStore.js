@@ -5,6 +5,7 @@ export default {
   namespaced: true,
   state: {
     newProposal: {},
+    registeredProposalId : '',
     file : '',
     proposalLists : '',
     proposal: {},
@@ -15,6 +16,9 @@ export default {
     }
   },
   getters: {
+    registeredProposalId(state) {
+        return state.registeredProposalId;
+    },
     newProposal(state) {
         return state.newProposal;
     },
@@ -35,6 +39,9 @@ export default {
     },
   },
   mutations: {
+    setRegisteredProposalId(state, registeredProposalId) {
+        state.registeredProposalId = registeredProposalId;
+    },
     setNewProposal(state, newProposal) {
         state.newProposal = newProposal;
     },
@@ -70,9 +77,10 @@ export default {
           });
     },
     getProposal(state, commit) {
+        const client = applyCaseMiddleware(axios.create());
         const termRequestUri =
           process.env.VUE_APP_API_ENDPOINT + 'proposal/' + commit;
-          return axios
+          return client
           .get(termRequestUri, {
             withCredentials: false,
             headers: {
@@ -86,13 +94,31 @@ export default {
             (this.errored = true), (this.error = err);
           });
     },
+    getProposalFile(state, commit) {
+        const client = applyCaseMiddleware(axios.create());
+        const termRequestUri =
+          process.env.VUE_APP_API_ENDPOINT + 'proposal/' + commit + '/attachment';
+          return client
+          .get(termRequestUri, {
+            withCredentials: false,
+            headers: {
+                Authorization: state.getters.token,
+            },
+          })
+          .then(response => {
+            state.commit('setFile', response.data);
+          })
+          .catch(err => {
+            (this.errored = true), (this.error = err);
+          });
+    },
     storeNewProposal(state, commit) {
         state.commit('setNewProposal', commit.newProposal);
     },
     storeFile(state, commit) {
         state.commit('setFile', commit);
     },
-    registProposal(state, commit) {
+    registerProposal(state, commit) {
         const termRequestUri = process.env.VUE_APP_API_ENDPOINT +'proposal';
         const client = applyCaseMiddleware(axios.create());
         const form = new FormData();
@@ -110,9 +136,9 @@ export default {
               "string"
             ]
           }
-
         form.append('request', JSON.stringify(request));
         form.append('file', commit.file);
+        state.commit('setRegisteredProposalId', '');
         return client
           .post(
             termRequestUri,
@@ -126,8 +152,7 @@ export default {
             }
           )
           .then((response) => {
-            console.log(response);
-            //state.commit('setUserId', response.data.user_id);
+            state.commit('setRegisteredProposalId', response.data.proposalId);
           })
           .catch(err => {
             (this.errored = true), (this.error = err);

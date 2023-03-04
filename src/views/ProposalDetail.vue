@@ -1,93 +1,76 @@
 <template>
     <div class="content-center">
         <div class="card card-one">
-        <div class="Form mb-10">
-            <div class="Form-Item">
-                <p class="Form-Item-Label"><span class="Form-Item-List"></span>事業名（30字以内）</p>
-                <p>{{ proposal.title }}</p>
+            <div class="form mb-10">
+                <ProposalInfo :proposal=proposal :proposalFile=file />
             </div>
-            <div class="Form-Item">
-                <p class="Form-Item-Label isMsg"><span class="Form-Item-List"></span>事業概要（300字以内）</p>
-                <p>{{ proposal.description }}</p>
-            </div>
-            <div class="Form-Item">
-                <p class="Form-Item-Label"><span class="Form-Item-List"></span>目標金額</p>
-                <p>{{ proposal.targetAmount }}</p>
-            </div>
-            <div class="Form-Item">
-                <p class="Form-Item-Label isMsg"><span class="Form-Item-List"></span>添付資料（PDF）</p>
-                <div class="preview-item w-100 mt-2">
-                <embed
-                    v-show="proposal.filePath"
-                    class="preview-item-file"
-                    :src="proposal.filePath"
-                    alt=""
-                />
-                <div v-show="proposal.filePath" class="preview-item-btn">
-                    <p class="preview-item-name isMsg py-2">ファイル名：{{ proposal.fileName }}</p>
-                </div>
-                </div>
-            </div>
-            <div class="Form-Item">
-                <p class="Form-Item-Label mb-2"><span class="Form-Item-List"></span>仲間募集</p>
-                <p v-if="proposal.isRecruitingTeammates">募集する</p>
-                <p v-if="!proposal.isRecruitingTeammates">募集しない</p>
-             </div>
-            <div class="Form-Item">
-                <p class="Form-Item-Label isMsg"><span class="Form-Item-List"></span>その他（500字以内）</p>
-                <p>{{ proposal.otherContents }}</p>
-            </div>
-
-
-            <div class="Form-Item">
-                <p class="Form-Item-Label mb-2"><span class="Form-Item-Label-Required">必須</span>賛否</p>
-                <div class="radio-button-group mts w-100">
-                    <div class="item">
+                <!--ProposalVote コンポーネントに分けたい-->
+                <!-- 投票コンポーネント：自分が提案者じゃないかつ提案していないかつ投票受付中-->
+                <div class="bg-beige pb-10" v-if="showVoteArea">
+                    <div class="form-Item">
+                    <p class="form-Item-Label mb-2"><span class="form-Item-Label-Required">必須</span>賛否</p>
+                    <div class="radio-button-group mts w-100">
                         <div class="item">
-                        <input
-                            type="radio"
-                            v-model="judgement"
-                            class="radio-button"
-                            value=true
-                            id="button1"
-                        />
-                        <label for="button1">賛成</label>
-                    </div>
-                        <input
-                            type="radio"
-                            v-model="judgement"
-                            class="radio-button"
-                            value=false
-                            id="button2"
-                        />
-                        <label for="button2">反対</label>
+                            <div class="item">
+                            <input
+                                type="radio"
+                                v-model="judgement"
+                                class="radio-button"
+                                value=true
+                                id="button1"
+                            />
+                            <label for="button1">賛成</label>
+                        </div>
+                            <input
+                                type="radio"
+                                v-model="judgement"
+                                class="radio-button"
+                                value=false
+                                id="button2"
+                            />
+                            <label for="button2">反対</label>
+                        </div>
                     </div>
                 </div>
-             </div>
-             <div class="Form-Item">
-                <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Option">任意</span>賛否の理由</p>
-                <textarea
-                    v-model="judgement_reason"
-                    class="Form-Item-Textarea"
-                    @input="onDelayAction"
-                ></textarea>
-                <div class="item">{{judgementReasonScore}}</div>
+                <div class="form-Item">
+                    <p class="form-Item-Label isMsg"><span class="form-Item-Label-Option">任意</span>賛否の理由</p>
+                    <textarea
+                        v-model="judgement_reason"
+                        class="form-Item-Textarea"
+                        @input="onDelayAction"
+                    ></textarea>
+                    <div class="item">{{judgementReasonScore}}</div>
+                </div>
+                <!--≪TODO≫すぐvoteじゃなくて、確認画面＋ログイン確認してから投票-->
+                <button class="form-btn" @click="vote()">投票する</button>
+                </div>
+                <!--ProposalVote コンポーネントに分けたい-->
+
+            <!--pytestの実行サンプルがaccept-->
+            <div class="bg-beige p-5" v-if="!showVoteArea">
+                <ProposalVoteStatus
+                    :proposal=proposal
+                 />
             </div>
-            <!--≪TODO≫すぐvoteじゃなくて、確認画面＋ログイン確認してから投票-->
-            <button class="Form-Btn" @click="vote()">投票する</button>
-            <button class="Form-Retern-Btn mb-10" @click="returnProposalLists()">戻る</button>
+            <div class="">
+                <button class="form-Return-btn mb-10" @click="returnProposalLists()">戻る</button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-//import AppHeaderProposal from '../components/AppHeaderProposal.vue'
+import ProposalInfo from '../components/proposalDetails/ProposalInfo.vue'
+//import ProposalVote from '../components/proposalDetails/ProposalVote.vue'
+import ProposalVoteStatus from '../components/proposalDetails/ProposalVoteStatus.vue'
 import { debounce } from 'lodash';
 
 export default {
   name: 'proposal-form',
   components: {
+    ProposalInfo,
+    //ProposalVote,
+    ProposalVoteStatus,
   },
   data() {
     return {
@@ -96,6 +79,14 @@ export default {
     };
   },
   computed: {
+    showCongratulationArea() {
+        // 投票エリアを表示する条件
+        return this.proposal.proposal_status == 'voting' && !this.voteDetail.isProposer && !this.voteDetail.voted
+    },
+    showVoteArea() {
+        // 投票エリアを表示する条件
+        return this.proposal.proposal_status == 'voting' && !this.voteDetail.isProposer && !this.voteDetail.voted
+    },
     proposal_id() {
       return this.$route.params['proposal_id'];
     },
@@ -104,6 +95,19 @@ export default {
     },
     detail() {
       return this.$store.getters['userStore/detail'];
+    },
+    file() {
+        return this.$store.getters['proposalStore/file'];
+    },
+    voteDetail() {
+        // 提案詳細
+      return this.$store.getters['proposalVoteStore/getVoteDetail'];
+    },
+    voteStatus() {
+        // vote_action：投票を受け付けているか
+        // positive_proposal_votes：肯定派意見
+        // negative_proposal_votes：反対派意見
+      return this.$store.getters['proposalVoteStore/getVoteStatus'];
     },
     judgementReasonScore(){
       const score = this.$store.getters['proposalVoteStore/getJudgementReason']
@@ -121,7 +125,10 @@ export default {
   },
   created() {
     // メソッドを実行する
-    this.getProposal()
+    this.getProposal();
+    this.getVoteDetail();
+    this.getVoteStatus();
+    this.getFile();
   },
   methods: {
     onDelayAction: debounce(function() {
@@ -133,6 +140,18 @@ export default {
         .dispatch('proposalStore/getProposal', proposalId)
         .then(() => {});
     },
+    getVoteDetail() {
+        const proposalId = this.proposal_id;
+        return this.$store
+        .dispatch('proposalVoteStore/getVoteDetail', proposalId)
+        .then(() => {});
+    },
+    getVoteStatus() {
+        const proposalId = this.proposal_id;
+        return this.$store
+        .dispatch('proposalVoteStore/getVoteStatus', proposalId)
+        .then(() => {});
+    },
     returnProposalLists : function () {
         this.$router.push('/lists');
     },
@@ -140,7 +159,7 @@ export default {
         const vote = {
             judgement: this.judgement,
             judgement_reason : this.judgement_reason,
-        }; 
+        };
         const proposalId = this.$route.params['proposal_id'];
         this.$store
           .dispatch('proposalVoteStore/vote', {proposalId, vote})
@@ -151,7 +170,13 @@ export default {
       this.$store
           .dispatch('proposalVoteStore/verifyVoteEnrichment', )
           .then(() => {});
-    }
+    },
+    getFile() {
+        const proposalId = this.proposal_id;
+        return this.$store
+        .dispatch('proposalStore/getProposalFile', proposalId)
+        .then(() => {});
+    },
   }
 }
 
@@ -183,19 +208,19 @@ export default {
     min-height: 300px;
 }
 
-.Form {
+.form {
   margin-left: auto;
   margin-right: auto;
   max-width: 720px;
 }
-.Form-Item {
+.form-Item {
   padding-bottom: 24px;
   width: 100%;
   display: flex;
   align-items: center;
 }
 @media screen and (max-width: 480px) {
-  .Form-Item {
+  .form-Item {
     padding-left: 14px;
     padding-right: 14px;
     padding-top: 16px;
@@ -204,7 +229,7 @@ export default {
   }
 }
 
-.Form-Item-Label {
+.form-Item-Label {
   width: 100%;
   max-width: 248px;
   letter-spacing: 0.05em;
@@ -212,24 +237,24 @@ export default {
   font-size: 18px;
 }
 @media screen and (max-width: 480px) {
-  .Form-Item-Label {
+  .form-Item-Label {
     max-width: inherit;
     display: flex;
     align-items: center;
     font-size: 15px;
   }
 }
-.Form-Item-Label.isMsg {
+.form-Item-Label.isMsg {
   margin-top: 8px;
   margin-bottom: auto;
 }
 @media screen and (max-width: 480px) {
-  .Form-Item-Label.isMsg {
+  .form-Item-Label.isMsg {
     margin-top: 0;
   }
 }
 
-.Form-Item-Label-Required {
+.form-Item-Label-Required {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;
@@ -242,7 +267,7 @@ export default {
   font-size: 14px;
 }
 
-.Form-Item-Label-Option {
+.form-Item-Label-Option {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;
@@ -255,7 +280,7 @@ export default {
   font-size: 14px;
 }
 
-.Form-Item-List {
+.form-Item-List {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;
@@ -268,7 +293,7 @@ export default {
   font-size: 14px;
 }
 @media screen and (max-width: 480px) {
-  .Form-Item-Label-Required {
+  .form-Item-Label-Required {
     border-radius: 4px;
     padding-top: 4px;
     padding-bottom: 4px;
@@ -276,7 +301,7 @@ export default {
     font-size: 10px;
   }
 
-  .Form-Item-Label-Option {
+  .form-Item-Label-Option {
     border-radius: 4px;
     padding-top: 4px;
     padding-bottom: 4px;
@@ -285,7 +310,7 @@ export default {
   }
 }
 
-.Form-Btn {
+.form-btn {
   border-radius: 6px;
   margin-top: 32px;
   margin-left: auto;
@@ -301,7 +326,7 @@ export default {
   font-size: 20px;
 }
 
-.Form-Retern-Btn {
+.form-Return-btn {
   border-radius: 6px;
   margin-top: 32px;
   margin-left: auto;
@@ -317,7 +342,7 @@ export default {
   font-size: 20px;
 }
 @media screen and (max-width: 480px) {
-  .Form-Btn {
+  .form-btn {
     margin-top: 24px;
     padding-top: 8px;
     padding-bottom: 8px;
@@ -325,7 +350,7 @@ export default {
     font-size: 16px;
   }
 
-  .Form-Retern-Btn {
+  .form-Return-btn {
     margin-top: 12px;
     padding-top: 8px;
     padding-bottom: 8px;
