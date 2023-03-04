@@ -1,33 +1,33 @@
 <template>
     <!--<div class="p-3 pt-0 mb-10 bg-white">-->
-        <div class="Form">
-            <div class="Form-Item">
-                <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>事業名（30字以内）</p>
+        <div class="form">
+            <div class="form-Item">
+                <p class="form-Item-Label"><span class="form-Item-Label-Required">必須</span>事業名（30字以内）</p>
                 <input
                     type="text"
                     v-model="newProposal.title"
-                    class="Form-Item-Input"
+                    class="form-Item-Input"
                     placeholder="例）アノテーション支援事業"
                 >
             </div>
-            <div class="Form-Item">
-                <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Required">必須</span>事業概要（300字以内）</p>
+            <div class="form-Item">
+                <p class="form-Item-Label isMsg"><span class="form-Item-Label-Required">必須</span>事業概要（300字以内）</p>
                 <textarea
                     v-model="newProposal.description"
-                    class="Form-Item-Textarea"
+                    class="form-Item-Textarea"
                 ></textarea>
             </div>
-            <div class="Form-Item">
-                <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>目標金額</p>
+            <div class="form-Item">
+                <p class="form-Item-Label"><span class="form-Item-Label-Required">必須</span>目標金額</p>
                 <input
                     type="number"
                     v-model="newProposal.targetAmount"
-                    class="Form-Item-Input"
+                    class="form-Item-Input"
                     placeholder="例）500万円"
                 >
             </div>
-            <div class="Form-Item">
-                <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Option">任意</span>添付資料（PDF）</p>
+            <div class="form-Item">
+                <p class="form-Item-Label isMsg"><span class="form-Item-Label-Option">任意</span>添付資料（PDF）</p>
                 <label v-show="!newProposal.filePath" class="border file mt-2 input-item__label">ファイルを選択
                 <input type="file" @change="onFileChange" />
                 </label>
@@ -52,8 +52,8 @@
                 </div>
                 </div>
             </div>
-            <div class="Form-Item">
-                <p class="Form-Item-Label mb-2"><span class="Form-Item-Label-Option">任意</span>仲間募集</p>
+            <div class="form-Item">
+                <p class="form-Item-Label mb-2"><span class="form-Item-Label-Option">任意</span>仲間募集</p>
                 <div class="radio-button-group mts w-100">
                     <div class="item">
                         <input
@@ -77,14 +77,14 @@
                     </div>
                 </div>
              </div>
-            <div class="Form-Item">
-                <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Option">任意</span>その他（500字以内）</p>
+            <div class="form-Item">
+                <p class="form-Item-Label isMsg"><span class="form-Item-Label-Option">任意</span>その他（500字以内）</p>
                 <textarea
                     v-model="newProposal.otherContents"
-                    class="Form-Item-Textarea"
+                    class="form-Item-Textarea"
                 ></textarea>
             </div>
-            <button class="Form-Btn mb-10" @click="showConfirmView">確認画面へ進む</button>
+            <button class="form-btn mb-10" @click="showConfirmView">確認画面へ進む</button>
             </div>
         <!--</div>-->
 

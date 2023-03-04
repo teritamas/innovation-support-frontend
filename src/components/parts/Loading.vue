@@ -32,28 +32,11 @@ import LoadingCheck from './LoadingCheck.vue'
         LoadingCheck,
     },
     mounted() {
-        this.loadCheck('regist-check', 4000);
-        this.loadCheck('nft-check', 6000);
+
     },
     updated() {
-        this.outCheck('regist-check');
-        this.outCheck('nft-check');
     },
     methods: {
-        loadCheck (checkTarget, time) {
-                    // 最初チェック入っていない状態にしたい
-            setTimeout(() => {
-                this.inCheck(checkTarget)
-            }, time);
-        },
-        inCheck(checkTarget) {
-            let checkbox = document.getElementById(checkTarget);
-            checkbox.checked = true;
-        },
-        outCheck(checkTarget) {
-            let checkbox = document.getElementById(checkTarget);
-            checkbox.checked = false;
-        },
     },
   }
 </script>
