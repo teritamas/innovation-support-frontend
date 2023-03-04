@@ -10,7 +10,7 @@ export default createStore({
     createPersistedState({
         key: 'inno',
         paths: ['permission.token'],
-        storage: window.localStorage,
+        storage: window.sessionStorage,
     }),
   ],
   state: {
