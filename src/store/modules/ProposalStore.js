@@ -77,9 +77,10 @@ export default {
           });
     },
     getProposal(state, commit) {
+        const client = applyCaseMiddleware(axios.create());
         const termRequestUri =
           process.env.VUE_APP_API_ENDPOINT + 'proposal/' + commit;
-          return axios
+          return client
           .get(termRequestUri, {
             withCredentials: false,
             headers: {
