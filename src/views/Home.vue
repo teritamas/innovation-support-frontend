@@ -1,51 +1,78 @@
 <template>
-    <div class="content-center">
-        <div class="card card-one">
-            <div class="bg-orange">
-                <h3 class="title pb-5 pt-10">ご利用までの３ステップ</h3>
-                <div class="desc">
-                イノベーションサポートをご利用いただくには、<br>
-                MetaMaskのアカウント作成とログインが必要です。
-                </div>
-            <!--<div v-if="hasBrowserExtension">
-                <p id="account">Chain ID: {{chainId}}</p>
-                <p id="account">Chain Name: {{Chains[chainId]}}</p>
-            </div>-->
-            </div>
+  <div class="content-center">
+    <div class="card card-one">
+      <div class="bg-orange">
+        <h3 class="title pb-5 pt-10">タイムライン</h3>
+        <div class="desc">
+        直近のアクティビティが表示されます。
         </div>
+        <div>
+          <div v-for="content in timelines" :key="content.index">
+            <ProposalCards
+              v-if="hasKey(content, 'proposalStatus')"
+              :proposalId="content.proposalId"
+              :title="content.title"
+              :description="content.description"
+              :filePath="content.filePath"
+              :targetAmount="content.targetAmount"
+              :isRecruitingTeammates="content.isRecruitingTeammates"
+              :otherContents="content.otherContents"
+              :tags="content.tags"
+              :proposalrWalletAddress="content.proposalr_wallet_address"
+              :nftTokenId="content.nftTokenId"
+            />
+            <div v-if="hasKey(content, 'judgementReason')">
+              <dt>投票のタイムラインコンテンツ</dt>
+              <dd>
+                {{content}}
+              </dd>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-//import Footer from './components/Footer.vue'
+import ProposalCards from "../components/ProposalCards.vue";
 
 export default {
-  name: 'app-top',
+  name: "app-top",
   components: {
-    //Footer
+    ProposalCards,
   },
   data() {
     return {
-        newUserName: '',
-    }
+      // timelines: [],
+    };
   },
   computed: {
+    timelines() {
+      return this.$store.getters["timelineStore/timelineContents"];
+    },
   },
   created() {
+    this.getTimeline();
   },
   mounted() {
+    setInterval(() => {
+      this.getTimeline();
+    }, 20000);
   },
   methods: {
-    // storeのactionsをたたきにいく
-  }
-}
+    hasKey(obj, key){
+      return Object.keys(obj).includes(key);
+    },
+    getTimeline() {
+      this.$store.dispatch("timelineStore/getTimeline");
+    },
+  },
+};
 </script>
 
 
 <style lang="scss" scoped>
-
-
-
 /*** VARS ***/
 
 $main-col: #fbde60;
@@ -53,7 +80,6 @@ $main-col: #fbde60;
 $sec-col: lighten(#303f9f, 20%);
 $back-col: rgb(251 191 36);
 //$back-col: #c5cae9;
-
 
 /*** CARD STLES ***/
 .card {
@@ -66,7 +92,7 @@ $back-col: rgb(251 191 36);
   position: relative;
   width: 90vw;
   background: white;
-  box-shadow: 0 10px 7px -5px rgba(#000,.4);
+  box-shadow: 0 10px 7px -5px rgba(#000, 0.4);
   overflow-x: none;
   overflow-y: scroll;
   height: 80vh;
@@ -82,11 +108,11 @@ $back-col: rgb(251 191 36);
     letter-spacing: 0.05em;
   }
 
-  h3{
+  h3 {
     position: relative;
     text-align: center;
-    &::after{
-      content: '';
+    &::after {
+      content: "";
       position: absolute;
       bottom: 4px;
       left: 50%;
@@ -96,32 +122,32 @@ $back-col: rgb(251 191 36);
       background: #000;
     }
   }
-  .desc{
+  .desc {
     padding: 1.5rem 1rem;
-    font-size: .9rem;
+    font-size: 0.9rem;
     text-align: center;
     color: #534e4e;
   }
 
-  div.footer{
+  div.footer {
     position: relative;
     padding: 1rem;
     background-color: $sec-col;
     text-align: center;
-    a{
+    a {
       padding: 0 1rem;
       color: #e2e2e2;
-      -webkit-transition: color .4s;
-      -moz-transition: color .4s;
-      -ms-transition: color .4s;
-      -o-transition: color .4s;
-      transition: color .4s;
-      &:hover{
+      -webkit-transition: color 0.4s;
+      -moz-transition: color 0.4s;
+      -ms-transition: color 0.4s;
+      -o-transition: color 0.4s;
+      transition: color 0.4s;
+      &:hover {
         color: $main-col;
       }
     }
-    &::before{
-      content: '';
+    &::before {
+      content: "";
       position: absolute;
       top: -27px;
       left: 50%;
@@ -142,5 +168,4 @@ $back-col: rgb(251 191 36);
     z-index: 100;
   }
 }
-
 </style>
