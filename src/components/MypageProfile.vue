@@ -68,12 +68,13 @@ import { AvatarGenerator } from "random-avatar-generator";
 export default {
   name: "proposal-form",
   components: {
-    //ProposalCards
   },
   data() {
     return {
-      newProposal: this.$store.state.newProposal,
     };
+  },
+  props: {
+    token: String
   },
   computed: {
     avatarImage() {
@@ -93,6 +94,18 @@ export default {
     },
     userProposalVotes() {
       return this.detail.proposalVotes;
+    },
+  },
+  created() {
+    // メソッドを実行する
+    this.getUserDetail();
+  },
+  methods: {
+    // storeのactionsをたたきにいく
+    getUserDetail() {
+      this.$store
+        .dispatch("userStore/getDetail", this.token)
+        .then(() => {});
     },
   },
 };
