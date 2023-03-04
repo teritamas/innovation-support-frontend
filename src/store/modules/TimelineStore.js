@@ -30,7 +30,7 @@ export default {
       let termRequestUri = `${process.env.VUE_APP_API_ENDPOINT}timeline`;
 
       if (state.getters.latestTimestamp !== 0) {
-        termRequestUri += `/?timestamp=${state.getters.latestTimestamp}`;
+        termRequestUri += `?timestamp=${state.getters.latestTimestamp}`;
       }
 
       return client
