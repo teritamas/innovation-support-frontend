@@ -2,7 +2,7 @@
     <div class="content-center">
         <div class="card card-one">
             <div class="form mb-10">
-                <ProposalInfo :proposal=proposal />
+                <ProposalInfo :proposal=proposal :proposalFile=file />
             </div>
                 <!--ProposalVote コンポーネントに分けたい-->
                 <!-- 投票コンポーネント：自分が提案者じゃないかつ提案していないかつ投票受付中-->
@@ -96,6 +96,9 @@ export default {
     detail() {
       return this.$store.getters['userStore/detail'];
     },
+    file() {
+        return this.$store.getters['proposalStore/file'];
+    },
     voteDetail() {
         // 提案詳細
       return this.$store.getters['proposalVoteStore/getVoteDetail'];
@@ -125,6 +128,7 @@ export default {
     this.getProposal();
     this.getVoteDetail();
     this.getVoteStatus();
+    this.getFile();
   },
   methods: {
     onDelayAction: debounce(function() {
@@ -166,7 +170,13 @@ export default {
       this.$store
           .dispatch('proposalVoteStore/verifyVoteEnrichment', )
           .then(() => {});
-    }
+    },
+    getFile() {
+        const proposalId = this.proposal_id;
+        return this.$store
+        .dispatch('proposalStore/getProposalFile', proposalId)
+        .then(() => {});
+    },
   }
 }
 

@@ -94,6 +94,24 @@ export default {
             (this.errored = true), (this.error = err);
           });
     },
+    getProposalFile(state, commit) {
+        const client = applyCaseMiddleware(axios.create());
+        const termRequestUri =
+          process.env.VUE_APP_API_ENDPOINT + 'proposal/' + commit + '/attachment';
+          return client
+          .get(termRequestUri, {
+            withCredentials: false,
+            headers: {
+                Authorization: state.getters.token,
+            },
+          })
+          .then(response => {
+            state.commit('setFile', response.data);
+          })
+          .catch(err => {
+            (this.errored = true), (this.error = err);
+          });
+    },
     storeNewProposal(state, commit) {
         state.commit('setNewProposal', commit.newProposal);
     },
