@@ -1,5 +1,6 @@
 <template>
-    <div class="p-3 pt-0 mb-10 bg-white">
+    <div class="content-center">
+        <div class="card card-one">
         <div class="Form mb-10">
             <div class="Form-Item">
                 <p class="Form-Item-Label"><span class="Form-Item-List"></span>事業名（30字以内）</p>
@@ -77,7 +78,7 @@
             <button class="Form-Retern-Btn mb-10" @click="returnProposalLists()">戻る</button>
             </div>
         </div>
-
+    </div>
 </template>
 
 <script>
@@ -157,6 +158,23 @@ export default {
 </script>
 
 <style scoped>
+
+.card {
+  float: left;
+  margin-top: 1rem;
+  max-width: 900px;
+}
+
+.card-one {
+  position: relative;
+  overflow-y: scroll;
+  overflow-x: none;
+  height: 80vh;
+  width: 90vw;
+  background: white;
+  box-shadow: 0 10px 7px -5px rgba(#000,.4);
+}
+
 .preview-item {
     width: 100%;
 }

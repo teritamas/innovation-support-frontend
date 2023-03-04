@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import ProposalStore from './modules/ProposalStore';
 import UserStore from './modules/UserStore';
+import DisplayStore from './modules/DisplayStore';
 import createPersistedState from 'vuex-persistedstate';
 import ProposalVoteStore from './modules/ProposalVoteStore';
 
@@ -40,6 +41,7 @@ export default createStore({
   modules: {
     proposalStore: ProposalStore,
     userStore: UserStore,
+    displayStore: DisplayStore,
     proposalVoteStore: ProposalVoteStore,
   }
 })
