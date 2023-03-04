@@ -100,7 +100,7 @@ export default {
         // jsonにしたためapplyCaseMiddlewareで変換されなかったのでべた書き
         const request = {
             "title": newProposal.title,
-            "descriptions": newProposal.descriptions,
+            "description": newProposal.description,
             "target_amount": newProposal.targetAmount,
             "is_recruiting_teammates": newProposal.isRecruitingTeammates,
             "other_contents": newProposal.otherContents,

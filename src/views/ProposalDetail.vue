@@ -7,7 +7,7 @@
             </div>
             <div class="Form-Item">
                 <p class="Form-Item-Label isMsg"><span class="Form-Item-List"></span>事業概要（300字以内）</p>
-                <p>{{ proposal.descriptions }}</p>
+                <p>{{ proposal.description }}</p>
             </div>
             <div class="Form-Item">
                 <p class="Form-Item-Label"><span class="Form-Item-List"></span>目標金額</p>
@@ -66,7 +66,7 @@
              <div class="Form-Item">
                 <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Option">任意</span>賛否の理由</p>
                 <textarea
-                    v-model="proposal.descriptions"
+                    v-model="proposal.description"
                     class="Form-Item-Textarea"
                 ></textarea>
             </div>

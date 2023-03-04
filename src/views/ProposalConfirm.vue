@@ -8,7 +8,7 @@
             </div>
             <div class="Form-Item">
                 <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Required">必須</span>事業概要（300字以内）</p>
-                <p>{{ newProposal.descriptions }}</p>
+                <p>{{ newProposal.description }}</p>
             </div>
             <div class="Form-Item">
                 <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>目標金額</p>
