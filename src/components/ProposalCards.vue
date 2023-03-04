@@ -33,7 +33,7 @@
 <script>
 
 export default {
-  name: 'proposaCars',
+  name: 'proposalCards',
   components: {
   },
   props: {
@@ -45,7 +45,7 @@ export default {
     isRecruitingTeammates: Boolean,
     otherContents: String,
     tags: String,
-    proposalrWalletAddress: String,
+    proposalWalletAddress: String,
     nftTokenId: String,
   }
 }
