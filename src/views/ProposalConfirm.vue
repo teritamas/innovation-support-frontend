@@ -36,7 +36,7 @@
                         <p class="form-Item-Label isMsg"><span class="form-Item-Label-Option">任意</span>その他（500字以内）</p>
                         <p>{{ newProposal.otherContents }}</p>
                     </div>
-                    <button class="form-btn" @click="registProposal()">上記の内容で投稿する</button>
+                    <button class="form-btn" @click="registerProposal()">上記の内容で投稿する</button>
                     <button class="form-return-btn mb-10" @click="returnProposalView()">入力画面に戻る</button>
                     </div>
                 </div>
@@ -79,12 +79,12 @@ export default {
     returnProposalView : function () {
         this.$router.push('/proposal');
     },
-    registProposal () {
+    registerProposal () {
         this.setLoading(true);
         const file = this.file;
         const newProposal = this.newProposal;
         return this.$store
-        .dispatch('proposalStore/registProposal', {newProposal, file})
+        .dispatch('proposalStore/registerProposal', {newProposal, file})
         .then(() => {
             setTimeout(() => {
                 setTimeout(() => {

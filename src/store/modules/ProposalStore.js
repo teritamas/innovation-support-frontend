@@ -99,7 +99,7 @@ export default {
     storeFile(state, commit) {
         state.commit('setFile', commit);
     },
-    registProposal(state, commit) {
+    registerProposal(state, commit) {
         const termRequestUri = process.env.VUE_APP_API_ENDPOINT +'proposal';
         const client = applyCaseMiddleware(axios.create());
         const form = new FormData();
