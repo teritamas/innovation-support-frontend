@@ -2,7 +2,7 @@
   <div class="card card-one">
     <div class="head">
       <div class="avatar">
-        <img src="@/assets/img/mypic.png" alt="sayako" />
+        <img :src="avatarImage" alt="sayako" />
       </div>
     </div>
 
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-//import ProposalCards from '../components/ProposalCards.vue'
+import { AvatarGenerator } from "random-avatar-generator";
 
 export default {
   name: "proposal-form",
@@ -76,6 +76,9 @@ export default {
     };
   },
   computed: {
+    avatarImage() {
+      return new AvatarGenerator().generateRandomAvatar();
+    },
     detail() {
       return this.$store.getters["userStore/detail"];
     },
