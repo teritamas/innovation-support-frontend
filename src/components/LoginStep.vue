@@ -76,7 +76,7 @@
                     <div class="text-center inline-block my-2">
                             <input
                                 type="text"
-                                class="Form-Item-Input"
+                                class="form-Item-Input"
                                 placeholder="のむちん"
                                 v-model="newUserName"
                             >
@@ -400,7 +400,7 @@ $back-col: rgb(251 191 36);
 }
 
 
-.Form-Item-Input {
+.form-Item-Input {
   border: 1px solid #ddd;
   border-radius: 6px;
   padding-left: 1em;
@@ -413,7 +413,7 @@ $back-col: rgb(251 191 36);
   font-size: 18px;
 }
 @media screen and (max-width: 480px) {
-  .Form-Item-Input {
+  .form-Item-Input {
     margin-left: 0;
     margin-top: 18px;
     height: 40px;

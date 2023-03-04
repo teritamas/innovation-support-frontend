@@ -6,7 +6,6 @@
       :key="proposal.index"
       class="p-3 item"
     >
-      <!--{{ proposal }}-->
       <ProposalCards
         :proposalId="proposal.proposal_id"
         :title="proposal.title"
@@ -64,10 +63,5 @@ export default {
 }
 .item {
   display: inline-block;
-  /*width: 60%;*/
-  /*height: 400px;*/
-  /*margin: 16px;*/
-  /*font-size: 48px;*/
-  /*color: #fff;*/
 }
 </style>

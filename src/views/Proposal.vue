@@ -132,19 +132,19 @@ label.file::before {
     min-height: 300px;
 }
 
-.Form {
+.form {
   margin-left: auto;
   margin-right: auto;
   max-width: 720px;
 }
-.Form-Item {
+.form-Item {
   padding-bottom: 24px;
   width: 100%;
   display: flex;
   align-items: center;
 }
 @media screen and (max-width: 480px) {
-  .Form-Item {
+  .form-Item {
     padding-left: 14px;
     padding-right: 14px;
     padding-top: 16px;
@@ -153,7 +153,7 @@ label.file::before {
   }
 }
 
-.Form-Item-Label {
+.form-Item-Label {
   width: 100%;
   max-width: 248px;
   letter-spacing: 0.05em;
@@ -161,23 +161,23 @@ label.file::before {
   font-size: 18px;
 }
 @media screen and (max-width: 480px) {
-  .Form-Item-Label {
+  .form-Item-Label {
     max-width: inherit;
     display: flex;
     align-items: center;
     font-size: 15px;
   }
 }
-.Form-Item-Label.isMsg {
+.form-Item-Label.isMsg {
   margin-top: 8px;
   margin-bottom: auto;
 }
 @media screen and (max-width: 480px) {
-  .Form-Item-Label.isMsg {
+  .form-Item-Label.isMsg {
     margin-top: 0;
   }
 }
-.Form-Item-Label-Required {
+.form-Item-Label-Required {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;
@@ -190,7 +190,7 @@ label.file::before {
   font-size: 14px;
 }
 
-.Form-Item-Label-Option {
+.form-Item-Label-Option {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;
@@ -203,7 +203,7 @@ label.file::before {
   font-size: 14px;
 }
 @media screen and (max-width: 480px) {
-  .Form-Item-Label-Required {
+  .form-Item-Label-Required {
     border-radius: 4px;
     padding-top: 4px;
     padding-bottom: 4px;
@@ -211,7 +211,7 @@ label.file::before {
     font-size: 10px;
   }
 
-  .Form-Item-Label-Option {
+  .form-Item-Label-Option {
     border-radius: 4px;
     padding-top: 4px;
     padding-bottom: 4px;
@@ -219,7 +219,7 @@ label.file::before {
     font-size: 10px;
   }
 }
-.Form-Item-Input {
+.form-Item-Input {
   border: 1px solid #ddd;
   border-radius: 6px;
   margin-left: 40px;
@@ -233,7 +233,7 @@ label.file::before {
   font-size: 18px;
 }
 @media screen and (max-width: 480px) {
-  .Form-Item-Input {
+  .form-Item-Input {
     margin-left: 0;
     margin-top: 18px;
     height: 40px;
@@ -241,7 +241,7 @@ label.file::before {
     font-size: 15px;
   }
 }
-.Form-Item-Textarea {
+.form-Item-Textarea {
   border: 1px solid #ddd;
   border-radius: 6px;
   margin-left: 40px;
@@ -255,7 +255,7 @@ label.file::before {
   font-size: 18px;
 }
 @media screen and (max-width: 480px) {
-  .Form-Item-Textarea {
+  .form-Item-Textarea {
     margin-top: 18px;
     margin-left: 0;
     height: 200px;
@@ -263,7 +263,7 @@ label.file::before {
     font-size: 15px;
   }
 }
-.Form-Btn {
+.form-btn {
   border-radius: 6px;
   margin-top: 32px;
   margin-left: auto;
@@ -279,7 +279,7 @@ label.file::before {
   font-size: 20px;
 }
 @media screen and (max-width: 480px) {
-  .Form-Btn {
+  .form-btn {
     margin-top: 24px;
     padding-top: 8px;
     padding-bottom: 8px;
