@@ -100,7 +100,7 @@ export default {
         // jsonにしたためapplyCaseMiddlewareで変換されなかったのでべた書き
         const request = {
             "title": newProposal.title,
-            "descriptions": newProposal.descriptions,
+            "description": newProposal.description,
             "target_amount": newProposal.targetAmount,
             "is_recruiting_teammates": newProposal.isRecruitingTeammates,
             "other_contents": newProposal.otherContents,
@@ -132,30 +132,6 @@ export default {
           .catch(err => {
             (this.errored = true), (this.error = err);
           });
-    },
-    vote(state, commit) {
-        const client = applyCaseMiddleware(axios.create());
-        const termRequestUri =
-            process.env.VUE_APP_API_ENDPOINT +'proposal/'+ commit.proposalId + '/vote';
-            const newProposal = commit.vote;
-        //  state.commit('setUser', commit.userName);
-            return client
-            .post(
-            termRequestUri,
-            newProposal,
-            {
-                headers: {
-                Authorization: state.getters.token,
-                },
-            }
-            )
-            .then((response) => {
-            console.log(response);
-            //state.commit('setUserId', response.data.user_id);
-            })
-            .catch(err => {
-            (this.errored = true), (this.error = err);
-            });
     },
   },
 }

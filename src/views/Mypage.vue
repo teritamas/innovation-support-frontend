@@ -1,7 +1,7 @@
 <template>
 
-<LoginStep v-if="!detail.userId"/>
-<MypageProfile v-if="detail.userId"/>
+<LoginStep v-if="!token"/>
+<MypageProfile v-if="token"/>
 
 </template>
 
@@ -17,12 +17,11 @@ export default {
   },
   data() {
     return {
-      newProposal: this.$store.state.newProposal
     };
   },
   computed: {
-    detail() {
-        return this.$store.getters['userStore/detail'];
+    token() {
+        return this.$store.getters['userStore/token'];
     },
   },
 }

@@ -33,19 +33,19 @@
 <script>
 
 export default {
-  name: 'proposaCars',
+  name: 'proposalCards',
   components: {
   },
   props: {
     proposalId: String,
     title: String,
-    descriptions: String,
+    description: String,
     filePath: String,
     targetAmount: String,
     isRecruitingTeammates: Boolean,
     otherContents: String,
     tags: String,
-    proposalrWalletAddress: String,
+    proposalWalletAddress: String,
     nftTokenId: String,
   }
 }
