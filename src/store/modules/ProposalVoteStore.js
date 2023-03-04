@@ -1,4 +1,4 @@
-// import applyCaseMiddleware from "axios-case-converter";
+import applyCaseMiddleware from "axios-case-converter";
 import axios from "axios";
 
 export default {
@@ -19,12 +19,15 @@ export default {
     },
   },
   getters: {
+    token(state, getters, rootState, rootGetters) {
+      return rootGetters['token'];
+    },
     getJudgementReason(state) {
       return state.extension.response.score;
     },
     getVoteJudgementEnrichmentRequest(state){
       return state.extension.request
-    }
+    },
   },
   mutations: {
     setVoteJudgementEnrichmentRequest(state, commit) {
@@ -35,6 +38,32 @@ export default {
     },
   },
   actions: {
+    /**
+     * 投票
+     */
+    vote(state, commit) {
+      const client = applyCaseMiddleware(axios.create());
+      const termRequestUri =
+          process.env.VUE_APP_API_ENDPOINT +'proposal/'+ commit.proposalId + '/vote';
+          const body = commit.vote;
+
+        return client
+          .post(
+          termRequestUri,
+          body,
+          {
+              headers: {
+              Authorization: state.getters.token,
+              },
+          }
+          )
+          .then((response) => {
+            console.log(response);
+          })
+          .catch(err => {
+          (this.errored = true), (this.error = err);
+          });
+    },
     /**
      * 判断理由の充実度をAIで評価する
      */

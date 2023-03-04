@@ -101,9 +101,6 @@ export default {
     proposal() {
       return this.$store.getters['proposalStore/proposal'];
     },
-    newVote() {
-      return this.$store.getters['proposalStore/newVote'];
-    },
     detail() {
       return this.$store.getters['userStore/detail'];
     },
@@ -140,14 +137,13 @@ export default {
     },
     vote() {
         const vote = {
-            user_id: this.detail.userId,
             judgement: this.judgement,
             judgement_reason : this.judgement_reason,
         }; 
         const proposalId = this.$route.params['proposal_id'];
-        return this.$store
-        .dispatch('proposalStore/vote', {proposalId, vote})
-        .then(() => {});
+        this.$store
+          .dispatch('proposalVoteStore/vote', {proposalId, vote})
+          .then(() => {});
     },
     voteJudgementEnrichment(){
       this.$store.commit('proposalVoteStore/setVoteJudgementEnrichmentRequest', {judgement_reason: this.judgement_reason})
