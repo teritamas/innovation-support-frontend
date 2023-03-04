@@ -57,7 +57,8 @@ import LoadingCheck from './LoadingCheck.vue'
 .loader-inner {
     position: absolute;
     top: 50%;
-    left: 45%;
+    left: 50%;
+    transform: translate(-50%,-50%);
     color: orange;
 }
 

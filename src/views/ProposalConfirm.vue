@@ -81,22 +81,20 @@ export default {
     },
     registerProposal () {
         this.setLoading(true);
+        setTimeout(() => {
+            this.inCheck('regist-check');
+        }, 2000);
         const file = this.file;
         const newProposal = this.newProposal;
         return this.$store
         .dispatch('proposalStore/registerProposal', {newProposal, file})
         .then(() => {
+            this.inCheck('nft-check');
             setTimeout(() => {
-                setTimeout(() => {
-                    setTimeout(() => {
-                        this.inCheck('regist-check');
-                }, 2000);
-                this.inCheck('nft-check');
-            }, 4000);
-            this.setLoading(false);
-            this.outCheck('regist-check');
-            this.outCheck('nft-check');
-            this.$router.push(`/proposal/${this.registeredProposalId}`)
+                this.setLoading(false);
+                this.outCheck('regist-check');
+                this.outCheck('nft-check');
+                this.$router.push(`/proposal/${this.registeredProposalId}`)
             }, 5000);
         });
     },
