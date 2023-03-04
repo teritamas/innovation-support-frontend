@@ -5,6 +5,7 @@ export default {
   namespaced: true,
   state: {
     newProposal: {},
+    registeredProposalId : '',
     file : '',
     proposalLists : '',
     proposal: {},
@@ -15,6 +16,9 @@ export default {
     }
   },
   getters: {
+    registeredProposalId(state) {
+        return state.registeredProposalId;
+    },
     newProposal(state) {
         return state.newProposal;
     },
@@ -35,6 +39,9 @@ export default {
     },
   },
   mutations: {
+    setRegisteredProposalId(state, registeredProposalId) {
+        state.registeredProposalId = registeredProposalId;
+    },
     setNewProposal(state, newProposal) {
         state.newProposal = newProposal;
     },
@@ -110,9 +117,9 @@ export default {
               "string"
             ]
           }
-
         form.append('request', JSON.stringify(request));
         form.append('file', commit.file);
+        state.commit('setRegisteredProposalId', '');
         return client
           .post(
             termRequestUri,
@@ -126,8 +133,7 @@ export default {
             }
           )
           .then((response) => {
-            console.log(response);
-            //state.commit('setUserId', response.data.user_id);
+            state.commit('setRegisteredProposalId', response.data.proposalId);
           })
           .catch(err => {
             (this.errored = true), (this.error = err);

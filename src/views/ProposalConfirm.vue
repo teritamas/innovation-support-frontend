@@ -71,6 +71,9 @@ export default {
     file() {
         return this.$store.getters['proposalStore/file'];
     },
+    registeredProposalId() {
+        return this.$store.getters['proposalStore/registeredProposalId'];
+    },
   },
   methods: {
     returnProposalView : function () {
@@ -93,8 +96,7 @@ export default {
             this.setLoading(false);
             this.outCheck('regist-check');
             this.outCheck('nft-check');
-            // 【prpposal_idを渡す】
-            this.$router.push('/proposal/test_proposal_id')
+            this.$router.push(`/proposal/${this.registeredProposalId}`)
             }, 5000);
         });
     },
