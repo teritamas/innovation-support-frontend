@@ -39,7 +39,7 @@ export default {
   props: {
     proposalId: String,
     title: String,
-    descriptions: String,
+    description: String,
     filePath: String,
     targetAmount: String,
     isRecruitingTeammates: Boolean,

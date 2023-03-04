@@ -13,7 +13,7 @@
             <div class="Form-Item">
                 <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Required">必須</span>事業概要（300字以内）</p>
                 <textarea
-                    v-model="newProposal.descriptions"
+                    v-model="newProposal.description"
                     class="Form-Item-Textarea"
                 ></textarea>
             </div>
