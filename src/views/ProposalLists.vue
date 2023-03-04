@@ -38,7 +38,6 @@ export default {
   },
   computed: {
     proposalLists() {
-      // getterの値をファイルで扱いやすくする
       return this.$store.getters["proposalStore/proposalLists"];
     },
   },
@@ -47,9 +46,8 @@ export default {
     this.getProposalLists();
   },
   methods: {
-    // storeのactionsをたたきにいく
     getProposalLists() {
-      return this.$store
+      this.$store
         .dispatch("proposalStore/getProposalList")
         .then(() => {});
     },
@@ -64,10 +62,5 @@ export default {
 }
 .item {
   display: inline-block;
-  /*width: 60%;*/
-  /*height: 400px;*/
-  /*margin: 16px;*/
-  /*font-size: 48px;*/
-  /*color: #fff;*/
 }
 </style>

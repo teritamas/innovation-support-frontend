@@ -1,7 +1,10 @@
 <template>
 
 <LoginStep v-if="!token"/>
-<MypageProfile v-if="token"/>
+<MypageProfile
+  v-if="token"
+  :token="token"  
+/>
 
 </template>
 

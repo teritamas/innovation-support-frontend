@@ -69,7 +69,7 @@ export default {
      */
     verifyVoteEnrichment(state) {
       const termRequestUri =
-        process.env.VUE_APP_API_ENDPOINT + "extension/vote/enrichment/";
+        process.env.VUE_APP_API_ENDPOINT + "extension/vote/enrichment";
       const body = state.getters['getVoteJudgementEnrichmentRequest'];
 
       return axios
