@@ -66,9 +66,11 @@
              <div class="Form-Item">
                 <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Option">任意</span>賛否の理由</p>
                 <textarea
-                    v-model="proposal.description"
+                    v-model="judgement_reason"
                     class="Form-Item-Textarea"
+                    @input="onDelayAction"
                 ></textarea>
+                <div class="item">{{judgementReasonScore}}</div>
             </div>
             <!--≪TODO≫すぐvoteじゃなくて、確認画面＋ログイン確認してから投票-->
             <button class="Form-Btn" @click="vote()">投票する</button>
@@ -80,11 +82,11 @@
 
 <script>
 //import AppHeaderProposal from '../components/AppHeaderProposal.vue'
+import { debounce } from 'lodash';
 
 export default {
   name: 'proposal-form',
   components: {
-    //AppHeaderProposal
   },
   data() {
     return {
@@ -99,18 +101,31 @@ export default {
     proposal() {
       return this.$store.getters['proposalStore/proposal'];
     },
-    newVote() {
-      return this.$store.getters['proposalStore/newVote'];
-    },
     detail() {
       return this.$store.getters['userStore/detail'];
     },
+    judgementReasonScore(){
+      const score = this.$store.getters['proposalVoteStore/getJudgementReason']
+      const baseMessage = `獲得予定トークン: ${score}`;
+      if( score == 1){
+        return `${baseMessage} 内容が充実しており良いメッセージです！` 
+      }
+      else if (score >= 0.6){
+        return `${baseMessage} もうひといき！提案者のためにもう少し詳細に書きましょう！` 
+      }else if (score >= 0.1){
+        return `${baseMessage} 内容が少なく、獲得できるトークンが少ないです。` 
+      }
+      return ''
+    }
   },
   created() {
     // メソッドを実行する
     this.getProposal()
   },
   methods: {
+    onDelayAction: debounce(function() {
+      this.voteJudgementEnrichment()
+    }, 2000),
     getProposal() {
         const proposalId = this.proposal_id;
         return this.$store
@@ -122,16 +137,21 @@ export default {
     },
     vote() {
         const vote = {
-            user_id: this.detail.userId,
             judgement: this.judgement,
             judgement_reason : this.judgement_reason,
-        };
+        }; 
         const proposalId = this.$route.params['proposal_id'];
-        return this.$store
-        .dispatch('proposalStore/vote', {proposalId, vote})
-        .then(() => {});
+        this.$store
+          .dispatch('proposalVoteStore/vote', {proposalId, vote})
+          .then(() => {});
     },
-  },
+    voteJudgementEnrichment(){
+      this.$store.commit('proposalVoteStore/setVoteJudgementEnrichmentRequest', {judgement_reason: this.judgement_reason})
+      this.$store
+          .dispatch('proposalVoteStore/verifyVoteEnrichment', )
+          .then(() => {});
+    }
+  }
 }
 
 </script>

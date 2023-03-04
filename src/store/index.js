@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 import ProposalStore from './modules/ProposalStore';
 import UserStore from './modules/UserStore';
 import createPersistedState from 'vuex-persistedstate';
+import ProposalVoteStore from './modules/ProposalVoteStore';
 
 export default createStore({
   plugins: [
@@ -39,5 +40,6 @@ export default createStore({
   modules: {
     proposalStore: ProposalStore,
     userStore: UserStore,
+    proposalVoteStore: ProposalVoteStore,
   }
 })
