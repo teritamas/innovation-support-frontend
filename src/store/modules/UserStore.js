@@ -84,10 +84,11 @@ export default {
           });
     },
     getDetailByWalletAddress(state, commit) {
+        const client = applyCaseMiddleware(axios.create());
         const termRequestUri =
           process.env.VUE_APP_API_ENDPOINT + 'login/wallet_address/'
           + commit.walletAddress;
-          return axios
+          return client
           .get(termRequestUri, {
             withCredentials: false,
             headers: {
@@ -95,8 +96,9 @@ export default {
             },
           })
           .then(response => {
-            state.commit('setUserId', response.data.user_id);
-            state.commit("setToken", response.data.user_id, { root: true });
+            state.commit('setUserId', response.data.userId);
+            // TODO: ハッカソン向の対応としてUserIdをトークンとする
+            state.commit("setToken", response.data.userId, { root: true });
           })
           .catch(err => {
             (this.errored = true), (this.error = err);
