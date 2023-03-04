@@ -11,15 +11,6 @@
     <div class="form-Item">
         <p class="form-Item-Label isMsg"><span class="form-Item-List"></span>添付資料</p>
         <div class="preview-item w-100 mt-2">
-        <embed
-            v-show="proposal.filePath"
-            class="preview-item-file"
-            :src="proposal.filePath"
-            alt=""
-        />
-        <div v-show="proposal.filePath" class="preview-item-btn">
-            <p class="preview-item-name isMsg py-2">ファイル名：{{ proposal.fileName }}</p>
-        </div>
         </div>
     </div>
     <div class="form-Item">
@@ -34,12 +25,14 @@
 </template>
 
 <script>
+
 export default {
   name: 'proposal-info',
   components: {
   },
   props: {
     proposal: {},
+    proposalFile: {},
   },
 }
 </script>
