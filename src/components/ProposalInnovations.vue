@@ -13,7 +13,7 @@
             <p class="form-item-label is-msg"><span class="form-item-label-Required">必須</span>事業概要（300字以内）</p>
             <textarea
                 v-model="newProposal.description"
-                class="form-item-Textarea"
+                class="form-item-textarea-on-proposal"
             ></textarea>
         </div>
         <div class="form-item">
@@ -81,7 +81,7 @@
             <p class="form-item-label is-msg"><span class="form-item-label-option">任意</span>その他（500字以内）</p>
             <textarea
                 v-model="newProposal.otherContents"
-                class="form-item-Textarea"
+                class="form-item-textarea-on-proposal"
             ></textarea>
         </div>
         <button class="form-btn mb-10" @click="showConfirmView">確認画面へ進む</button>
@@ -158,6 +158,9 @@ export default {
     border: 1px solid #dadada;
 }
 
+.form-item-textarea-margin{
+    margin-left: 40px;
+}
 
 label {
     color: #555; /* ラベルテキストの色を指定する */

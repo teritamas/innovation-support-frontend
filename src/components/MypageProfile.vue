@@ -84,9 +84,15 @@ export default {
       return this.$store.getters["userStore/detail"];
     },
     proposalCount() {
+      if (!this.detail.proposals){
+        return 0
+      }
       return this.detail.proposals.length;
     },
     proposalVoteCount() {
+      if (!this.detail.proposalVotes){
+        return 0
+      }
       return this.detail.proposalVotes.length;
     },
     userProposals() {

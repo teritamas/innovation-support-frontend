@@ -1,18 +1,17 @@
 <template>
     <AppHeaderGift />
-    <div class="bg-white">
-        <h2 class="p-2 title-font flex">人気の研修</h2>
-        <div class="grid grid-cols-3">
+        <div class="grid grid-cols-2 md:grid-cols-3">
             <div v-for="gift in gifts" :key="gift.index" class="p-1">
             <GiftCards
+                :gift="gift"
                 img="25340787_s.jpg"
+                :giftId="gift.prizeId"
                 :title="gift.name"
                 :description="gift.description"
                 :stars="gift.recommendationScore"
                 :points="gift.requiredTokenAmount"
                 :evaluation="gift.level"
             />
-        </div>
         </div>
     </div>
 </template>

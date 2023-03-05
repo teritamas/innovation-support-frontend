@@ -6,6 +6,7 @@ import ProposalDetailView from './views/ProposalDetail.vue'
 import ProposalConfirmView from './views/ProposalConfirm.vue'
 import MypageView from './views/Mypage.vue'
 import GiftView from './views/Gift.vue'
+import GiftDetailView from './views/GiftDetail.vue'
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
@@ -44,6 +45,12 @@ const router = createRouter({
         path: '/gift',
         name: 'gift',
         component: GiftView
+    },
+    {
+        path: '/gift/:giftId',
+        name: 'giftDetail',
+        component: GiftDetailView,
+        props: true,
     },
   ],
   scrollBehavior(to) {
