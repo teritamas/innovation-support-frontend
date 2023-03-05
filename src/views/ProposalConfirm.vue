@@ -50,7 +50,7 @@
 <script>
 import AppHeaderProposal from '../components/AppHeaderProposal.vue'
 import Loading from '../components/parts/Loading.vue'
-import PageTransition from '../components/parts/PageTransition.vue'
+import PageTransition from '../components/parts/PageTransitionProposal.vue'
 
 export default {
   name: 'proposal-form',
@@ -61,7 +61,7 @@ export default {
   },
   data() {
     return {
-        loading: true,
+        loading: false,
         PageTransition: false,
         loadingText : [{
             checkTarget : 'register-check',

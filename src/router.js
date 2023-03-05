@@ -26,7 +26,7 @@ const router = createRouter({
         component: ProposalView
     },
     {
-        path: '/proposal/:proposal_id',
+        path: '/proposal/:proposalId',
         name: 'proposalDetail',
         component: ProposalDetailView
     },
