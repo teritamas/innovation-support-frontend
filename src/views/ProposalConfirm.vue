@@ -44,21 +44,25 @@
         </div>
     </div>
     <Loading v-show="loading"/>
+    <PageTransition v-show="PageTransition" :registeredProposalId=registeredProposalId />
 </template>
 
 <script>
 import AppHeaderProposal from '../components/AppHeaderProposal.vue'
 import Loading from '../components/parts/Loading.vue'
+import PageTransition from '../components/parts/PageTransition.vue'
 
 export default {
   name: 'proposal-form',
   components: {
     AppHeaderProposal,
     Loading,
+    PageTransition,
   },
   data() {
     return {
         loading: false,
+        PageTransition: false,
     };
   },
   computed: {
@@ -82,7 +86,7 @@ export default {
     registerProposal () {
         this.setLoading(true);
         setTimeout(() => {
-            this.inCheck('regist-check');
+            this.inCheck('register-check');
         }, 2000);
         const file = this.file;
         const newProposal = this.newProposal;
@@ -92,9 +96,9 @@ export default {
             this.inCheck('nft-check');
             setTimeout(() => {
                 this.setLoading(false);
-                this.outCheck('regist-check');
+                this.outCheck('register-check');
                 this.outCheck('nft-check');
-                this.$router.push(`/proposal/${this.registeredProposalId}`)
+                this.PageTransition = true;
             }, 5000);
         });
     },
