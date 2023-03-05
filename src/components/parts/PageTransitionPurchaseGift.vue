@@ -2,20 +2,15 @@
     <div class="fullview">
     <div class="card bg-yellow">
         <div class="bg-orange">
-            <h3 class="font-bold text-center py-10">提案の投稿が完了しました！</h3>
-            <div class="desc">
-                こちらのURLを共有してみんなに投票してもらいましょう！
-                <button class="mt-2 btn-copy font-small" @click="copyToClipboard(url)">{{ url }}</button>
-                <small class="text-center block">{{ copy }}</small>
-            </div>
+            <h3 class="font-bold text-center py-10">購入しました！</h3>
             <div class="sankaku1"></div>
         </div>
         <div class="bg-yellow pb-10">
-            <router-link class="mt-1 form-return-btn btn-font text-center text-gray-600" :to="`/proposal/${this.registeredProposalId}`">
-              投稿した提案を確認する
+            <router-link class="mt-1 form-return-btn btn-font text-center text-gray-600" to="/mypage">
+                購入した研修をマイページで確認する
             </router-link>
-            <router-link class="mt-3 form-return-btn btn-font text-center text-gray-600" to="/">
-              タイムラインに移動する
+            <router-link class="mt-3 form-return-btn btn-font text-center text-gray-600" to="/gift">
+                他のギフトを確認する
             </router-link>
         </div>
     </div>
@@ -33,16 +28,17 @@ import CommonHanafubuki from '../parts/CommonHanafubuki.vue'
             copy: '',
         }
     },
-    computed : {
-        url() {
-        return `${process.env.VUE_APP_API_ENDPOINT}proposal/${this.registeredProposalId}`
-        }
-    },
     props : {
-        registeredProposalId : {}
+        proposalId : String,
+        reward: String
     },
     components: {
         CommonHanafubuki,
+    },
+    mounted() {
+
+    },
+    updated() {
     },
     methods: {
         copyToClipboard(text) {
@@ -140,6 +136,8 @@ transform: translate(-50%,-50%);
     padding-top: 10px;
     padding-bottom: 10px;
     color: white;
+    width: 300px;
+
 }
 .form-return-btn {
     border-radius: 6px;
@@ -176,7 +174,9 @@ top: 50%;
 left: 50%;
 transform: translate(-50%,-50%);
   width: 300px;
-  height: 400px;
+  height: 300px;
+  border-radius: 10px;
+  border-radius: 40% 70% 60% 40%/40% 40% 60% 70%;
 }
 }
 
