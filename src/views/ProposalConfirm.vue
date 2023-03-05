@@ -44,7 +44,7 @@
                 </div>
             </div>
     <Loading v-show="loading" :loadingText="loadingText" />
-    <PageTransition v-show="PageTransition" :registeredProposalId=registeredProposalId />
+    <PageTransition v-show="pageTransition" :registeredProposalId=registeredProposalId />
 </template>
 
 <script>
@@ -62,7 +62,7 @@ export default {
   data() {
     return {
         loading: false,
-        PageTransition: false,
+        pageTransition: false,
         loadingText : [{
             checkTarget : 'register-check',
             label: '登録完了'
@@ -107,7 +107,8 @@ export default {
                 this.setLoading(false);
                 this.outCheck('register-check');
                 this.outCheck('nft-check');
-                this.PageTransition = true;
+                this.pageTransition = true;
+                this.$store.commit('proposalStore/initialize')
             }, 5000);
         });
     },
