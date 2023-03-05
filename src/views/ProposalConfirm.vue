@@ -2,6 +2,9 @@
     <AppHeaderProposal />
     <div class="content-center">
         <div class="card card-one">
+            <div class="bg-orange">
+                <h2 class="font-bold text-center pt-5 pb-5">プレビュー</h2>
+            </div>
             <div class="form mb-10">
                 <div class="form-item">
                     <p class="form-item-label"><span class="form-item-label-Required">必須</span>事業名（30字以内）</p>
@@ -17,32 +20,29 @@
                 </div>
                 <div class="form-item">
                     <p class="form-item-label is-msg"><span class="form-item-label-option">任意</span>添付資料（PDF）</p>
-                    <div class="preview-item w-100 mt-2">
+                    <div class="preview-item w-full mt-2">
                     <embed
                         v-show="newProposal.filePath"
                         class="preview-item-file"
                         :src="newProposal.filePath"
-                        alt=""
+                        alt="添付資料"
                     />
-                    <div v-show="newProposal.filePath" class="preview-item-btn">
-                        <p class="preview-item-name is-msg py-2">ファイル名：{{ newProposal.fileName }}</p>
-                    </div>
-                    <div class="form-item">
-                        <p class="form-item-label mb-2"><span class="form-item-label-option">任意</span>仲間募集</p>
-                        <p v-if="newProposal.isRecruitingTeammates">募集する</p>
-                        <p v-if="!newProposal.isRecruitingTeammates">募集しない</p>
-                    </div>
-                    <div class="form-item">
-                        <p class="form-item-label is-msg"><span class="form-item-label-option">任意</span>その他（500字以内）</p>
-                        <p>{{ newProposal.otherContents }}</p>
-                    </div>
-                    <button class="form-btn" @click="registerProposal()">上記の内容で投稿する</button>
-                    <button class="form-return-btn mb-10" @click="returnProposalView()">入力画面に戻る</button>
                     </div>
                 </div>
+                <div class="form-item">
+                    <p class="form-item-label mb-2"><span class="form-item-label-option">任意</span>仲間募集</p>
+                    <p v-if="newProposal.isRecruitingTeammates">募集する</p>
+                    <p v-if="!newProposal.isRecruitingTeammates">募集しない</p>
+                </div>
+                <div class="form-item">
+                    <p class="form-item-label is-msg"><span class="form-item-label-option">任意</span>その他（500字以内）</p>
+                    <p>{{ newProposal.otherContents }}</p>
+                </div>
+                <button class="form-btn" @click="registerProposal()">上記の内容で投稿する</button>
+                <button class="form-return-btn mb-10" @click="returnProposalView()">入力画面に戻る</button>
+                </div>
+                </div>
             </div>
-        </div>
-    </div>
     <Loading v-show="loading" :loadingText="loadingText" />
     <PageTransition v-show="PageTransition" :registeredProposalId=registeredProposalId />
 </template>

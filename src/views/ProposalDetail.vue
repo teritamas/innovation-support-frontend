@@ -9,7 +9,7 @@
                 <div class="bg-beige pb-10" v-if="showVoteArea">
                     <div class="form-item">
                     <p class="form-item-label mb-2"><span class="form-item-label-Required">必須</span>賛否</p>
-                    <div class="radio-button-group mts w-100">
+                    <div class="radio-button-group mts w-full">
                         <div class="item">
                             <div class="item">
                             <input

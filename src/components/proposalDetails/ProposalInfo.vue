@@ -10,7 +10,7 @@
     </div>
     <div class="form-item">
         <p class="form-item-label is-msg"><span class="form-item-List"></span>添付資料</p>
-        <div class="preview-item w-100 mt-2">
+        <div class="preview-item w-full mt-2">
         <embed
             v-show="proposalAttachmentFile.filePath"
             class="preview-item-file"

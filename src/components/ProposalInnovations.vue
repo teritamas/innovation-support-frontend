@@ -27,8 +27,8 @@
         </div>
         <div class="form-item">
             <p class="form-item-label"><span class="form-item-label-option">任意</span>添付資料（PDF）</p>
-            <div class="form-item-input-file">
-                <label v-show="!newProposal.filePath" class="border file mt-2 input-item__label">ファイルを選択
+            <div v-show="!newProposal.filePath" class="form-item-input-file">
+                <label class="border file mt-2 input-item__label">ファイルを選択
                     <input type="file" @change="onFileChange" />
                 </label>
             </div>

@@ -2,7 +2,9 @@
     <AppHeaderProposal />
         <div class="content-center">
             <div class="card card-one mt-10">
-                <h2 class="font-bold text-center pt-5 pb-3">提案登録フォーム</h2>
+                <div class="bg-orange">
+                    <h2 class="font-bold text-center pt-5 pb-5">提案登録フォーム</h2>
+                </div>
                 <ProposalInnocations v-if="showContentsType == 'proposal'" />
                 <ProposalInnocations v-if="showContentsType == 'survey'" />
                 <ProposalInnocations v-if="showContentsType == 'tester'" />
