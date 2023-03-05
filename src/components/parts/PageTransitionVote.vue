@@ -10,9 +10,9 @@
             <div class="sankaku1"></div>
         </div>
         <div class="bg-yellow pb-10">
-            <router-link class="mt-1 form-return-btn btn-font text-center text-gray-600" :to="`/proposal/${proposalId}`">
+            <div class="mt-1 form-return-btn btn-font text-center text-gray-600" style="cursor: pointer;" @click="reset()">
                 投票結果を確認する
-            </router-link>
+            </div>
             <router-link class="mt-3 form-return-btn btn-font text-center text-gray-600" to="/gift">
                 獲得したトークンをギフトと交換する
             </router-link>
@@ -63,7 +63,10 @@
             setTimeout(() => {
                 this.copy='';
             }, 2000);
-        }
+        },
+        reset: function () {
+            this.$router.go({path: this.$router.currentRoute.path, force: true})
+    }
     },
   }
 </script>
