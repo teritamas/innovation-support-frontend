@@ -9,19 +9,19 @@
       <!--<img class="rounded-t-sm" :src="require(`@/assets/img/${img}`)" alt="product image" />-->
       <div class="bg-orange">
         <h3 class="font-bold text-center py-4">
-          【初心者向け】のむちん先生とPythonで機械学習！
+          {{ giftDetail.name }}
         </h3>
       </div>
       <div class="flex justify-around py-3">
         <span
           class="bg-gray text-blue-800 text-sm font-semibold rounded dark:bg-blue-200 dark:text-blue-800 mx-3"
-          >難易度: 低</span
+          >難易度: {{ levelMessage }}</span
         >
         <div class="inline">
           <div class="flex items-center">
             <span class="text-sm font-semibold text-gray-900">評価：</span>
             <svg
-              v-for="i in 5"
+              v-for="i in giftDetail.recommendationScore"
               :key="i"
               aria-hidden="true"
               class="w-5 h-5 text-yellow-300"
@@ -38,14 +38,12 @@
       </div>
 
       <div class="p-3 desc">
-        待望の「のむちん先生シリーズ」第三弾！「のむちん先生のPython教室」は、初心者でも分かりやすいPythonの入門教材です。
-        豊富な実例や図解を用いて、基本的な文法やプログラミングの考え方をわかりやすく解説しています。
-        Pythonを学びたい人にはぜひお勧めしたい教材です。
+        {{ giftDetail.description }}
       </div>
 
       <div class="text-center">
         <span class="text-lg font-semibold text-gray-900"
-          >必要なトークン： 10000 pts</span
+          >必要なトークン： {{ giftDetail.requiredTokenAmount }} pts</span
         >
         <button @click="purchaseGift()" class="text-center form-btn mb-3">
           購入する
@@ -83,16 +81,28 @@ export default {
     };
   },
   props: {
-    giftId: String,
     img: String,
-    title: String,
-    description: String,
-    stars: Number,
-    points: String,
-    evaluation: String,
   },
-  computed: {},
-  created() {},
+  computed: {
+    giftId() {
+      return this.$route.params["giftId"];
+    },
+    giftDetail() {
+      return this.$store.getters["giftStore/detail"];
+    },
+    levelMessage() {
+      if (this.giftDetail.level === "Middle") {
+        return "中";
+      } else if (this.giftDetail.level === "Low") {
+        return "低";
+      } else {
+        return "高";
+      }
+    },
+  },
+  created() {
+    this.$store.dispatch("giftStore/detailGift", this.giftId);
+  },
   methods: {
     setLoading(bool) {
       this.loading = bool;
@@ -115,8 +125,8 @@ export default {
       setTimeout(() => {
         this.inCheck("purchase-check");
       }, 2000);
-      const proposalId = this.$route.params["giftId"];
-      this.$store.dispatch("giftStore/purchaseGift", proposalId).then(() => {
+      const giftId = this.$route.params["giftId"];
+      this.$store.dispatch("giftStore/purchaseGift", giftId).then(() => {
         setTimeout(() => {
           // this.setLoading(false);
           this.outCheck("purchase-check");
