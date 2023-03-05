@@ -4,8 +4,8 @@
         <img class="rounded-t-sm" :src="require(`@/assets/img/${img}`)" alt="product image" />
         <div class="p-1">
             <div class="justify-between">
-            <h1 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">{{ title }}</h1>
-            <span class="text-xs font-semibold text-gray-900 dark:text-white">必要なトークン： {{ points }} pts</span>
+                <h1 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">{{ title }}</h1>
+                <span class="text-xs font-semibold text-gray-900 dark:text-white">必要なトークン： {{ points }} pts</span>
                 <div class="flex items-center">
                     <svg
                         v-for="i in stars"
@@ -20,6 +20,9 @@
                     </svg>
                     <span class="bg-gray text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">難易度: {{ evaluation }}</span>
                 </div>
+                <div>
+                <p>説明: {{description}}</p>                
+                </div>
             </div>
         </div>
     </a>
@@ -31,9 +34,10 @@ export default {
   name: 'giftCards',
   props: {
     img: String,
-    points: String,
     title : String,
+    description: String,
     stars : Number,
+    points: String,
     evaluation: String,
   },
 }

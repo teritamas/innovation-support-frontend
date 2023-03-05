@@ -6,9 +6,10 @@
             <div v-for="gift in gifts" :key="gift.index" class="p-1">
             <GiftCards
                 img="25340787_s.jpg"
-                :points="gift.requiredTokenAmount"
                 :title="gift.name"
+                :description="gift.description"
                 :stars="gift.recommendationScore"
+                :points="gift.requiredTokenAmount"
                 :evaluation="gift.level"
             />
         </div>
