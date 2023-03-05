@@ -9,11 +9,6 @@ export default {
     file : '',
     proposalLists : '',
     proposal: {},
-    newVote : {
-        user_id: '',
-        judgement: false,
-        judgement_reason : ''
-    }
   },
   getters: {
     registeredProposalId(state) {
@@ -31,9 +26,6 @@ export default {
     proposalLists(state) {
         return state.proposalLists;
     },
-    newVote(state) {
-        return state.newVote;
-    },
     token(state, getters, rootState, rootGetters) {
         return rootGetters['token'];
     },
@@ -50,9 +42,6 @@ export default {
     },
     setProposalLists(state, proposalLists) {
         state.proposalLists = proposalLists.proposals;
-    },
-    setNewVote(state, newVote) {
-        state.newVote = newVote;
     },
     setFile(state, file) {
         state.file = file;

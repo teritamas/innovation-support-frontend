@@ -35,7 +35,7 @@
                 <div class="form-Item">
                     <p class="form-Item-Label isMsg"><span class="form-Item-Label-Option">任意</span>賛否の理由</p>
                     <textarea
-                        v-model="judgement_reason"
+                        v-model="judgementReason"
                         class="form-Item-Textarea"
                         @input="onDelayAction"
                     ></textarea>
@@ -50,7 +50,8 @@
             <div class="bg-beige p-5" v-if="!showVoteArea">
                 <ProposalVoteStatus
                     :proposal=proposal
-                 />
+                    :voteStatus=voteStatus
+            />
             </div>
             <div class="">
                 <button class="form-Return-btn mb-10" @click="returnProposalLists()">戻る</button>
@@ -75,17 +76,17 @@ export default {
   data() {
     return {
         judgement: '',
-        judgement_reason: '',
+        judgementReason: '',
     };
   },
   computed: {
     showCongratulationArea() {
         // 投票エリアを表示する条件
-        return this.proposal.proposal_status == 'voting' && !this.voteDetail.isProposer && !this.voteDetail.voted
+        return this.proposal.proposalStatus == 'voting' && !this.voteDetail.isProposer && !this.voteDetail.voted
     },
     showVoteArea() {
         // 投票エリアを表示する条件
-        return this.proposal.proposal_status == 'voting' && !this.voteDetail.isProposer && !this.voteDetail.voted
+        return this.proposal.proposalStatus == 'voting' && !this.voteDetail.isProposer && !this.voteDetail.voted
     },
     proposal_id() {
       return this.$route.params['proposal_id'];
@@ -158,7 +159,7 @@ export default {
     vote() {
         const vote = {
             judgement: this.judgement,
-            judgement_reason : this.judgement_reason,
+            judgementReason : this.judgementReason,
         };
         const proposalId = this.$route.params['proposal_id'];
         this.$store
@@ -166,7 +167,7 @@ export default {
           .then(() => {});
     },
     voteJudgementEnrichment(){
-      this.$store.commit('proposalVoteStore/setVoteJudgementEnrichmentRequest', {judgement_reason: this.judgement_reason})
+      this.$store.commit('proposalVoteStore/setVoteJudgementEnrichmentRequest', {judgementReason: this.judgementReason})
       this.$store
           .dispatch('proposalVoteStore/verifyVoteEnrichment', )
           .then(() => {});
