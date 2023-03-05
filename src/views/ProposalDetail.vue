@@ -2,7 +2,7 @@
     <div class="content-center">
         <div class="card card-one">
             <div class="form mb-10">
-                <ProposalInfo :proposal=proposal :proposalFile=file />
+                <ProposalInfo :proposal=proposal :proposalAttachmentFile=proposalAttachmentFile />
             </div>
                 <!--ProposalVote コンポーネントに分けたい-->
                 <!-- 投票コンポーネント：自分が提案者じゃないかつ提案していないかつ投票受付中-->
@@ -97,7 +97,7 @@ export default {
     detail() {
       return this.$store.getters['userStore/detail'];
     },
-    file() {
+    proposalAttachmentFile() {
         return this.$store.getters['proposalStore/file'];
     },
     voteDetail() {

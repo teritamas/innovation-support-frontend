@@ -48,7 +48,6 @@ export default {
   computed: {
     myStyles() {
       return {
-        height: `${this.height}px`,
         position: "relative",
       };
     },
