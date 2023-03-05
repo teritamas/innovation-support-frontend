@@ -35,7 +35,7 @@
                 <div class="form-Item">
                     <p class="form-Item-Label isMsg"><span class="form-Item-Label-Option">任意</span>賛否の理由</p>
                     <textarea
-                        v-model="judgement_reason"
+                        v-model="judgementReason"
                         class="form-Item-Textarea"
                         @input="onDelayAction"
                     ></textarea>
@@ -76,7 +76,7 @@ export default {
   data() {
     return {
         judgement: '',
-        judgement_reason: '',
+        judgementReason: '',
     };
   },
   computed: {
@@ -159,7 +159,7 @@ export default {
     vote() {
         const vote = {
             judgement: this.judgement,
-            judgement_reason : this.judgement_reason,
+            judgementReason : this.judgementReason,
         };
         const proposalId = this.$route.params['proposal_id'];
         this.$store
@@ -167,7 +167,7 @@ export default {
           .then(() => {});
     },
     voteJudgementEnrichment(){
-      this.$store.commit('proposalVoteStore/setVoteJudgementEnrichmentRequest', {judgement_reason: this.judgement_reason})
+      this.$store.commit('proposalVoteStore/setVoteJudgementEnrichmentRequest', {judgementReason: this.judgementReason})
       this.$store
           .dispatch('proposalVoteStore/verifyVoteEnrichment', )
           .then(() => {});

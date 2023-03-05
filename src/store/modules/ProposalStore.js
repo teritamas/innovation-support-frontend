@@ -12,7 +12,7 @@ export default {
     newVote : {
         user_id: '',
         judgement: false,
-        judgement_reason : ''
+        judgementReason : ''
     }
   },
   getters: {

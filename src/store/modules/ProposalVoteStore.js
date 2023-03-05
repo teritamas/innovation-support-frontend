@@ -7,11 +7,11 @@ export default {
     newVote: {
       user_id: "",
       judgement: false,
-      judgement_reason: "",
+      judgementReason: "",
     },
     extension: {
       request: {
-        judgement_reason: "",
+        judgementReason: "",
       },
       response: {
         score: 0,
@@ -78,7 +78,7 @@ export default {
   },
   mutations: {
     setVoteJudgementEnrichmentRequest(state, commit) {
-      state.extension.request.judgement_reason = commit.judgement_reason;
+      state.extension.request.judgementReason = commit.judgementReason;
     },
     setVoteScore(state, commit) {
       state.extension.response.score = commit.score;
