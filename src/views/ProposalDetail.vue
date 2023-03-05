@@ -7,8 +7,8 @@
                 <!--ProposalVote コンポーネントに分けたい-->
                 <!-- 投票コンポーネント：自分が提案者じゃないかつ提案していないかつ投票受付中-->
                 <div class="bg-beige pb-10" v-if="showVoteArea">
-                    <div class="form-Item">
-                    <p class="form-Item-Label mb-2"><span class="form-Item-Label-Required">必須</span>賛否</p>
+                    <div class="form-item">
+                    <p class="form-item-label mb-2"><span class="form-item-label-Required">必須</span>賛否</p>
                     <div class="radio-button-group mts w-100">
                         <div class="item">
                             <div class="item">
@@ -32,11 +32,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-Item">
-                    <p class="form-Item-Label isMsg"><span class="form-Item-Label-Option">任意</span>賛否の理由</p>
+                <div class="form-item">
+                    <p class="form-item-label is-msg"><span class="form-item-label-option">任意</span>賛否の理由</p>
                     <textarea
                         v-model="judgementReason"
-                        class="form-Item-Textarea"
+                        class="form-item-Textarea"
                         @input="onDelayAction"
                     ></textarea>
                     <div class="item">{{judgementReasonScore}}</div>
@@ -264,14 +264,14 @@ export default {
   margin-right: auto;
   max-width: 720px;
 }
-.form-Item {
+.form-item {
   padding-bottom: 24px;
   width: 100%;
   display: flex;
   align-items: center;
 }
 @media screen and (max-width: 480px) {
-  .form-Item {
+  .form-item {
     padding-left: 14px;
     padding-right: 14px;
     padding-top: 16px;
@@ -280,7 +280,7 @@ export default {
   }
 }
 
-.form-Item-Label {
+.form-item-label {
   width: 100%;
   max-width: 248px;
   letter-spacing: 0.05em;
@@ -288,24 +288,24 @@ export default {
   font-size: 18px;
 }
 @media screen and (max-width: 480px) {
-  .form-Item-Label {
+  .form-item-label {
     max-width: inherit;
     display: flex;
     align-items: center;
     font-size: 15px;
   }
 }
-.form-Item-Label.isMsg {
+.form-item-label.is-msg {
   margin-top: 8px;
   margin-bottom: auto;
 }
 @media screen and (max-width: 480px) {
-  .form-Item-Label.isMsg {
+  .form-item-label.is-msg {
     margin-top: 0;
   }
 }
 
-.form-Item-Label-Required {
+.form-item-label-Required {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;
@@ -318,7 +318,7 @@ export default {
   font-size: 14px;
 }
 
-.form-Item-Label-Option {
+.form-item-label-option {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;
@@ -331,7 +331,7 @@ export default {
   font-size: 14px;
 }
 
-.form-Item-List {
+.form-item-List {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;
@@ -344,7 +344,7 @@ export default {
   font-size: 14px;
 }
 @media screen and (max-width: 480px) {
-  .form-Item-Label-Required {
+  .form-item-label-Required {
     border-radius: 4px;
     padding-top: 4px;
     padding-bottom: 4px;
@@ -352,7 +352,7 @@ export default {
     font-size: 10px;
   }
 
-  .form-Item-Label-Option {
+  .form-item-label-option {
     border-radius: 4px;
     padding-top: 4px;
     padding-bottom: 4px;

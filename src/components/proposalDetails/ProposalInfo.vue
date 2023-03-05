@@ -1,15 +1,15 @@
 <template>
     <h2 class="font-bold text-center p-2">{{ proposal.title }}</h2>
-    <div class="form-Item">
-        <p class="form-Item-Label isMsg"><span class="form-Item-List"></span>事業概要</p>
+    <div class="form-item">
+        <p class="form-item-label is-msg"><span class="form-item-List"></span>事業概要</p>
         <p>{{ proposal.description }}</p>
     </div>
-    <div class="form-Item">
-        <p class="form-Item-Label"><span class="form-Item-List"></span>目標金額</p>
+    <div class="form-item">
+        <p class="form-item-label"><span class="form-item-List"></span>目標金額</p>
         <p>{{ proposal.targetAmount }}</p>
     </div>
-    <div class="form-Item">
-        <p class="form-Item-Label isMsg"><span class="form-Item-List"></span>添付資料</p>
+    <div class="form-item">
+        <p class="form-item-label is-msg"><span class="form-item-List"></span>添付資料</p>
         <div class="preview-item w-100 mt-2">
         <embed
             v-show="proposalAttachmentFile.filePath"
@@ -19,13 +19,13 @@
         />
         </div>
     </div>
-    <div class="form-Item">
-        <p class="form-Item-Label mb-2"><span class="form-Item-List"></span>仲間募集</p>
+    <div class="form-item">
+        <p class="form-item-label mb-2"><span class="form-item-List"></span>仲間募集</p>
         <p v-if="proposal.isRecruitingTeammates">募集する</p>
         <p v-if="!proposal.isRecruitingTeammates">募集しない</p>
         </div>
-    <div class="form-Item">
-        <p class="form-Item-Label isMsg"><span class="form-Item-List"></span>その他</p>
+    <div class="form-item">
+        <p class="form-item-label is-msg"><span class="form-item-List"></span>その他</p>
         <p>{{ proposal.otherContents }}</p>
     </div>
 </template>
@@ -57,14 +57,14 @@ export default {
   margin-right: auto;
   max-width: 720px;
 }
-.form-Item {
+.form-item {
   padding-bottom: 24px;
   width: 100%;
   display: flex;
   align-items: center;
 }
 @media screen and (max-width: 480px) {
-  .form-Item {
+  .form-item {
     padding-left: 14px;
     padding-right: 14px;
     padding-top: 16px;
@@ -73,7 +73,7 @@ export default {
   }
 }
 
-.form-Item-Label {
+.form-item-label {
   width: 100%;
   max-width: 248px;
   letter-spacing: 0.05em;
@@ -81,24 +81,24 @@ export default {
   font-size: 18px;
 }
 @media screen and (max-width: 480px) {
-  .form-Item-Label {
+  .form-item-label {
     max-width: inherit;
     display: flex;
     align-items: center;
     font-size: 15px;
   }
 }
-.form-Item-Label.isMsg {
+.form-item-label.is-msg {
   margin-top: 8px;
   margin-bottom: auto;
 }
 @media screen and (max-width: 480px) {
-  .form-Item-Label.isMsg {
+  .form-item-label.is-msg {
     margin-top: 0;
   }
 }
 
-.form-Item-Label-Required {
+.form-item-label-Required {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;
@@ -111,7 +111,7 @@ export default {
   font-size: 14px;
 }
 
-.form-Item-Label-Option {
+.form-item-label-option {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;
@@ -124,7 +124,7 @@ export default {
   font-size: 14px;
 }
 
-.form-Item-List {
+.form-item-List {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;
@@ -137,7 +137,7 @@ export default {
   font-size: 14px;
 }
 @media screen and (max-width: 480px) {
-  .form-Item-Label-Required {
+  .form-item-label-Required {
     border-radius: 4px;
     padding-top: 4px;
     padding-bottom: 4px;
@@ -145,7 +145,7 @@ export default {
     font-size: 10px;
   }
 
-  .form-Item-Label-Option {
+  .form-item-label-option {
     border-radius: 4px;
     padding-top: 4px;
     padding-bottom: 4px;
