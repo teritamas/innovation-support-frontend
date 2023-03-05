@@ -3,13 +3,14 @@
     <div class="bg-white">
         <h2 class="p-2 title-font flex">人気の研修</h2>
         <div class="grid grid-cols-3">
-            <div v-for="i in 9" :key="i" class="p-1">
+            <div v-for="gift in gifts" :key="gift.index" class="p-1">
             <GiftCards
                 img="25340787_s.jpg"
-                points="30,000"
-                title="【統計学】アナリティクス入門"
-                :stars="Number(5)"
-                evaluation="5.0"
+                :title="gift.name"
+                :description="gift.description"
+                :stars="gift.recommendationScore"
+                :points="gift.requiredTokenAmount"
+                :evaluation="gift.level"
             />
         </div>
         </div>
@@ -26,6 +27,14 @@ export default {
     GiftCards,
     AppHeaderGift,
   },
+  computed: {
+    gifts() {
+      return this.$store.getters['giftStore/gifts'];
+    }
+  },
+  created() {
+    this.$store.dispatch('giftStore/getGift')
+  }
 }
 </script>
 
