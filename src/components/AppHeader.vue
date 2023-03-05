@@ -40,7 +40,6 @@ export default {
   computed: {
     isAuthorized() {
       const token = this.token;
-      console.log(token)
       if (token === '') {
         return false;
       } else {

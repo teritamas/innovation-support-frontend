@@ -5,22 +5,24 @@
                 <div class="bg-orange">
                     <h2 class="font-bold text-center pt-5 pb-5">提案登録フォーム</h2>
                 </div>
-                <ProposalInnocations v-if="showContentsType == 'proposal'" />
-                <ProposalInnocations v-if="showContentsType == 'survey'" />
-                <ProposalInnocations v-if="showContentsType == 'tester'" />
+                <ProposalInnovations v-if="showContentsType === 'proposal'" />
+                <ProposalInnovations v-if="showContentsType === 'survey'" />
+                <ProposalInnovations v-if="showContentsType === 'tester'" />
         </div>
     </div>
 </template>
 
 <script>
 import AppHeaderProposal from '../components/AppHeaderProposal.vue'
-import ProposalInnocations from '../components/ProposalInnovations.vue'
+import ProposalInnovations from '../components/ProposalInnovations.vue'
+//import UnderDevelopment from '../components/UnderDevelopment.vue'
 
 export default {
   name: 'proposal-form',
   components: {
     AppHeaderProposal,
-    ProposalInnocations,
+    ProposalInnovations,
+    //UnderDevelopment,
   },
   data() {
     return {
