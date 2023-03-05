@@ -8,7 +8,7 @@
           <div></div>
           <div></div>
           <div></div>
-          <p class="font-bold text-gray-600">
+          <p class="font-bold text-white">
             <LoadingCheck checkTarget="register-check" lavel="登録完了" />
             <LoadingCheck checkTarget="nft-check" lavel="NET作成完了" />
           </p>
@@ -45,7 +45,7 @@ import LoadingCheck from './LoadingCheck.vue'
 .fullview {
   width: 100%;
   height: 100%;
-  background: rgba(252, 255, 252, 0.8);
+  background: rgba(0, 0, 0, 0.7);
   position: fixed;
   top: 0;
   left: 0;
