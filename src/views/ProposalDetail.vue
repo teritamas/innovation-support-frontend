@@ -65,6 +65,7 @@
       :reward=reward
       :balance=balance
       />
+    <Congratulation @popClose="popClose" v-show="showCongratulation" />
 </template>
 
 <script>
@@ -74,6 +75,7 @@ import ProposalVoteStatus from '../components/proposalDetails/ProposalVoteStatus
 import { debounce } from 'lodash';
 import Loading from '../components/parts/Loading.vue'
 import PageTransition from '../components/parts/PageTransitionVote.vue'
+import Congratulation from '../components/parts/Congratulation.vue'
 
 
 export default {
@@ -84,6 +86,7 @@ export default {
     ProposalVoteStatus,
     Loading,
     PageTransition,
+    Congratulation,
   },
   data() {
     return {
@@ -91,6 +94,7 @@ export default {
         judgementReason: '',
         loading: false,
         PageTransition: false,
+        openCongratulationPop: true,
         loadingText : [{
             checkTarget : 'voted-check',
             label: '投票完了'
@@ -103,6 +107,12 @@ export default {
     };
   },
   computed: {
+    showCongratulation() {
+        return this.openCongratulationPop && this.congratulation;
+    },
+    congratulation() {
+        return this.proposal.proposalStatus == 'accept' && this.voteDetail.isProposer
+    },
     showCongratulationArea() {
         // 投票エリアを表示する条件
         return this.proposal.proposalStatus == 'voting' && !this.voteDetail.isProposer && !this.voteDetail.voted
@@ -154,6 +164,9 @@ export default {
       }
       return ''
     }
+  },
+  mounted() {
+    this.openCongratulationPop = true;
   },
   created() {
     // メソッドを実行する
@@ -236,6 +249,9 @@ export default {
     outCheck(checkTarget) {
         let checkbox = document.getElementById(checkTarget);
         checkbox.checked = false;
+    },
+    popClose() {
+        this.openCongratulationPop = false;
     },
   }
 }
