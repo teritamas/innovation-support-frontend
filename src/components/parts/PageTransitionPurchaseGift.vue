@@ -14,22 +14,12 @@
             </router-link>
         </div>
     </div>
-    <div class="confetti"><span></span><span></span><span></span><span></span>
-		<span></span><span></span><span></span><span></span><span></span>
-		<span></span><span></span><span></span><span></span><span></span>
-		<span></span><span></span><span></span><span></span><span></span>
-		<span></span><span></span><span></span><span></span><span></span>
-		<span></span><span></span><span></span><span></span><span></span>
-		<span></span><span></span><span></span><span></span><span></span>
-		<span></span><span></span><span></span><span></span><span></span>
-		<span></span><span></span><span></span><span></span><span></span>
-		<span></span><span></span><span></span><span></span><span></span>
-	</div>
+    <CommonHanafubuki />
     </div>
   </template>
 
 <script>
-//import LoadingCheck from './LoadingCheck.vue'
+import CommonHanafubuki from '../parts/CommonHanafubuki.vue'
 
   export default {
     name: 'loading-',
@@ -43,7 +33,7 @@
         reward: String
     },
     components: {
-        //LoadingCheck,
+        CommonHanafubuki,
     },
     mounted() {
 
