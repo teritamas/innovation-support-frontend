@@ -2,47 +2,47 @@
     <AppHeaderProposal />
     <div class="content-center">
         <div class="card card-one">
+            <div class="bg-orange">
+                <h2 class="font-bold text-center pt-5 pb-5">プレビュー</h2>
+            </div>
             <div class="form mb-10">
-                <div class="form-Item">
-                    <p class="form-Item-Label"><span class="form-Item-Label-Required">必須</span>事業名（30字以内）</p>
+                <div class="form-item">
+                    <p class="form-item-label"><span class="form-item-label-Required">必須</span>事業名（30字以内）</p>
                     <p>{{ newProposal.title }}</p>
                 </div>
-                <div class="form-Item">
-                    <p class="form-Item-Label isMsg"><span class="form-Item-Label-Required">必須</span>事業概要（300字以内）</p>
+                <div class="form-item">
+                    <p class="form-item-label is-msg"><span class="form-item-label-Required">必須</span>事業概要（300字以内）</p>
                     <p>{{ newProposal.description }}</p>
                 </div>
-                <div class="form-Item">
-                    <p class="form-Item-Label"><span class="form-Item-Label-Required">必須</span>目標金額</p>
+                <div class="form-item">
+                    <p class="form-item-label"><span class="form-item-label-Required">必須</span>目標金額</p>
                     <p>{{ newProposal.targetAmount }}</p>
                 </div>
-                <div class="form-Item">
-                    <p class="form-Item-Label isMsg"><span class="form-Item-Label-Option">任意</span>添付資料（PDF）</p>
-                    <div class="preview-item w-100 mt-2">
+                <div class="form-item">
+                    <p class="form-item-label is-msg"><span class="form-item-label-option">任意</span>添付資料（PDF）</p>
+                    <div class="preview-item w-full mt-2">
                     <embed
                         v-show="newProposal.filePath"
                         class="preview-item-file"
                         :src="newProposal.filePath"
-                        alt=""
+                        alt="添付資料"
                     />
-                    <div v-show="newProposal.filePath" class="preview-item-btn">
-                        <p class="preview-item-name isMsg py-2">ファイル名：{{ newProposal.fileName }}</p>
-                    </div>
-                    <div class="form-Item">
-                        <p class="form-Item-Label mb-2"><span class="form-Item-Label-Option">任意</span>仲間募集</p>
-                        <p v-if="newProposal.isRecruitingTeammates">募集する</p>
-                        <p v-if="!newProposal.isRecruitingTeammates">募集しない</p>
-                    </div>
-                    <div class="form-Item">
-                        <p class="form-Item-Label isMsg"><span class="form-Item-Label-Option">任意</span>その他（500字以内）</p>
-                        <p>{{ newProposal.otherContents }}</p>
-                    </div>
-                    <button class="form-btn" @click="registerProposal()">上記の内容で投稿する</button>
-                    <button class="form-return-btn mb-10" @click="returnProposalView()">入力画面に戻る</button>
                     </div>
                 </div>
+                <div class="form-item">
+                    <p class="form-item-label mb-2"><span class="form-item-label-option">任意</span>仲間募集</p>
+                    <p v-if="newProposal.isRecruitingTeammates">募集する</p>
+                    <p v-if="!newProposal.isRecruitingTeammates">募集しない</p>
+                </div>
+                <div class="form-item">
+                    <p class="form-item-label is-msg"><span class="form-item-label-option">任意</span>その他（500字以内）</p>
+                    <p>{{ newProposal.otherContents }}</p>
+                </div>
+                <button class="form-btn" @click="registerProposal()">上記の内容で投稿する</button>
+                <button class="form-return-btn mb-10" @click="returnProposalView()">入力画面に戻る</button>
+                </div>
+                </div>
             </div>
-        </div>
-    </div>
     <Loading v-show="loading" :loadingText="loadingText" />
     <PageTransition v-show="PageTransition" :registeredProposalId=registeredProposalId />
 </template>
@@ -161,14 +161,14 @@ export default {
   margin-right: auto;
   max-width: 720px;
 }
-.form-Item {
+.form-item {
   padding-bottom: 24px;
   width: 100%;
   display: flex;
   align-items: center;
 }
 @media screen and (max-width: 480px) {
-  .form-Item {
+  .form-item {
     padding-left: 14px;
     padding-right: 14px;
     padding-top: 16px;
@@ -177,7 +177,7 @@ export default {
   }
 }
 
-.form-Item-Label {
+.form-item-label {
   width: 100%;
   max-width: 248px;
   letter-spacing: 0.05em;
@@ -185,23 +185,23 @@ export default {
   font-size: 18px;
 }
 @media screen and (max-width: 480px) {
-  .form-Item-Label {
+  .form-item-label {
     max-width: inherit;
     display: flex;
     align-items: center;
     font-size: 15px;
   }
 }
-.form-Item-Label.isMsg {
+.form-item-label.is-msg {
   margin-top: 8px;
   margin-bottom: auto;
 }
 @media screen and (max-width: 480px) {
-  .form-Item-Label.isMsg {
+  .form-item-label.is-msg {
     margin-top: 0;
   }
 }
-.form-Item-Label-Required {
+.form-item-label-Required {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;
@@ -214,7 +214,7 @@ export default {
   font-size: 14px;
 }
 
-.form-Item-Label-Option {
+.form-item-label-option {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;
@@ -227,7 +227,7 @@ export default {
   font-size: 14px;
 }
 @media screen and (max-width: 480px) {
-  .form-Item-Label-Required {
+  .form-item-label-Required {
     border-radius: 4px;
     padding-top: 4px;
     padding-bottom: 4px;
@@ -235,7 +235,7 @@ export default {
     font-size: 10px;
   }
 
-  .form-Item-Label-Option {
+  .form-item-label-option {
     border-radius: 4px;
     padding-top: 4px;
     padding-bottom: 4px;
