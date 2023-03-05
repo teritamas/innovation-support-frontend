@@ -4,11 +4,6 @@ import axios from "axios";
 export default {
   namespaced: true,
   state: {
-    newVote: {
-      user_id: "",
-      judgement: false,
-      judgementReason: "",
-    },
     extension: {
       request: {
         judgementReason: "",
