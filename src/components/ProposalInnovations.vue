@@ -119,11 +119,11 @@ export default {
     },
     onFileChange(e) {
         const files = e.target.files || e.dataTransfer.files;
-        this.setFile(files[0]);
+        this.setProposalAttachmentFile(files[0]);
         this.createImage(files[0]);
         this.newProposal.file = files[0]; // いらないかも
     },
-    setFile(file) {
+    setProposalAttachmentFile(file) {
         this.$store
         .dispatch('proposalStore/storeFile', file)
         .then(() => {});

@@ -6,7 +6,10 @@ export default {
   state: {
     newProposal: {},
     registeredProposalId : '',
-    file : '',
+    proposalAttachmentFile : {
+      filePath: '',
+      fileName: ''
+    },
     proposalLists : '',
     proposal: {},
   },
@@ -21,7 +24,7 @@ export default {
         return state.proposal;
     },
     file(state) {
-        return state.file;
+        return state.proposalAttachmentFile;
     },
     proposalLists(state) {
         return state.proposalLists;
@@ -43,8 +46,8 @@ export default {
     setProposalLists(state, proposalLists) {
         state.proposalLists = proposalLists.proposals;
     },
-    setFile(state, file) {
-        state.file = file;
+    setProposalAttachmentFile(state, commit) {
+        state.proposalAttachmentFile = commit;
     },
   },
   actions: {
@@ -93,9 +96,15 @@ export default {
             headers: {
                 Authorization: state.getters.token,
             },
-          })
+            responseType: 'blob',
+          },)
           .then(response => {
-            state.commit('setFile', response.data);
+            const blob = new Blob([response.data], { type: "application/pdf" });
+            const url = (window.URL || window.webkitURL).createObjectURL(blob);
+            state.commit('setProposalAttachmentFile', {
+              filePath: url,
+              fileName: "提案ファイル"
+            });
           })
           .catch(err => {
             (this.errored = true), (this.error = err);
@@ -105,7 +114,7 @@ export default {
         state.commit('setNewProposal', commit.newProposal);
     },
     storeFile(state, commit) {
-        state.commit('setFile', commit);
+        state.commit('setProposalAttachmentFile', commit);
     },
     registerProposal(state, commit) {
         const termRequestUri = process.env.VUE_APP_API_ENDPOINT +'proposal';

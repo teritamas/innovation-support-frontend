@@ -11,6 +11,12 @@
     <div class="form-Item">
         <p class="form-Item-Label isMsg"><span class="form-Item-List"></span>添付資料</p>
         <div class="preview-item w-100 mt-2">
+        <embed
+            v-show="proposalAttachmentFile.filePath"
+            class="preview-item-file"
+            :src="proposalAttachmentFile.filePath"
+            alt=""
+        />
         </div>
     </div>
     <div class="form-Item">
@@ -32,7 +38,7 @@ export default {
   },
   props: {
     proposal: {},
-    proposalFile: {},
+    proposalAttachmentFile: {},
   },
 }
 </script>
