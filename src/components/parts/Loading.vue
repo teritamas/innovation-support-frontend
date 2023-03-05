@@ -8,9 +8,8 @@
           <div></div>
           <div></div>
           <div></div>
-          <p class="font-bold text-gray-600">
-            <LoadingCheck checkTarget="regist-check" lavel="登録完了" />
-            <LoadingCheck checkTarget="nft-check" lavel="NET作成完了" />
+          <p v-for="data in loadingText" :key=data.index class="font-bold text-white">
+            <LoadingCheck :checkTarget=data.checkTarget :label=data.label />
           </p>
         </div>
       </div>
@@ -25,9 +24,11 @@ import LoadingCheck from './LoadingCheck.vue'
     name: 'loading-',
     data() {
         return {
-            //loading: true,
         }
     },
+    props: [
+        'loadingText',
+    ],
     components: {
         LoadingCheck,
     },
@@ -45,7 +46,7 @@ import LoadingCheck from './LoadingCheck.vue'
 .fullview {
   width: 100%;
   height: 100%;
-  background: rgba(252, 255, 252, 0.8);
+  background: rgba(0, 0, 0, 0.7);
   position: fixed;
   top: 0;
   left: 0;

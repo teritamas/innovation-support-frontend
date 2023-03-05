@@ -1,7 +1,11 @@
 <template>
     <div class="w-full max-w-sm bg-white border border-gray-200 rounded-sm shadow dark:bg-gray-800 dark:border-gray-700">
     <a href="#">
-        <img class="rounded-t-sm" src="@/assets/img/ningyo.webp" alt="product image" />
+        <img 
+        class="rounded-t-sm"
+        alt="product image" 
+        :src="thumbnailImageUrl" 
+        @error="imageError = true"/>
     </a>
     <div class="pt-3 px-5 pb-5">
         <a href="#">
@@ -21,7 +25,7 @@
         <div class="flex items-center justify-between">
             <span class="text-2xl font-bold text-gray-900 dark:text-white">$599～$1999</span>
             <router-link
-                :to="{ name: 'proposalDetail', params: {proposal_id: proposalId } }"
+                :to="{ name: 'proposalDetail', params: {proposalId: proposalId } }"
                 class="text-white bg-btn hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 詳細を見る
             </router-link>
@@ -36,6 +40,12 @@ export default {
   name: 'proposalCards',
   components: {
   },
+  data() {
+    return {
+        imageError: false,
+        defaultImage: require("@/assets/img/proposalList/no_images.webp")
+    };
+  },
   props: {
     proposalId: String,
     title: String,
@@ -47,7 +57,13 @@ export default {
     tags: String,
     proposalWalletAddress: String,
     nftTokenId: String,
+  },
+  computed: {
+    thumbnailImageUrl() {
+      return this.imageError ? this.defaultImage : `${process.env.VUE_APP_API_ENDPOINT}proposal/${this.proposalId}/thumbnail`
+    },
   }
+  
 }
 </script>
 

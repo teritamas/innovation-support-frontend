@@ -7,7 +7,7 @@
       class="p-3 item"
     >
       <ProposalCards
-        :proposalId="proposal.proposal_id"
+        :proposalId="proposal.proposalId"
         :title="proposal.title"
         :description="proposal.description"
         :filePath="proposal.filePath"

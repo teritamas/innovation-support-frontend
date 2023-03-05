@@ -2,7 +2,7 @@
     <div class="content-center">
         <div class="card card-one">
             <div class="form mb-10">
-                <ProposalInfo :proposal=proposal :proposalFile=file />
+                <ProposalInfo :proposal=proposal :proposalAttachmentFile=proposalAttachmentFile />
             </div>
                 <!--ProposalVote コンポーネントに分けたい-->
                 <!-- 投票コンポーネント：自分が提案者じゃないかつ提案していないかつ投票受付中-->
@@ -35,7 +35,7 @@
                 <div class="form-Item">
                     <p class="form-Item-Label isMsg"><span class="form-Item-Label-Option">任意</span>賛否の理由</p>
                     <textarea
-                        v-model="judgement_reason"
+                        v-model="judgementReason"
                         class="form-Item-Textarea"
                         @input="onDelayAction"
                     ></textarea>
@@ -50,13 +50,16 @@
             <div class="bg-beige p-5" v-if="!showVoteArea">
                 <ProposalVoteStatus
                     :proposal=proposal
-                 />
+                    :voteStatus=voteStatus
+            />
             </div>
             <div class="">
                 <button class="form-Return-btn mb-10" @click="returnProposalLists()">戻る</button>
             </div>
         </div>
     </div>
+    <Loading v-show="loading" :loadingText="loadingText" />
+    <PageTransition v-show="PageTransition" :proposalId=proposalId :reward=reward />
 </template>
 
 <script>
@@ -64,6 +67,9 @@ import ProposalInfo from '../components/proposalDetails/ProposalInfo.vue'
 //import ProposalVote from '../components/proposalDetails/ProposalVote.vue'
 import ProposalVoteStatus from '../components/proposalDetails/ProposalVoteStatus.vue'
 import { debounce } from 'lodash';
+import Loading from '../components/parts/Loading.vue'
+import PageTransition from '../components/parts/PageTransitionVote.vue'
+
 
 export default {
   name: 'proposal-form',
@@ -71,24 +77,37 @@ export default {
     ProposalInfo,
     //ProposalVote,
     ProposalVoteStatus,
+    Loading,
+    PageTransition,
   },
   data() {
     return {
         judgement: '',
-        judgement_reason: '',
+        judgementReason: '',
+        loading: false,
+        PageTransition: false,
+        loadingText : [{
+            checkTarget : 'voted-check',
+            label: '投票完了'
+        },
+        {
+            checkTarget : 'token-check',
+            label: 'トークン作成完了'
+        },
+        ],
     };
   },
   computed: {
     showCongratulationArea() {
         // 投票エリアを表示する条件
-        return this.proposal.proposal_status == 'voting' && !this.voteDetail.isProposer && !this.voteDetail.voted
+        return this.proposal.proposalStatus == 'voting' && !this.voteDetail.isProposer && !this.voteDetail.voted
     },
     showVoteArea() {
         // 投票エリアを表示する条件
-        return this.proposal.proposal_status == 'voting' && !this.voteDetail.isProposer && !this.voteDetail.voted
+        return this.proposal.proposalStatus == 'voting' && !this.voteDetail.isProposer && !this.voteDetail.voted
     },
-    proposal_id() {
-      return this.$route.params['proposal_id'];
+    proposalId() {
+      return this.$route.params['proposalId'];
     },
     proposal() {
       return this.$store.getters['proposalStore/proposal'];
@@ -96,7 +115,7 @@ export default {
     detail() {
       return this.$store.getters['userStore/detail'];
     },
-    file() {
+    proposalAttachmentFile() {
         return this.$store.getters['proposalStore/file'];
     },
     voteDetail() {
@@ -108,6 +127,10 @@ export default {
         // positive_proposal_votes：肯定派意見
         // negative_proposal_votes：反対派意見
       return this.$store.getters['proposalVoteStore/getVoteStatus'];
+    },
+    reward() {
+        // 投票後に獲得する報酬
+      return this.$store.getters['proposalVoteStore/getReward'];
     },
     judgementReasonScore(){
       const score = this.$store.getters['proposalVoteStore/getJudgementReason']
@@ -135,19 +158,19 @@ export default {
       this.voteJudgementEnrichment()
     }, 2000),
     getProposal() {
-        const proposalId = this.proposal_id;
+        const proposalId = this.proposalId;
         return this.$store
         .dispatch('proposalStore/getProposal', proposalId)
         .then(() => {});
     },
     getVoteDetail() {
-        const proposalId = this.proposal_id;
+        const proposalId = this.proposalId;
         return this.$store
         .dispatch('proposalVoteStore/getVoteDetail', proposalId)
         .then(() => {});
     },
     getVoteStatus() {
-        const proposalId = this.proposal_id;
+        const proposalId = this.proposalId;
         return this.$store
         .dispatch('proposalVoteStore/getVoteStatus', proposalId)
         .then(() => {});
@@ -156,26 +179,54 @@ export default {
         this.$router.push('/lists');
     },
     vote() {
+        this.setLoading(true);
+        setTimeout(() => {
+            this.inCheck('voted-check');
+        }, 2000);
         const vote = {
             judgement: this.judgement,
-            judgement_reason : this.judgement_reason,
+            judgementReason : this.judgementReason,
         };
-        const proposalId = this.$route.params['proposal_id'];
+        const proposalId = this.$route.params['proposalId'];
         this.$store
           .dispatch('proposalVoteStore/vote', {proposalId, vote})
-          .then(() => {});
+          .then(() => {
+            this.inCheck('token-check');
+            setTimeout(() => {
+                this.setLoading(false);
+                this.outCheck('voted-check');
+                this.outCheck('token-check');
+                this.PageTransition = true;
+            }, 5000);
+          });
     },
     voteJudgementEnrichment(){
-      this.$store.commit('proposalVoteStore/setVoteJudgementEnrichmentRequest', {judgement_reason: this.judgement_reason})
+      this.$store.commit('proposalVoteStore/setVoteJudgementEnrichmentRequest', {judgementReason: this.judgementReason})
       this.$store
           .dispatch('proposalVoteStore/verifyVoteEnrichment', )
           .then(() => {});
     },
     getFile() {
-        const proposalId = this.proposal_id;
+        const proposalId = this.proposalId;
         return this.$store
         .dispatch('proposalStore/getProposalFile', proposalId)
         .then(() => {});
+    },
+    setLoading(bool) {
+        this.loading = bool;
+    },
+    loadCheck (checkTarget, time) {
+        setTimeout(() => {
+            this.inCheck(checkTarget)
+        }, time);
+    },
+    inCheck(checkTarget) {
+        let checkbox = document.getElementById(checkTarget);
+        checkbox.checked = true;
+    },
+    outCheck(checkTarget) {
+        let checkbox = document.getElementById(checkTarget);
+        checkbox.checked = false;
     },
   }
 }
