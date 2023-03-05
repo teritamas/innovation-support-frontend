@@ -54,6 +54,7 @@ export default {
         ]
     },
     reward : 0,
+    balance: 0,
   },
   getters: {
     token(state, getters, rootState, rootGetters) {
@@ -74,6 +75,9 @@ export default {
     getReward(state) {
         return state.reward
     },
+    getBalance(state) {
+      return state.balance
+  },
   },
   mutations: {
     setVoteJudgementEnrichmentRequest(state, commit) {
@@ -88,8 +92,10 @@ export default {
     setVoteStatus(state, commit) {
         state.voteStatus = commit;
     },
-    setReward(state, commit) {
-        state.reward = commit;
+    setVoteResponse(state, commit) {
+        console.log(commit)
+        state.reward = commit.reward;
+        state.balance = commit.balance;
     },
   },
   actions: {
@@ -147,7 +153,7 @@ export default {
       const termRequestUri =
           process.env.VUE_APP_API_ENDPOINT +'proposal/'+ commit.proposalId + '/vote';
           const body = commit.vote;
-          state.commit('setReward', 0);
+          state.commit('setVoteResponse', { "reword": 0, "balance": 0});
       return client
           .post(
           termRequestUri,
@@ -159,7 +165,7 @@ export default {
           }
           )
           .then((response) => {
-            state.commit('setReward', response.data.reward);
+            state.commit('setVoteResponse', response.data);
           })
           .catch(err => {
           (this.errored = true), (this.error = err);

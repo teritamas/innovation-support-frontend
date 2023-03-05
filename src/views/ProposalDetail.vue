@@ -59,7 +59,12 @@
         </div>
     </div>
     <Loading v-show="loading" :loadingText="loadingText" />
-    <PageTransition v-show="PageTransition" :proposalId=proposalId :reward=reward />
+    <PageTransition 
+      v-show="PageTransition" 
+      :proposalId=proposalId 
+      :reward=reward
+      :balance=balance
+      />
 </template>
 
 <script>
@@ -131,6 +136,10 @@ export default {
     reward() {
         // 投票後に獲得する報酬
       return this.$store.getters['proposalVoteStore/getReward'];
+    },
+    balance() {
+        // 投票後の残高
+      return this.$store.getters['proposalVoteStore/getBalance'];
     },
     judgementReasonScore(){
       const score = this.$store.getters['proposalVoteStore/getJudgementReason']

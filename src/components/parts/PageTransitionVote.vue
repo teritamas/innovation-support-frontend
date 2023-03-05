@@ -4,7 +4,8 @@
         <div class="bg-orange">
             <h3 class="font-bold text-center py-10">トークンを獲得しました！</h3>
             <div class="mt-1 mb-3 form-return-btn btn-font text-center text-gray-600">
-               {{`${reward} pt`}}
+              <p>獲得額: {{`${reward} pt`}}</p>
+              <p>残高: {{`${previousBalance} pt`}} → {{`${balance} pt`}} </p>
             </div>
             <div class="sankaku1"></div>
         </div>
@@ -43,13 +44,15 @@
     },
     props : {
         proposalId : String,
-        reward: String
+        reward: Number,
+        balance: Number
     },
-    components: {
-        //LoadingCheck,
+    computed: {
+      previousBalance() {
+        return this.balance - this.reward
+      }
     },
     mounted() {
-
     },
     updated() {
     },
