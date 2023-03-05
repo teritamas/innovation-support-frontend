@@ -9,7 +9,7 @@
           <div></div>
           <div></div>
           <p class="font-bold text-gray-600">
-            <LoadingCheck checkTarget="regist-check" lavel="登録完了" />
+            <LoadingCheck checkTarget="register-check" lavel="登録完了" />
             <LoadingCheck checkTarget="nft-check" lavel="NET作成完了" />
           </p>
         </div>
