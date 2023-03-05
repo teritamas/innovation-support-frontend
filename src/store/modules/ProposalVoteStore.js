@@ -18,43 +18,43 @@ export default {
       },
     },
     voteDetail: {
-        is_proposer: true,
+        isProposer: true,
         voted: true,
-        vote_content: {
-          proposal_id: "",
-          user_id: "",
+        voteContent: {
+          proposalId: "",
+          userId: "",
           judgement: false,
-          judgement_reason: "",
-          created_at: "2023-03-04T15:02:01.646609+09:00",
-          updated_at: "2023-03-04T15:02:01.646622+09:00",
-          nft_uri: "",
-          nft_token_id: ""
+          judgementReason: "",
+          createdAt: "2023-03-04T15:02:01.646609+09:00",
+          updatedAt: "2023-03-04T15:02:01.646622+09:00",
+          nftUri: "",
+          nftTokenId: ""
         }
     },
     voteStatus: {
-        vote_action: false,
-        positive_proposal_votes: [
+        voteAction: false,
+        positiveProposalVotes: [
           {
-            proposal_id: "",
-            user_id: "",
-            judgement: false,
-            judgement_reason: "",
-            created_at: "2023-03-04T15:02:01.646609+09:00",
-            updated_at: "2023-03-04T15:02:01.646622+09:00",
-            nft_uri: "",
-            nft_token_id: ""
+            proposalId: "",
+            userId: "",
+            judgement: true,
+            judgementReason: "",
+            createdAt: "2023-03-04T15:02:01.646609+09:00",
+            updatedAt: "2023-03-04T15:02:01.646622+09:00",
+            nftUri: "",
+            nftTokenId: ""
           }
         ],
-        negative_proposal_votes: [
+        negativeProposalVotes: [
           {
-            proposal_id: "",
-            user_id: "",
+            proposalId: "",
+            userId: "",
             judgement: false,
-            judgement_reason: "",
-            created_at: "2023-03-04T15:02:01.646609+09:00",
-            updated_at: "2023-03-04T15:02:01.646622+09:00",
-            nft_uri: "",
-            nft_token_id: ""
+            judgementReason: "",
+            createdAt: "2023-03-04T15:02:01.646609+09:00",
+            updatedAt: "2023-03-04T15:02:01.646622+09:00",
+            nftUri: "",
+            nftTokenId: ""
           }
         ]
     }
@@ -98,7 +98,7 @@ export default {
       const client = applyCaseMiddleware(axios.create());
       const termRequestUri =
           process.env.VUE_APP_API_ENDPOINT +'proposal/'+ commit + '/vote';
-          return client
+      return client
           .get(
           termRequestUri,
           {
@@ -117,26 +117,26 @@ export default {
     /**
      * 投票状況取得
      */
-        getVoteStatus(state, commit) {
-            const client = applyCaseMiddleware(axios.create());
-            const termRequestUri =
-                process.env.VUE_APP_API_ENDPOINT +'proposal/'+ commit + '/vote_status';
-                return client
-                .get(
-                termRequestUri,
-                {
-                    headers: {
-                    Authorization: state.getters.token,
-                    },
-                }
-                )
-                .then((response) => {
-                  state.commit('setVoteStatus', response.data);
-                })
-                .catch(err => {
-                (this.errored = true), (this.error = err);
-                });
-          },
+    getVoteStatus(state, commit) {
+        const client = applyCaseMiddleware(axios.create());
+        const termRequestUri =
+            process.env.VUE_APP_API_ENDPOINT +'proposal/'+ commit + '/vote_status';
+        return client
+            .get(
+            termRequestUri,
+            {
+                headers: {
+                Authorization: state.getters.token,
+                },
+            }
+            )
+            .then((response) => {
+              state.commit('setVoteStatus', response.data);
+            })
+            .catch(err => {
+            (this.errored = true), (this.error = err);
+            });
+      },
     /**
      * 投票
      */
@@ -146,7 +146,7 @@ export default {
           process.env.VUE_APP_API_ENDPOINT +'proposal/'+ commit.proposalId + '/vote';
           const body = commit.vote;
 
-        return client
+      return client
           .post(
           termRequestUri,
           body,

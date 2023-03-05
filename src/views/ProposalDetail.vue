@@ -50,7 +50,8 @@
             <div class="bg-beige p-5" v-if="!showVoteArea">
                 <ProposalVoteStatus
                     :proposal=proposal
-                 />
+                    :voteStatus=voteStatus
+            />
             </div>
             <div class="">
                 <button class="form-Return-btn mb-10" @click="returnProposalLists()">戻る</button>
@@ -81,11 +82,11 @@ export default {
   computed: {
     showCongratulationArea() {
         // 投票エリアを表示する条件
-        return this.proposal.proposal_status == 'voting' && !this.voteDetail.isProposer && !this.voteDetail.voted
+        return this.proposal.proposalStatus == 'voting' && !this.voteDetail.isProposer && !this.voteDetail.voted
     },
     showVoteArea() {
         // 投票エリアを表示する条件
-        return this.proposal.proposal_status == 'voting' && !this.voteDetail.isProposer && !this.voteDetail.voted
+        return this.proposal.proposalStatus == 'voting' && !this.voteDetail.isProposer && !this.voteDetail.voted
     },
     proposal_id() {
       return this.$route.params['proposal_id'];
