@@ -140,8 +140,6 @@ transform: translate(-50%,-50%);
     padding-top: 10px;
     padding-bottom: 10px;
     color: white;
-    width: 300px;
-
 }
 .form-return-btn {
     border-radius: 6px;
@@ -178,9 +176,7 @@ top: 50%;
 left: 50%;
 transform: translate(-50%,-50%);
   width: 300px;
-  height: 300px;
-  border-radius: 10px;
-  border-radius: 40% 70% 60% 40%/40% 40% 60% 70%;
+  height: 400px;
 }
 }
 

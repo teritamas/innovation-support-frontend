@@ -4,14 +4,15 @@
         <div class="bg-orange">
             <h3 class="font-bold text-center py-10">トークンを獲得しました！</h3>
             <div class="mt-1 mb-3 form-return-btn btn-font text-center text-gray-600">
-               {{`${reward} pt`}}
+              <p>獲得額: {{`${reward} pt`}}</p>
+              <p>残高: {{`${previousBalance} pt`}} → {{`${balance} pt`}} </p>
             </div>
             <div class="sankaku1"></div>
         </div>
         <div class="bg-yellow pb-10">
-            <router-link class="mt-1 form-return-btn btn-font text-center text-gray-600" :to="`/proposal/${proposalId}`">
+            <div class="mt-1 form-return-btn btn-font text-center text-gray-600" style="cursor: pointer;" @click="reset()">
                 投票結果を確認する
-            </router-link>
+            </div>
             <router-link class="mt-3 form-return-btn btn-font text-center text-gray-600" to="/gift">
                 獲得したトークンをギフトと交換する
             </router-link>
@@ -34,13 +35,18 @@ import CommonHanafubuki from '../parts/CommonHanafubuki.vue'
     },
     props : {
         proposalId : String,
-        reward: String
+        reward: Number,
+        balance: Number
     },
     components: {
         CommonHanafubuki
     },
+    computed: {
+      previousBalance() {
+        return this.balance - this.reward
+      }
+    },
     mounted() {
-
     },
     updated() {
     },
@@ -51,7 +57,10 @@ import CommonHanafubuki from '../parts/CommonHanafubuki.vue'
             setTimeout(() => {
                 this.copy='';
             }, 2000);
-        }
+        },
+        reset: function () {
+            this.$router.go({path: this.$router.currentRoute.path, force: true})
+    }
     },
   }
 </script>
@@ -132,17 +141,6 @@ transform: translate(-50%,-50%);
   z-index: 200;
 }
 
-.btn-copy {
-    border-radius: 6px;
-    background: lightslategrey;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    color: white;
-    width: 300px;
-
-}
 .form-return-btn {
     border-radius: 6px;
   margin-left: auto;
@@ -179,8 +177,6 @@ left: 50%;
 transform: translate(-50%,-50%);
   width: 300px;
   height: 300px;
-  border-radius: 10px;
-  border-radius: 40% 70% 60% 40%/40% 40% 60% 70%;
 }
 }
   </style>
