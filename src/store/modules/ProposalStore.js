@@ -34,6 +34,9 @@ export default {
     },
   },
   mutations: {
+    initialize(state){
+        state.newProposal = {}
+    },
     setRegisteredProposalId(state, registeredProposalId) {
         state.registeredProposalId = registeredProposalId;
     },
