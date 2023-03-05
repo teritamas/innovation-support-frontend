@@ -147,17 +147,6 @@ transform: translate(-50%,-50%);
   z-index: 200;
 }
 
-.btn-copy {
-    border-radius: 6px;
-    background: lightslategrey;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    color: white;
-    width: 300px;
-
-}
 .form-return-btn {
     border-radius: 6px;
   margin-left: auto;
@@ -194,8 +183,6 @@ left: 50%;
 transform: translate(-50%,-50%);
   width: 300px;
   height: 300px;
-  border-radius: 10px;
-  border-radius: 40% 70% 60% 40%/40% 40% 60% 70%;
 }
 }
 
