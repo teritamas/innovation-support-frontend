@@ -51,14 +51,6 @@
     props : {
         registeredProposalId : {}
     },
-    components: {
-        //LoadingCheck,
-    },
-    mounted() {
-
-    },
-    updated() {
-    },
     methods: {
         copyToClipboard(text) {
             navigator.clipboard.writeText(text)
