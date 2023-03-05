@@ -6,10 +6,10 @@
             </div>
                 <!--ProposalVote コンポーネントに分けたい-->
                 <!-- 投票コンポーネント：自分が提案者じゃないかつ提案していないかつ投票受付中-->
-                <div class="bg-beige pb-10" v-if="showVoteArea">
+                <div class="form mb-10 bg-beige" v-if="showVoteArea">
                     <div class="form-item">
                     <p class="form-item-label mb-2"><span class="form-item-label-Required">必須</span>賛否</p>
-                    <div class="radio-button-group mts w-full">
+                    <div class="radio-button-group mts w-full" style="margin-left: 0px">
                         <div class="item">
                             <div class="item">
                             <input
@@ -36,7 +36,7 @@
                     <p class="form-item-label is-msg"><span class="form-item-label-option">任意</span>賛否の理由</p>
                     <textarea
                         v-model="judgementReason"
-                        class="form-item-Textarea"
+                        class="form-item-textarea"
                         @input="onDelayAction"
                     ></textarea>
                     <div class="item">{{judgementReasonScore}}</div>
@@ -59,7 +59,12 @@
         </div>
     </div>
     <Loading v-show="loading" :loadingText="loadingText" />
-    <PageTransition v-show="PageTransition" :proposalId=proposalId :reward=reward />
+    <PageTransition 
+      v-show="PageTransition" 
+      :proposalId=proposalId 
+      :reward=reward
+      :balance=balance
+      />
 </template>
 
 <script>
@@ -131,6 +136,10 @@ export default {
     reward() {
         // 投票後に獲得する報酬
       return this.$store.getters['proposalVoteStore/getReward'];
+    },
+    balance() {
+        // 投票後の残高
+      return this.$store.getters['proposalVoteStore/getBalance'];
     },
     judgementReasonScore(){
       const score = this.$store.getters['proposalVoteStore/getJudgementReason']
