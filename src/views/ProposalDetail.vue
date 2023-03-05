@@ -58,6 +58,7 @@
             </div>
         </div>
     </div>
+    <Loading v-show="loading"/>
 </template>
 
 <script>
@@ -65,6 +66,8 @@ import ProposalInfo from '../components/proposalDetails/ProposalInfo.vue'
 //import ProposalVote from '../components/proposalDetails/ProposalVote.vue'
 import ProposalVoteStatus from '../components/proposalDetails/ProposalVoteStatus.vue'
 import { debounce } from 'lodash';
+import Loading from '../components/parts/Loading.vue'
+
 
 export default {
   name: 'proposal-form',
@@ -72,6 +75,7 @@ export default {
     ProposalInfo,
     //ProposalVote,
     ProposalVoteStatus,
+    Loading,
   },
   data() {
     return {

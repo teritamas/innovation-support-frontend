@@ -43,7 +43,7 @@
             </div>
         </div>
     </div>
-    <Loading v-show="loading"/>
+    <Loading v-show="loading" :loadingText="loadingText" />
     <PageTransition v-show="PageTransition" :registeredProposalId=registeredProposalId />
 </template>
 
@@ -61,8 +61,17 @@ export default {
   },
   data() {
     return {
-        loading: false,
+        loading: true,
         PageTransition: false,
+        loadingText : [{
+            checkTarget : 'register-check',
+            label: '登録完了'
+        },
+        {
+            checkTarget : 'nft-check',
+            label: 'NET作成完了'
+        },
+        ]
     };
   },
   computed: {

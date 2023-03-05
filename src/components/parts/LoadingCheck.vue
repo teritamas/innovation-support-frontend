@@ -9,7 +9,7 @@
             <use href="#check-stroke"></use>
             </svg>
         </div>
-        <div class="ml-2">{{ lavel }}</div>
+        <div class="ml-2">{{ label }}</div>
     </div>
 
     <svg class="template">
@@ -29,7 +29,7 @@ export default {
   components: {
   },
   props: {
-    lavel: String,
+    label: String,
     checkTarget: String,
   },
 }
