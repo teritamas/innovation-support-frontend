@@ -1,7 +1,11 @@
 <template>
     <div class="w-full max-w-sm bg-white border border-gray-200 rounded-sm shadow dark:bg-gray-800 dark:border-gray-700">
     <a href="#">
-        <img class="rounded-t-sm" src="@/assets/img/ningyo.webp" alt="product image" />
+        <img 
+        class="rounded-t-sm"
+        alt="product image" 
+        :src="thumbnailImageUrl" 
+        @error="imageError = true"/>
     </a>
     <div class="pt-3 px-5 pb-5">
         <a href="#">
@@ -36,6 +40,12 @@ export default {
   name: 'proposalCards',
   components: {
   },
+  data() {
+    return {
+        imageError: false,
+        defaultImage: require("@/assets/img/proposalList/no_images.webp")
+    };
+  },
   props: {
     proposalId: String,
     title: String,
@@ -47,7 +57,13 @@ export default {
     tags: String,
     proposalWalletAddress: String,
     nftTokenId: String,
+  },
+  computed: {
+    thumbnailImageUrl() {
+      return this.imageError ? this.defaultImage : `${process.env.VUE_APP_API_ENDPOINT}proposal/${this.proposalId}/thumbnail`
+    },
   }
+  
 }
 </script>
 
