@@ -52,7 +52,8 @@ export default {
             nftTokenId: ""
           }
         ]
-    }
+    },
+    reward : 0,
   },
   getters: {
     token(state, getters, rootState, rootGetters) {
@@ -70,6 +71,9 @@ export default {
     getVoteStatus(state) {
         return state.voteStatus
     },
+    getReward(state) {
+        return state.reward
+    },
   },
   mutations: {
     setVoteJudgementEnrichmentRequest(state, commit) {
@@ -83,6 +87,9 @@ export default {
     },
     setVoteStatus(state, commit) {
         state.voteStatus = commit;
+    },
+    setReward(state, commit) {
+        state.reward = commit;
     },
   },
   actions: {
@@ -126,7 +133,7 @@ export default {
             }
             )
             .then((response) => {
-              state.commit('setVoteStatus', response.data);
+                state.commit('setVoteStatus', response.data);
             })
             .catch(err => {
             (this.errored = true), (this.error = err);
@@ -140,7 +147,7 @@ export default {
       const termRequestUri =
           process.env.VUE_APP_API_ENDPOINT +'proposal/'+ commit.proposalId + '/vote';
           const body = commit.vote;
-
+          state.commit('setReward', 0);
       return client
           .post(
           termRequestUri,
@@ -152,7 +159,7 @@ export default {
           }
           )
           .then((response) => {
-            console.log(response);
+            state.commit('setReward', response.data.reward);
           })
           .catch(err => {
           (this.errored = true), (this.error = err);

@@ -52,9 +52,10 @@ export default {
   },
   actions: {
     getProposalList(state) {
+        const client = applyCaseMiddleware(axios.create());
         const termRequestUri =
           process.env.VUE_APP_API_ENDPOINT + 'proposal';
-          return axios
+          return client
           .get(termRequestUri, {
             withCredentials: false,
             headers: {

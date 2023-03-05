@@ -43,14 +43,14 @@
             </div>
         </div>
     </div>
-    <Loading v-show="loading"/>
+    <Loading v-show="loading" :loadingText="loadingText" />
     <PageTransition v-show="PageTransition" :registeredProposalId=registeredProposalId />
 </template>
 
 <script>
 import AppHeaderProposal from '../components/AppHeaderProposal.vue'
 import Loading from '../components/parts/Loading.vue'
-import PageTransition from '../components/parts/PageTransition.vue'
+import PageTransition from '../components/parts/PageTransitionProposal.vue'
 
 export default {
   name: 'proposal-form',
@@ -63,6 +63,15 @@ export default {
     return {
         loading: false,
         PageTransition: false,
+        loadingText : [{
+            checkTarget : 'register-check',
+            label: '登録完了'
+        },
+        {
+            checkTarget : 'nft-check',
+            label: 'NET作成完了'
+        },
+        ]
     };
   },
   computed: {

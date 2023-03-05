@@ -58,6 +58,8 @@
             </div>
         </div>
     </div>
+    <Loading v-show="loading" :loadingText="loadingText" />
+    <PageTransition v-show="PageTransition" :proposalId=proposalId :reward=reward />
 </template>
 
 <script>
@@ -65,6 +67,9 @@ import ProposalInfo from '../components/proposalDetails/ProposalInfo.vue'
 //import ProposalVote from '../components/proposalDetails/ProposalVote.vue'
 import ProposalVoteStatus from '../components/proposalDetails/ProposalVoteStatus.vue'
 import { debounce } from 'lodash';
+import Loading from '../components/parts/Loading.vue'
+import PageTransition from '../components/parts/PageTransitionVote.vue'
+
 
 export default {
   name: 'proposal-form',
@@ -72,11 +77,24 @@ export default {
     ProposalInfo,
     //ProposalVote,
     ProposalVoteStatus,
+    Loading,
+    PageTransition,
   },
   data() {
     return {
         judgement: '',
         judgementReason: '',
+        loading: false,
+        PageTransition: false,
+        loadingText : [{
+            checkTarget : 'voted-check',
+            label: '投票完了'
+        },
+        {
+            checkTarget : 'token-check',
+            label: 'トークン作成完了'
+        },
+        ],
     };
   },
   computed: {
@@ -88,8 +106,8 @@ export default {
         // 投票エリアを表示する条件
         return this.proposal.proposalStatus == 'voting' && !this.voteDetail.isProposer && !this.voteDetail.voted
     },
-    proposal_id() {
-      return this.$route.params['proposal_id'];
+    proposalId() {
+      return this.$route.params['proposalId'];
     },
     proposal() {
       return this.$store.getters['proposalStore/proposal'];
@@ -109,6 +127,10 @@ export default {
         // positive_proposal_votes：肯定派意見
         // negative_proposal_votes：反対派意見
       return this.$store.getters['proposalVoteStore/getVoteStatus'];
+    },
+    reward() {
+        // 投票後に獲得する報酬
+      return this.$store.getters['proposalVoteStore/getReward'];
     },
     judgementReasonScore(){
       const score = this.$store.getters['proposalVoteStore/getJudgementReason']
@@ -136,19 +158,19 @@ export default {
       this.voteJudgementEnrichment()
     }, 2000),
     getProposal() {
-        const proposalId = this.proposal_id;
+        const proposalId = this.proposalId;
         return this.$store
         .dispatch('proposalStore/getProposal', proposalId)
         .then(() => {});
     },
     getVoteDetail() {
-        const proposalId = this.proposal_id;
+        const proposalId = this.proposalId;
         return this.$store
         .dispatch('proposalVoteStore/getVoteDetail', proposalId)
         .then(() => {});
     },
     getVoteStatus() {
-        const proposalId = this.proposal_id;
+        const proposalId = this.proposalId;
         return this.$store
         .dispatch('proposalVoteStore/getVoteStatus', proposalId)
         .then(() => {});
@@ -157,14 +179,26 @@ export default {
         this.$router.push('/lists');
     },
     vote() {
+        this.setLoading(true);
+        setTimeout(() => {
+            this.inCheck('voted-check');
+        }, 2000);
         const vote = {
             judgement: this.judgement,
             judgementReason : this.judgementReason,
         };
-        const proposalId = this.$route.params['proposal_id'];
+        const proposalId = this.$route.params['proposalId'];
         this.$store
           .dispatch('proposalVoteStore/vote', {proposalId, vote})
-          .then(() => {});
+          .then(() => {
+            this.inCheck('token-check');
+            setTimeout(() => {
+                this.setLoading(false);
+                this.outCheck('voted-check');
+                this.outCheck('token-check');
+                this.PageTransition = true;
+            }, 5000);
+          });
     },
     voteJudgementEnrichment(){
       this.$store.commit('proposalVoteStore/setVoteJudgementEnrichmentRequest', {judgementReason: this.judgementReason})
@@ -173,10 +207,26 @@ export default {
           .then(() => {});
     },
     getFile() {
-        const proposalId = this.proposal_id;
+        const proposalId = this.proposalId;
         return this.$store
         .dispatch('proposalStore/getProposalFile', proposalId)
         .then(() => {});
+    },
+    setLoading(bool) {
+        this.loading = bool;
+    },
+    loadCheck (checkTarget, time) {
+        setTimeout(() => {
+            this.inCheck(checkTarget)
+        }, time);
+    },
+    inCheck(checkTarget) {
+        let checkbox = document.getElementById(checkTarget);
+        checkbox.checked = true;
+    },
+    outCheck(checkTarget) {
+        let checkbox = document.getElementById(checkTarget);
+        checkbox.checked = false;
     },
   }
 }
