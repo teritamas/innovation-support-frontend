@@ -77,7 +77,8 @@
                             <input
                                 type="text"
                                 class="form-item-input"
-                                placeholder="のむちん"
+                                placeholder="ニックネームを入力してください"
+                                style="margin-left: 0px"
                                 v-model="newUserName"
                             >
                         <button
@@ -386,7 +387,6 @@ $back-col: rgb(251 191 36);
     }
   }
 }
-
 /*** RESPONSIVE ***/
 
 @media only screen and (max-width: 810px) {
@@ -395,29 +395,6 @@ $back-col: rgb(251 191 36);
     margin-left: auto;
     margin-right: auto;
     z-index: 100;
-  }
-}
-
-
-.form-item-input {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding-left: 1em;
-  padding-right: 1em;
-  height: 48px;
-  flex: 1;
-  width: 100%;
-  max-width: 410px;
-  background: #fbfdff;
-  font-size: 18px;
-}
-@media screen and (max-width: 480px) {
-  .form-item-input {
-    margin-left: 0;
-    margin-top: 18px;
-    height: 40px;
-    flex: inherit;
-    font-size: 15px;
   }
 }
 </style>
