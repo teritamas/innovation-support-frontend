@@ -270,3 +270,7 @@ label.file::before {
     font-size: 16px;
   }
 }
+
+.form-btn-disabled {
+  background: rgb(247, 215, 135);
+} 
