@@ -9,20 +9,24 @@
                 <ProposalInnovations v-if="showContentsType === 'survey'" />
                 <ProposalInnovations v-if="showContentsType === 'tester'" />
         </div>
+        <PageTransitionRequiredLogin 
+          v-show="token==''"
+          :headerMessage="'新規に提案をする場合はログインをしてください'"
+          ></PageTransitionRequiredLogin>
     </div>
 </template>
 
 <script>
 import AppHeaderProposal from '../components/AppHeaderProposal.vue'
 import ProposalInnovations from '../components/ProposalInnovations.vue'
-//import UnderDevelopment from '../components/UnderDevelopment.vue'
+import PageTransitionRequiredLogin from '../components/parts/PageTransitionRequiredLogin.vue'
 
 export default {
   name: 'proposal-form',
   components: {
     AppHeaderProposal,
     ProposalInnovations,
-    //UnderDevelopment,
+    PageTransitionRequiredLogin
   },
   data() {
     return {
@@ -30,6 +34,9 @@ export default {
     };
   },
   computed: {
+    token() {
+        return this.$store.getters['userStore/token'];
+    },
   },
   methods: {
     showConfirmView : function () {
