@@ -42,7 +42,12 @@
                     <div class="item">{{judgementReasonScore}}</div>
                 </div>
                 <!--≪TODO≫すぐvoteじゃなくて、確認画面＋ログイン確認してから投票-->
-                <button class="form-btn" @click="vote()">投票する</button>
+                <button 
+                  class="form-btn"
+                  @click="vote()"  
+                  :disabled=v$.$invalid 
+                  :class="v$.$invalid ? 'form-btn-disabled': ''"
+                >投票する</button>
                 </div>
                 <!--ProposalVote コンポーネントに分けたい-->
 
@@ -70,19 +75,22 @@
 
 <script>
 import ProposalInfo from '../components/proposalDetails/ProposalInfo.vue'
-//import ProposalVote from '../components/proposalDetails/ProposalVote.vue'
 import ProposalVoteStatus from '../components/proposalDetails/ProposalVoteStatus.vue'
 import { debounce } from 'lodash';
 import Loading from '../components/parts/Loading.vue'
 import PageTransition from '../components/parts/PageTransitionVote.vue'
 import Congratulation from '../components/parts/Congratulation.vue'
+import { useVuelidate } from '@vuelidate/core'
 
+const validJudgement = (value) =>  value === '' ? false: true;
 
 export default {
-  name: 'proposal-form',
+  name: 'ProposalDetail',
+  setup () {
+    return { v$: useVuelidate() }
+  },
   components: {
     ProposalInfo,
-    //ProposalVote,
     ProposalVoteStatus,
     Loading,
     PageTransition,
@@ -105,6 +113,13 @@ export default {
         },
         ],
     };
+  },
+  validations () {
+    return {
+      judgement: {
+        validJudgement
+      }
+    }
   },
   computed: {
     showCongratulation() {
@@ -386,22 +401,6 @@ export default {
   }
 }
 
-.form-btn {
-  border-radius: 6px;
-  margin-top: 32px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  width: 280px;
-  display: block;
-  letter-spacing: 0.05em;
-  background: rgb(251 191 36);
-  color: #fff;
-  font-weight: bold;
-  font-size: 20px;
-}
-
 .form-Return-btn {
   border-radius: 6px;
   margin-top: 32px;
@@ -418,14 +417,6 @@ export default {
   font-size: 20px;
 }
 @media screen and (max-width: 480px) {
-  .form-btn {
-    margin-top: 24px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    width: 200px;
-    font-size: 16px;
-  }
-
   .form-Return-btn {
     margin-top: 12px;
     padding-top: 8px;

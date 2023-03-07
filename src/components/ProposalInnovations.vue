@@ -26,7 +26,7 @@
             >
         </div>
         <div class="form-item">
-            <p class="form-item-label"><span class="form-item-label-option">任意</span>添付資料（PDF）</p>
+            <p class="form-item-label"><span class="form-item-label-Required">必須</span>添付資料（PDF）</p>
             <div v-show="!newProposal.filePath" class="form-item-input-file">
                 <label class="border file mt-2 input-item__label">ファイルを選択
                     <input type="file" @change="onFileChange" />
@@ -62,6 +62,7 @@
                         class="radio-button"
                         value=false
                         id="button2"
+                        checked  
                     />
                     <label for="button2">募集しない</label>
                 </div>
@@ -84,14 +85,18 @@
                 class="form-item-textarea-on-proposal"
             ></textarea>
         </div>
-        <button class="form-btn mb-10" @click="showConfirmView">確認画面へ進む</button>
+            <button class="form-btn mb-10" @click="showConfirmView" :disabled=v$.$invalid :class="v$.$invalid ? 'form-btn-disabled': ''">確認画面へ進む</button>
         </div>
 </template>
 
 <script>
+import { useVuelidate } from '@vuelidate/core'
+import { required, maxLength } from '@vuelidate/validators'
+
 export default {
   name: 'proposal-form',
-  components: {
+setup () {
+    return { v$: useVuelidate() }
   },
   data() {
     return {
@@ -105,6 +110,16 @@ export default {
     file() {
         return this.$store.getters['proposalStore/file'];
     },
+  },
+validations () {
+    return {
+      newProposal: {
+        title: {required, maxLength:maxLength(30)},
+        description: {required, maxLength:maxLength(500)},
+        targetAmount: {required, },
+        filePath: {required},
+      }
+    }
   },
   methods: {
     showConfirmView : function () {
@@ -156,10 +171,6 @@ export default {
     display: inline-block;
     border-radius: 5px;
     border: 1px solid #dadada;
-}
-
-.form-item-textarea-margin{
-    margin-left: 40px;
 }
 
 label {
