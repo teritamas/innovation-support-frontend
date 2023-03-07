@@ -56,17 +56,23 @@
   </div>
   <Loading v-show="loading" :loadingText="loadingText" />
   <PageTransition v-show="PageTransition" />
+  <PageTransitionRequiredLogin 
+      v-show="token==''"
+      :headerMessage="'研修を購入する場合はログインをしてください'"
+    ></PageTransitionRequiredLogin>
 </template>
 
 <script>
 import Loading from "../components/parts/Loading.vue";
 import PageTransition from "../components/parts/PageTransitionPurchaseGift.vue";
+import PageTransitionRequiredLogin from '../components/parts/PageTransitionRequiredLogin.vue'
 
 export default {
   name: "proposal-form",
   components: {
     Loading,
     PageTransition,
+    PageTransitionRequiredLogin
   },
   data() {
     return {
@@ -84,6 +90,9 @@ export default {
     img: String,
   },
   computed: {
+    token() {
+        return this.$store.getters['userStore/token'];
+    },
     giftId() {
       return this.$route.params["giftId"];
     },
