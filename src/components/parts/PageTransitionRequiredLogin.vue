@@ -157,8 +157,6 @@ h3 {
     transform: translate(-50%, -50%);
     width: 300px;
     height: 300px;
-    border-radius: 10px;
-    border-radius: 40% 70% 60% 40%/40% 40% 60% 70%;
   }
 }
 </style>
