@@ -1,14 +1,14 @@
 <template>
 <footer class="text-gray-600 body-font fixed bottom-2 shadow w-full">
-  <div class="bg-footer grid grid-cols-5">
-        <router-link class="footer-item block text-gray-500" to="/">
+  <div class="bg-footer grid grid-cols-4">
+        <!-- <router-link class="footer-item block text-gray-500" to="/">
             <div class="p-1 py-2 grid justify-items-center">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
               </svg>
               <small>ホーム</small>
             </div>
-        </router-link>
+        </router-link> -->
         <router-link class="footer-item block text-gray-500" to="/proposal">
             <div class="p-1 py-2 grid justify-items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
