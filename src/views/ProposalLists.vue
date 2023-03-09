@@ -1,6 +1,6 @@
 <template>
   <AppHeaderProposal />
-  <div class="horizontal-list">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
     <div
       v-for="proposal in proposalLists"
       :key="proposal.index"
@@ -55,10 +55,6 @@ export default {
 </script>
 
 <style>
-.horizontal-list {
-  overflow-x: auto;
-  white-space: nowrap;
-}
 .item {
   display: inline-block;
 }
