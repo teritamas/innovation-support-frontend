@@ -1,95 +1,55 @@
 <template>
-    <div class="w-full max-w-sm bg-white border border-gray-200 rounded-sm shadow dark:bg-gray-800 dark:border-gray-700">
-        <router-link
-                :to="{ name: 'proposalDetail', params: {proposalId: proposalId } }"
-        >
-            <img 
-            class="rounded-t-sm w-full"
-            alt="product image" 
-            :src="thumbnailImageUrl" 
-            @error="imageError = true"/>
-            <h4 class="text-xl py-2 font-bold tracking-tight text-gray-900 dark:text-white p-5">{{ title }}</h4>
-            <div class="pt-1 px-5">
-                <div class="flex justify-between">
-                    <span class="text-rose-700 text-bold mb-2 text-lg">あと 1 週間</span>
-                    <div class="text-gray-700 text-bold mb-2">獲得できるトークン <span class="text-lg font-bold">{{ targetAmount }}</span> pts</div>
-                </div>
-                <div class="progBar">
-                    <p class="bar"></p>
-                </div>
-                <small>事業化まであと 25票 !</small>
-            </div>
-        </router-link>
-
-            <div class="horizontal-list">
-                <div class="text-center inline-block p-1">
-                    <img class="avatar" src="@/assets/img/2754574_business_people_person_man_male_avatar_face_user.png" alt="">
-                    <small>賛成</small>
-                </div>
-                <div class="text-center inline-block p-1">
-                    <img class="avatar" src="@/assets/img/2754575_male_people_business_user_face_avatar_man_avatar.png" alt="">
-                    <small>賛成</small>
-                </div>
-                <div class="text-center inline-block p-1">
-                    <img class="avatar" src="@/assets/img/2754576_people_business_user_face_avatar_avatar_woman_female.png" alt="">
-                    <small>賛成</small>
-                </div>
-                <div class="text-center inline-block p-1">
-                    <img class="avatar" src="@/assets/img/2754578_face_user_avatar_male_man_avatar_user_business_people.png" alt="">
-                    <small>賛成</small>
-                </div>
-                <div class="text-center inline-block p-1">
-                    <img class="avatar" src="@/assets/img/2754581_avatar_business_user_face_avatar_woman_people_user_female.png" alt="">
-                    <small>反対</small>
-                </div>
-                <div class="text-center inline-block p-1">
-                    <img class="avatar" src="@/assets/img/2754583_user_people_business_user_face_avatar_man_avatar.png" alt="">
-                    <small>賛成</small>
-                </div>
-                <div class="text-center inline-block p-1">
-                    <img class="avatar" src="@/assets/img/2754574_business_people_person_man_male_avatar_face_user.png" alt="">
-                    <small>賛成</small>
-                </div>
-                <div class="text-center inline-block p-1">
-                    <img class="avatar" src="@/assets/img/2754575_male_people_business_user_face_avatar_man_avatar.png" alt="">
-                    <small>賛成</small>
-                </div>
-                <div class="text-center inline-block p-1">
-                    <img class="avatar" src="@/assets/img/2754576_people_business_user_face_avatar_avatar_woman_female.png" alt="">
-                    <small>賛成</small>
-                </div>
-                <div class="text-center inline-block p-1">
-                    <img class="avatar" src="@/assets/img/2754578_face_user_avatar_male_man_avatar_user_business_people.png" alt="">
-                    <small>賛成</small>
-                </div>
-                <div class="text-center inline-block p-1">
-                    <img class="avatar" src="@/assets/img/2754581_avatar_business_user_face_avatar_woman_people_user_female.png" alt="">
-                    <small>反対</small>
-                </div>
-                <div class="text-center inline-block p-1">
-                    <img class="avatar" src="@/assets/img/2754583_user_people_business_user_face_avatar_man_avatar.png" alt="">
-                    <small>賛成</small>
-                </div>
-            </div>
-        <div class="py-1 px-5 bg-yellow">
-            <div class="comment">
-                あやちんさんの新事業に賛成です！理由はあやちんさんがとてもすごいからです。いつもすごいので新事業もイケているに決まっています。
-            </div>
+  <div
+    class="w-full max-w-sm bg-white border border-gray-200 rounded-sm shadow dark:bg-gray-800 dark:border-gray-700"
+  >
+    <router-link
+      :to="{ name: 'proposalDetail', params: { proposalId: proposalId } }"
+    >
+      <img
+        class="rounded-t-sm"
+        alt="product image"
+        :src="thumbnailImageUrl"
+        @error="imageError = true"
+      />
+      <h4
+        class="text-xl py-2 font-bold tracking-tight text-gray-900 dark:text-white p-5"
+      >
+        {{ title }}
+      </h4>
+      <div class="pt-1 px-5">
+        <div class="flex justify-between">
+          <span class="text-rose-700 text-bold mb-2 text-lg"
+            >あと {{ limitDate }} 日</span
+          >
+          <div class="text-gray-700 text-bold mb-2">
+            調達目標トークン
+            <span class="text-lg font-bold">{{ procurementTokenAmount }}</span>
+            pts
+          </div>
         </div>
-    </div>
+        <div class="progBar">
+          <p class="bar" :style="{ width: progBarSize }"></p>
+        </div>
+        <small>事業化まであと {{ requiredVotesCount }}票 !</small>
+      </div>
+    </router-link>
+
+    <voters-comment-list :voteList="voteList"></voters-comment-list>
+  </div>
 </template>
 
 <script>
-
+import VotersCommentList from "./parts/VotersCommentList.vue";
+import moment from "moment";
 export default {
-  name: 'proposalCards',
+  name: "proposalCards",
   components: {
+    VotersCommentList,
   },
   data() {
     return {
-        imageError: false,
-        defaultImage: require("@/assets/img/proposalList/no_images.webp"),
-        progress: 70, // 進捗のカウント,
+      imageError: false,
+      defaultImage: require("@/assets/img/proposalList/no_images.webp"),
     };
   },
   props: {
@@ -99,39 +59,60 @@ export default {
     filePath: String,
     targetAmount: String,
     isRecruitingTeammates: Boolean,
-    otherContents: String,
+    createdAt: Date,
     tags: String,
-    proposalWalletAddress: String,
     nftTokenId: String,
+    fundraisingCondition: Object,
+    voteList: Object,
   },
   computed: {
     thumbnailImageUrl() {
-      return this.imageError ? this.defaultImage : `${process.env.VUE_APP_API_ENDPOINT}proposal/${this.proposalId}/thumbnail`
+      return this.imageError
+        ? this.defaultImage
+        : `${process.env.VUE_APP_API_ENDPOINT}proposal/${this.proposalId}/thumbnail`;
     },
-  }
-  
-}
+    procurementTokenAmount() {
+      return this.fundraisingCondition
+        ? this.fundraisingCondition.procurementTokenAmount
+        : "None";
+    },
+    minVoterCount() {
+      if (this.fundraisingCondition === null) {
+        return 10;
+      }
+      return this.fundraisingCondition.minVoterCount;
+    },
+    limitDate() {
+      let limitDate = 7;
+      if (this.fundraisingCondition !== null) {
+        limitDate = this.fundraisingCondition.limitDate;
+      }
+
+      const startDate = moment(this.createdAt);
+      const expiredDate = startDate.clone().add(limitDate, "days");
+      const duration = moment(expiredDate).diff(startDate, "days");
+      console.log(expiredDate, startDate, duration, limitDate);
+      return duration > -1 ? duration : 0;
+    },
+    requiredVotesCount() {
+      const remainingVotesCount = this.minVoterCount - this.voteList.length;
+      return remainingVotesCount < 0 ? 0 : remainingVotesCount;
+    },
+    progBarSize() {
+      const voteRate = this.voteList.length / this.minVoterCount;
+      return (voteRate > 1 ? 1 : voteRate) * 100 + "%";
+    },
+  },
+};
 </script>
 
 <style lang=scss scoped>
-.comment {
-    margin: .5rem;
-    padding: .5rem;
-    border-radius: 5px;
-    background: white;
-    font-size: .9rem;
-}
-.horizontal-list {
-  overflow-x: auto;
-  white-space: nowrap;
-}
 .bg-btn {
-    background: rgb(251 191 36);
-    border-radius: 30px;
-    width: 160px;
-    font-weight: bolder;
+  background: rgb(251 191 36);
+  border-radius: 30px;
+  width: 160px;
+  font-weight: bolder;
 }
-
 .step-progress {
   display: flex;
   width: 100%;
@@ -139,28 +120,20 @@ export default {
   background-color: #00416a;
   transition: 0.5s;
 }
-
 .text-rose-700 {
-    color: rgb(190 18 60);
-    font-weight: bold;
+  color: rgb(190 18 60);
+  font-weight: bold;
 }
-.avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
+.progBar {
+  height: 40px;
+  background-color: #ececec;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
 }
-
-.progBar{
-    height:40px;
-    background-color:#ececec;
-    position:relative;
-    border-radius:10px;
-    overflow: hidden;
-}
-.progBar .bar{
-    position:absolute;
-    height:100%;
-    background-color:#FFCA28;
-    width: 70%
+.progBar .bar {
+  position: absolute;
+  height: 100%;
+  background-color: #ffca28;
 }
 </style>
