@@ -1,184 +1,211 @@
 <template>
-    <div class="content-center">
-        <div class="card card-one">
-            <div class="form mb-10">
-                <ProposalInfo :proposal=proposal :proposalAttachmentFile=proposalAttachmentFile />
+  <div class="content-center">
+    <div class="card card-one">
+      <div class="form mb-10">
+        <ProposalInfo
+          :proposal="proposal"
+          :proposalAttachmentFile="proposalAttachmentFile"
+        />
+      </div>
+      <!--ProposalVote コンポーネントに分けたい-->
+      <!-- 投票コンポーネント：自分が提案者じゃないかつ提案していないかつ投票受付中-->
+      <div class="form mb-10 bg-beige" v-if="showVoteArea">
+        <div class="form-item">
+          <p class="form-item-label mb-2">
+            <span class="form-item-label-Required">必須</span>賛否
+          </p>
+          <div class="radio-button-group mts w-full" style="margin-left: 0px">
+            <div class="item">
+              <div class="item">
+                <input
+                  type="radio"
+                  v-model="judgement"
+                  class="radio-button"
+                  value="true"
+                  id="button1"
+                />
+                <label for="button1">賛成</label>
+              </div>
+              <input
+                type="radio"
+                v-model="judgement"
+                class="radio-button"
+                value="false"
+                id="button2"
+              />
+              <label for="button2">反対</label>
             </div>
-                <!--ProposalVote コンポーネントに分けたい-->
-                <!-- 投票コンポーネント：自分が提案者じゃないかつ提案していないかつ投票受付中-->
-                <div class="form mb-10 bg-beige" v-if="showVoteArea">
-                    <div class="form-item">
-                    <p class="form-item-label mb-2"><span class="form-item-label-Required">必須</span>賛否</p>
-                    <div class="radio-button-group mts w-full" style="margin-left: 0px">
-                        <div class="item">
-                            <div class="item">
-                            <input
-                                type="radio"
-                                v-model="judgement"
-                                class="radio-button"
-                                value=true
-                                id="button1"
-                            />
-                            <label for="button1">賛成</label>
-                        </div>
-                            <input
-                                type="radio"
-                                v-model="judgement"
-                                class="radio-button"
-                                value=false
-                                id="button2"
-                            />
-                            <label for="button2">反対</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-item">
-                    <p class="form-item-label is-msg"><span class="form-item-label-option">任意</span>賛否の理由</p>
-                    <textarea
-                        v-model="judgementReason"
-                        class="form-item-textarea"
-                        @input="onDelayAction"
-                    ></textarea>
-                    <div class="item">{{judgementReasonScore}}</div>
-                </div>
-                <!--≪TODO≫すぐvoteじゃなくて、確認画面＋ログイン確認してから投票-->
-                <button 
-                  class="form-btn"
-                  @click="vote()"  
-                  :disabled=v$.$invalid 
-                  :class="v$.$invalid ? 'form-btn-disabled': ''"
-                >投票する</button>
-                </div>
-                <!--ProposalVote コンポーネントに分けたい-->
-
-            <!--pytestの実行サンプルがaccept-->
-            <div class="bg-beige p-5" v-if="!showVoteArea">
-                <ProposalVoteStatus
-                    :proposal=proposal
-                    :voteStatus=voteStatus
-            />
-            </div>
-            <div class="">
-                <button class="form-Return-btn mb-10" @click="returnProposalLists()">戻る</button>
-            </div>
+          </div>
         </div>
+        <div class="form-item">
+          <p class="form-item-label is-msg">
+            <span class="form-item-label-option">任意</span>賛否の理由
+          </p>
+          <textarea
+            v-model="judgementReason"
+            class="form-item-textarea"
+            @input="onDelayAction"
+          ></textarea>
+          <div class="item">{{ judgementReasonScore }}</div>
+        </div>
+        <!--≪TODO≫すぐvoteじゃなくて、確認画面＋ログイン確認してから投票-->
+        <button
+          class="form-btn"
+          @click="vote()"
+          :disabled="v$.$invalid"
+          :class="v$.$invalid ? 'form-btn-disabled' : ''"
+        >
+          投票する
+        </button>
+      </div>
+      <!--ProposalVote コンポーネントに分けたい-->
+
+      <!--pytestの実行サンプルがaccept-->
+      <div class="bg-beige p-5" v-if="!showVoteArea">
+        <ProposalVoteStatus :proposal="proposal" :voteStatus="voteStatus" />
+        <div class="form mb-10">
+          <h2>投票者のコメント</h2>
+          <voters-comment-list :voteList="voteList"></voters-comment-list>
+        </div>
+      </div>
+      <div class="">
+        <button class="form-Return-btn mb-10" @click="returnProposalLists()">
+          戻る
+        </button>
+      </div>
     </div>
-    <Loading v-show="loading" :loadingText="loadingText" />
-    <PageTransition 
-      v-show="PageTransition" 
-      :proposalId=proposalId 
-      :reward=reward
-      :balance=balance
-      />
-    <Congratulation @popClose="popClose" v-show="showCongratulation" />
+  </div>
+  <Loading v-show="loading" :loadingText="loadingText" />
+  <PageTransition
+    v-show="PageTransition"
+    :proposalId="proposalId"
+    :reward="reward"
+    :balance="balance"
+  />
+  <Congratulation @popClose="popClose" v-show="showCongratulation" />
 </template>
 
 <script>
-import ProposalInfo from '../components/proposalDetails/ProposalInfo.vue'
-import ProposalVoteStatus from '../components/proposalDetails/ProposalVoteStatus.vue'
-import { debounce } from 'lodash';
-import Loading from '../components/parts/Loading.vue'
-import PageTransition from '../components/parts/PageTransitionVote.vue'
-import Congratulation from '../components/parts/Congratulation.vue'
-import { useVuelidate } from '@vuelidate/core'
+import ProposalInfo from "../components/proposalDetails/ProposalInfo.vue";
+import VotersCommentList from "../components/parts/VotersCommentList.vue";
+import ProposalVoteStatus from "../components/proposalDetails/ProposalVoteStatus.vue";
+import { debounce } from "lodash";
+import Loading from "../components/parts/Loading.vue";
+import PageTransition from "../components/parts/PageTransitionVote.vue";
+import Congratulation from "../components/parts/Congratulation.vue";
+import { useVuelidate } from "@vuelidate/core";
 
-const validJudgement = (value) =>  value === '' ? false: true;
+const validJudgement = (value) => (value === "" ? false : true);
 
 export default {
-  name: 'ProposalDetail',
-  setup () {
-    return { v$: useVuelidate() }
+  name: "ProposalDetail",
+  setup() {
+    return { v$: useVuelidate() };
   },
   components: {
     ProposalInfo,
     ProposalVoteStatus,
     Loading,
+    VotersCommentList,
     PageTransition,
     Congratulation,
   },
   data() {
     return {
-        judgement: '',
-        judgementReason: '',
-        loading: false,
-        PageTransition: false,
-        openCongratulationPop: true,
-        loadingText : [{
-            checkTarget : 'voted-check',
-            label: '投票完了'
+      judgement: "",
+      judgementReason: "",
+      loading: false,
+      PageTransition: false,
+      openCongratulationPop: true,
+      loadingText: [
+        {
+          checkTarget: "voted-check",
+          label: "投票完了",
         },
         {
-            checkTarget : 'token-check',
-            label: 'トークン作成完了'
+          checkTarget: "token-check",
+          label: "トークン作成完了",
         },
-        ],
+      ],
     };
   },
-  validations () {
+  validations() {
     return {
       judgement: {
-        validJudgement
-      }
-    }
+        validJudgement,
+      },
+    };
   },
   computed: {
     showCongratulation() {
-        return this.openCongratulationPop && this.congratulation;
+      return this.openCongratulationPop && this.congratulation;
     },
     congratulation() {
-        return this.proposal.proposalStatus == 'accept' && this.voteDetail.isProposer
+      return (
+        this.proposal.proposalStatus == "accept" && this.voteDetail.isProposer
+      );
     },
     showCongratulationArea() {
-        // 投票エリアを表示する条件
-        return this.proposal.proposalStatus == 'voting' && !this.voteDetail.isProposer && !this.voteDetail.voted
+      // 投票エリアを表示する条件
+      return (
+        this.proposal.proposalStatus == "voting" &&
+        !this.voteDetail.isProposer &&
+        !this.voteDetail.voted
+      );
     },
     showVoteArea() {
-        // 投票エリアを表示する条件
-        return this.proposal.proposalStatus == 'voting' && !this.voteDetail.isProposer && !this.voteDetail.voted
+      // 投票エリアを表示する条件
+      return (
+        this.proposal.proposalStatus == "voting" &&
+        !this.voteDetail.isProposer &&
+        !this.voteDetail.voted
+      );
     },
     proposalId() {
-      return this.$route.params['proposalId'];
+      return this.$route.params["proposalId"];
     },
     proposal() {
-      return this.$store.getters['proposalStore/proposal'];
+      return this.$store.getters["proposalStore/proposal"];
     },
     detail() {
-      return this.$store.getters['userStore/detail'];
+      return this.$store.getters["userStore/detail"];
     },
     proposalAttachmentFile() {
-        return this.$store.getters['proposalStore/file'];
+      return this.$store.getters["proposalStore/file"];
     },
     voteDetail() {
-        // 提案詳細
-      return this.$store.getters['proposalVoteStore/getVoteDetail'];
+      // 提案詳細
+      return this.$store.getters["proposalVoteStore/getVoteDetail"];
     },
     voteStatus() {
-        // vote_action：投票を受け付けているか
-        // positive_proposal_votes：肯定派意見
-        // negative_proposal_votes：反対派意見
-      return this.$store.getters['proposalVoteStore/getVoteStatus'];
+      // vote_action：投票を受け付けているか
+      // positive_proposal_votes：肯定派意見
+      // negative_proposal_votes：反対派意見
+      return this.$store.getters["proposalVoteStore/getVoteStatus"];
+    },
+    voteList() {
+      return this.proposal.votes;
     },
     reward() {
-        // 投票後に獲得する報酬
-      return this.$store.getters['proposalVoteStore/getReward'];
+      // 投票後に獲得する報酬
+      return this.$store.getters["proposalVoteStore/getReward"];
     },
     balance() {
-        // 投票後の残高
-      return this.$store.getters['proposalVoteStore/getBalance'];
+      // 投票後の残高
+      return this.$store.getters["proposalVoteStore/getBalance"];
     },
-    judgementReasonScore(){
-      const score = this.$store.getters['proposalVoteStore/getJudgementReason']
+    judgementReasonScore() {
+      const score = this.$store.getters["proposalVoteStore/getJudgementReason"];
       const baseMessage = `獲得予定トークン: ${score}`;
-      if( score == 1){
-        return `${baseMessage} 内容が充実しており良いメッセージです！` 
+      if (score == 1) {
+        return `${baseMessage} 内容が充実しており良いメッセージです！`;
+      } else if (score >= 0.6) {
+        return `${baseMessage} もうひといき！提案者のためにもう少し詳細に書きましょう！`;
+      } else if (score >= 0.1) {
+        return `${baseMessage} 内容が少なく、獲得できるトークンが少ないです。`;
       }
-      else if (score >= 0.6){
-        return `${baseMessage} もうひといき！提案者のためにもう少し詳細に書きましょう！` 
-      }else if (score >= 0.1){
-        return `${baseMessage} 内容が少なく、獲得できるトークンが少ないです。` 
-      }
-      return ''
-    }
+      return "";
+    },
   },
   mounted() {
     this.openCongratulationPop = true;
@@ -191,90 +218,91 @@ export default {
     this.getFile();
   },
   methods: {
-    onDelayAction: debounce(function() {
-      this.voteJudgementEnrichment()
+    onDelayAction: debounce(function () {
+      this.voteJudgementEnrichment();
     }, 2000),
     getProposal() {
-        const proposalId = this.proposalId;
-        return this.$store
-        .dispatch('proposalStore/getProposal', proposalId)
+      const proposalId = this.proposalId;
+      return this.$store
+        .dispatch("proposalStore/getProposal", proposalId)
         .then(() => {});
     },
     getVoteDetail() {
-        const proposalId = this.proposalId;
-        return this.$store
-        .dispatch('proposalVoteStore/getVoteDetail', proposalId)
+      const proposalId = this.proposalId;
+      return this.$store
+        .dispatch("proposalVoteStore/getVoteDetail", proposalId)
         .then(() => {});
     },
     getVoteStatus() {
-        const proposalId = this.proposalId;
-        return this.$store
-        .dispatch('proposalVoteStore/getVoteStatus', proposalId)
+      const proposalId = this.proposalId;
+      return this.$store
+        .dispatch("proposalVoteStore/getVoteStatus", proposalId)
         .then(() => {});
     },
-    returnProposalLists : function () {
-        this.$router.push('/lists');
+    returnProposalLists: function () {
+      this.$router.push("/lists");
     },
     vote() {
-        this.setLoading(true);
-        setTimeout(() => {
-            this.inCheck('voted-check');
-        }, 2000);
-        const vote = {
-            judgement: this.judgement,
-            judgementReason : this.judgementReason,
-        };
-        const proposalId = this.$route.params['proposalId'];
-        this.$store
-          .dispatch('proposalVoteStore/vote', {proposalId, vote})
-          .then(() => {
-            this.inCheck('token-check');
-            setTimeout(() => {
-                this.setLoading(false);
-                this.outCheck('voted-check');
-                this.outCheck('token-check');
-                this.PageTransition = true;
-            }, 5000);
-          });
-    },
-    voteJudgementEnrichment(){
-      this.$store.commit('proposalVoteStore/setVoteJudgementEnrichmentRequest', {judgementReason: this.judgementReason})
+      this.setLoading(true);
+      setTimeout(() => {
+        this.inCheck("voted-check");
+      }, 2000);
+      const vote = {
+        judgement: this.judgement,
+        judgementReason: this.judgementReason,
+      };
+      const proposalId = this.$route.params["proposalId"];
       this.$store
-          .dispatch('proposalVoteStore/verifyVoteEnrichment', )
-          .then(() => {});
+        .dispatch("proposalVoteStore/vote", { proposalId, vote })
+        .then(() => {
+          this.inCheck("token-check");
+          setTimeout(() => {
+            this.setLoading(false);
+            this.outCheck("voted-check");
+            this.outCheck("token-check");
+            this.PageTransition = true;
+          }, 5000);
+        });
+    },
+    voteJudgementEnrichment() {
+      this.$store.commit(
+        "proposalVoteStore/setVoteJudgementEnrichmentRequest",
+        { judgementReason: this.judgementReason }
+      );
+      this.$store
+        .dispatch("proposalVoteStore/verifyVoteEnrichment")
+        .then(() => {});
     },
     getFile() {
-        const proposalId = this.proposalId;
-        return this.$store
-        .dispatch('proposalStore/getProposalFile', proposalId)
+      const proposalId = this.proposalId;
+      return this.$store
+        .dispatch("proposalStore/getProposalFile", proposalId)
         .then(() => {});
     },
     setLoading(bool) {
-        this.loading = bool;
+      this.loading = bool;
     },
-    loadCheck (checkTarget, time) {
-        setTimeout(() => {
-            this.inCheck(checkTarget)
-        }, time);
+    loadCheck(checkTarget, time) {
+      setTimeout(() => {
+        this.inCheck(checkTarget);
+      }, time);
     },
     inCheck(checkTarget) {
-        let checkbox = document.getElementById(checkTarget);
-        checkbox.checked = true;
+      let checkbox = document.getElementById(checkTarget);
+      checkbox.checked = true;
     },
     outCheck(checkTarget) {
-        let checkbox = document.getElementById(checkTarget);
-        checkbox.checked = false;
+      let checkbox = document.getElementById(checkTarget);
+      checkbox.checked = false;
     },
     popClose() {
-        this.openCongratulationPop = false;
+      this.openCongratulationPop = false;
     },
-  }
-}
-
+  },
+};
 </script>
 
 <style scoped>
-
 .card {
   float: left;
   margin-top: 1rem;
@@ -288,15 +316,15 @@ export default {
   height: 80vh;
   width: 90vw;
   background: white;
-  box-shadow: 0 10px 7px -5px rgba(#000,.4);
+  box-shadow: 0 10px 7px -5px rgba(#000, 0.4);
 }
 
 .preview-item {
-    width: 100%;
+  width: 100%;
 }
 .preview-item-file {
-    width: 100%;
-    min-height: 300px;
+  width: 100%;
+  min-height: 300px;
 }
 
 .form {
@@ -423,6 +451,6 @@ export default {
     padding-bottom: 8px;
     width: 200px;
     font-size: 16px;
-}
+  }
 }
 </style>

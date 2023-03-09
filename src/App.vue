@@ -32,11 +32,6 @@ import AppFooter from './components/AppFooter.vue';
  }
 
 
-//$main-col: #303f9f;
-//$main-col: rgb(251 191 36);
-//$sec-col: lighten(#303f9f, 20%);
-//$back-col: #c5cae9;
-
 main {
     width: 100%;
     position: absolute;

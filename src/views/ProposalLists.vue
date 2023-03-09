@@ -1,6 +1,6 @@
 <template>
   <AppHeaderProposal />
-  <div class="horizontal-list">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
     <div
       v-for="proposal in proposalLists"
       :key="proposal.index"
@@ -13,10 +13,11 @@
         :filePath="proposal.filePath"
         :targetAmount="proposal.targetAmount"
         :isRecruitingTeammates="proposal.isRecruitingTeammates"
-        :otherContents="proposal.otherContents"
+        :createdAt="proposal.createdAt"
         :tags="proposal.tags"
-        :proposalrWalletAddress="proposal.proposalr_wallet_address"
         :nftTokenId="proposal.nft_token_id"
+        :fundraisingCondition="proposal.proposalFundraisingCondition"
+        :voteList="proposal.votes"
       />
     </div>
   </div>
@@ -46,19 +47,13 @@ export default {
   },
   methods: {
     getProposalLists() {
-      this.$store
-        .dispatch("proposalStore/getProposalList")
-        .then(() => {});
+      this.$store.dispatch("proposalStore/getProposalList").then(() => {});
     },
   },
 };
 </script>
 
 <style>
-.horizontal-list {
-  overflow-x: auto;
-  white-space: nowrap;
-}
 .item {
   display: inline-block;
 }

@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { AvatarGenerator } from "random-avatar-generator";
+import {generatorService} from '../plugins/avatar'
 
 export default {
   name: "proposal-form",
@@ -78,7 +78,7 @@ export default {
   },
   computed: {
     avatarImage() {
-      return new AvatarGenerator().generateRandomAvatar();
+      return generatorService.generateRandomAvatar(this.detail.walletAddress);
     },
     detail() {
       return this.$store.getters["userStore/detail"];
