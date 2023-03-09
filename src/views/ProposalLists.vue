@@ -13,10 +13,11 @@
         :filePath="proposal.filePath"
         :targetAmount="proposal.targetAmount"
         :isRecruitingTeammates="proposal.isRecruitingTeammates"
-        :otherContents="proposal.otherContents"
+        :createdAt="proposal.createdAt"
         :tags="proposal.tags"
-        :proposalrWalletAddress="proposal.proposalr_wallet_address"
         :nftTokenId="proposal.nft_token_id"
+        :fundraisingCondition="proposal.proposalFundraisingCondition"
+        :voteList="proposal.votes"
       />
     </div>
   </div>
@@ -46,9 +47,7 @@ export default {
   },
   methods: {
     getProposalLists() {
-      this.$store
-        .dispatch("proposalStore/getProposalList")
-        .then(() => {});
+      this.$store.dispatch("proposalStore/getProposalList").then(() => {});
     },
   },
 };
