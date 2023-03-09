@@ -28,7 +28,7 @@ export default {
     };
   },
   props: {
-    headerMessage: String
+    headerMessage: String,
   },
   components: {},
   mounted() {},
