@@ -4,7 +4,7 @@
                 :to="{ name: 'proposalDetail', params: {proposalId: proposalId } }"
         >
             <img 
-            class="rounded-t-sm"
+            class="rounded-t-sm w-full"
             alt="product image" 
             :src="thumbnailImageUrl" 
             @error="imageError = true"/>

@@ -1,69 +1,38 @@
 <template>
-  <div class="card card-one">
-    <div class="head">
-      <div class="avatar">
-        <img :src="avatarImage" alt="sayako" />
+    <div class="card card-one">
+      <div class="head">
+        <div class="avatar">
+          <img :src="avatarImage" alt="sayako" />
+        </div>
+      </div>
+
+      <h3>{{ detail.userName }}</h3>
+      <div class="stats px-5">
+        <div class="stat text-center">
+          <i>提案した回数</i>
+          <i class="grid">{{ proposalCount }}<span>tickets</span></i>
+        </div>
+        <div class="stat text-center">
+          <i>獲得したトークン</i>
+          <i class="grid">{{ detail.totalTokenAmount }}<span>points</span></i>
+        </div>
+        <div class="stat text-center">
+          <i>投票した回数</i>
+          <i class="grid">{{ proposalVoteCount }}<span>activities</span></i>
+        </div>
+      </div>
+
+      <div class="desc">
+        {{ detail.message }}
+      </div>
+      <div class="footer">
+        <p class="text-white">{{ detail.walletAddress }}</p>
       </div>
     </div>
-
-    <h3>{{ detail.userName }}</h3>
-    <div class="stats px-5">
-      <div class="stat text-center">
-        <i>提案した回数</i>
-        <i class="grid">{{ proposalCount }}<span>tickets</span></i>
-      </div>
-      <div class="stat text-center">
-        <i>獲得したトークン</i>
-        <i class="grid">{{ detail.totalTokenAmount }}<span>points</span></i>
-      </div>
-      <div class="stat text-center">
-        <i>投票した回数</i>
-        <i class="grid">{{ proposalVoteCount }}<span>activities</span></i>
-      </div>
-    </div>
-    <!-- / .stats -->
-
-    <div class="desc">
-      {{ detail.message }}
-    </div>
-    <div class="footer">
-      <p class="text-white">{{ detail.walletAddress }}</p>
-    </div>
-  </div>
-
-  <table>
-    <thead></thead>
-    <tbody>
-      <tr>
-        <th>投票</th>
-        <th>投票のレスポンスボディ</th>
-      </tr>
-
-      <tr v-for="proposalVote in userProposalVotes" :key="proposalVote.index">
-        <td>{{ proposalVote.title }}</td>
-        <td>{{ proposalVote }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <table>
-    <thead></thead>
-    <tbody>
-      <tr>
-        <th>提案</th>
-        <th>投票のレスポンスボディ</th>
-      </tr>
-
-      <tr v-for="proposal in userProposals" :key="proposal.index">
-        <td>{{ proposal.title }}</td>
-        <td>{{ proposal }}</td>
-      </tr>
-    </tbody>
-  </table>
 </template>
 
 <script>
-import {generatorService} from '../plugins/avatar'
+import {generatorService} from '@/plugins/avatar'
 
 export default {
   name: "proposal-form",
@@ -94,12 +63,6 @@ export default {
         return 0
       }
       return this.detail.proposalVotes.length;
-    },
-    userProposals() {
-      return this.detail.proposals;
-    },
-    userProposalVotes() {
-      return this.detail.proposalVotes;
     },
   },
   created() {

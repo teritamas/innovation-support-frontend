@@ -1,21 +1,25 @@
 <template>
-
-<LoginStep v-if="!token"/>
-<MypageProfile
-  v-if="token"
-  :token="token"  
-/>
-
+    <LoginStep v-if="!token"/>
+    <MyProfile
+      v-if="token"
+      :token="token"
+    />
+    <MyProposals
+      v-if="token"
+      :token="token"
+    />
 </template>
 
 <script>
 import LoginStep from '../components/LoginStep.vue'
-import MypageProfile from '../components/MypageProfile.vue'
+import MyProfile from '../components/mypage/MyProfile.vue'
+import MyProposals from '../components/mypage/MyProposals.vue'
 
 export default {
   name: 'mypage-',
   components: {
-    MypageProfile,
+    MyProfile,
+    MyProposals,
     LoginStep,
   },
   data() {
