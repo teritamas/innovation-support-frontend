@@ -30,7 +30,7 @@ export default {
   },
   computed: {
     chartLabels() {
-      return ["賛成", "反対", "投票中"];
+      return ["賛成", "反対", "必要な投票数"];
     },
     chartData() {
       const positiveCount = this.voteStatus.positiveProposalVotes.length;
@@ -38,7 +38,7 @@ export default {
       return [positiveCount, negativeCount, this.remainingVoteCount];
     },
     chartColors() {
-      return ["rgb(251 191 36)", "#a9a9a9", "rgba(255,0,0,0.1)"];
+      return ["rgb(251 191 36)", "#a9a9a9", "#ececec"];
     },
     minVoterCount() {
       if (this.proposal.proposalFundraisingCondition === null) {
