@@ -7,8 +7,16 @@
     <p>{{ proposal.description }}</p>
   </div>
   <div class="form-item">
-    <p class="form-item-label"><span class="form-item-List"></span>目標金額</p>
-    <p>{{ proposal.targetAmount }}</p>
+    <p class="form-item-label"><span class="form-item-List"></span>調達金額</p>
+    <!---TODO: レイアウト入れる-->
+    <p>
+      {{ phaseDetail.phaseJpName }}<br />
+      金額:{{ phaseDetail.procurementTokenAmount }}千円<br />条件:{{
+        phaseDetail.minVoterCount
+      }}人以上の投票{{ phaseDetail.minAgreementCount }}%の賛成 <br />投票期間:{{
+        phaseDetail.limitDate
+      }}日
+    </p>
   </div>
   <div class="form-item">
     <p class="form-item-label is-msg">
@@ -39,6 +47,8 @@
 </template>
 
 <script>
+import { phaseStatus } from "../../plugins/proposalPhase";
+
 export default {
   name: "proposal-info",
   components: {},
@@ -47,6 +57,9 @@ export default {
     proposalAttachmentFile: {},
   },
   computed: {
+    phaseDetail() {
+      return phaseStatus(this.proposal.proposalPhase);
+    },
     thumbnailImageUrl() {
       if (this.proposal.proposalFundraisingCondition === null) {
         return this.proposal.targetAmount; // BEのバージョン差異の対応

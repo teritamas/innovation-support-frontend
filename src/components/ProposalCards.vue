@@ -30,7 +30,7 @@
         <div class="progBar">
           <p class="bar" :style="{ width: progBarSize }"></p>
         </div>
-        <small>事業化まであと {{ requiredVotesCount }}票 !</small>
+        <small>資金調達の判断まであと {{ requiredVotesCount }}票 !</small>
       </div>
     </router-link>
 
