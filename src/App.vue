@@ -36,6 +36,7 @@ main {
     width: 100%;
     position: absolute;
     z-index: 1;
+    padding-bottom: 75px;
 }
 
 .area {
