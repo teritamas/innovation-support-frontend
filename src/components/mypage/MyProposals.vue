@@ -15,6 +15,8 @@
         :otherContents="proposal.otherContents"
         :tags="proposal.tags"
         :proposalrWalletAddress="proposal.proposalrWalletAddress"
+        :fundraisingCondition="proposal.proposalFundraisingCondition"
+        :voteList="proposal.votes"
       />
 
 
