@@ -26,11 +26,10 @@ import AppFooter from './components/AppFooter.vue';
 </template>
 
 <style lang="scss" >
- body {
+html {
+    background: #303f9f;
     font-family: "M PLUS Rounded 1c";
-    background: #c5cae9;
- }
-
+}
 
 main {
     width: 100%;

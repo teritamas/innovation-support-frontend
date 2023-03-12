@@ -26,7 +26,7 @@
         {{ detail.message }}
       </div>
       <div class="footer">
-        <p class="text-white">{{ detail.walletAddress }}</p>
+        <p class="text-white" style="word-break: break-all;">{{ detail.walletAddress }}</p>
       </div>
     </div>
 </template>

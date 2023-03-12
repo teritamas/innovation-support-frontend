@@ -1,53 +1,38 @@
 <template>
-  <div class="horizontal-list">
-    <div
-      v-for="proposal in userProposals"
-      :key="proposal.index"
-      class="p-3 item"
-    >
-      <ProposalCards
-        :proposalId="proposal.proposalId"
-        :title="proposal.title"
-        :description="proposal.description"
-        :filePath="proposal.filePath"
-        :targetAmount="proposal.targetAmount"
-        :isRecruitingTeammates="proposal.isRecruitingTeammates"
-        :otherContents="proposal.otherContents"
-        :tags="proposal.tags"
-        :proposalrWalletAddress="proposal.proposalrWalletAddress"
-        :fundraisingCondition="proposal.proposalFundraisingCondition"
-        :voteList="proposal.votes"
-      />
-
-
+  <div style="">
+    <h2 class="text-center text-white font-bold text-xl mt-2.5">提案履歴</h2>
+    <div class="proposal-contents horizontal-list">
+        <div
+        v-for="proposal in userProposals"
+        :key="proposal.index"
+        class="p-3 item"
+        >
+        <ProposalCards
+            :proposalId="proposal.proposalId"
+            :title="proposal.title"
+            :description="proposal.description"
+            :filePath="proposal.filePath"
+            :targetAmount="proposal.targetAmount"
+            :isRecruitingTeammates="proposal.isRecruitingTeammates"
+            :otherContents="proposal.otherContents"
+            :tags="proposal.tags"
+            :proposalrWalletAddress="proposal.proposalrWalletAddress"
+            :fundraisingCondition="proposal.proposalFundraisingCondition"
+            :voteList="proposal.votes"
+        />
+        </div>
     </div>
   </div>
-
-
-    <table>
-    <thead></thead>
-    <tbody>
-      <tr>
-        <th>投票</th>
-        <th>投票のレスポンスボディ</th>
-      </tr>
-
-      <tr v-for="proposalVote in userProposalVotes" :key="proposalVote.index">
-        <td>{{ proposalVote.title }}</td>
-        <td>{{ proposalVote }}</td>
-      </tr>
-    </tbody>
-  </table>
 </template>
 
 
 <script>
-import ProposalCards from '@/components/ProposalCards.vue'
+import ProposalCards from '@/components/mypage/MyProposalHistoryCard.vue'
 
 export default {
   name: "proposal-form",
   components: {
-    ProposalCards
+    ProposalCards,
   },
   data() {
     return {
@@ -95,8 +80,17 @@ export default {
 </script>
 
 <style>
-.horizontal-list {
+.proposal-contents {
+    overflow-y: scroll;
+}
+
+@media only screen and (max-width: 810px) {
+  .horizontal-list {
     overflow-x: auto;
-  white-space: nowrap;
+    white-space: nowrap;
+  }
+  .proposal-contents {
+    max-width: 330px;
+  }
 }
 </style>
