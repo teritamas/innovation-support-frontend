@@ -70,6 +70,7 @@ export default {
   border-radius: 5px;
   background: white;
   font-size: 0.9rem;
+  white-space: normal;
 }
 .horizontal-list {
   overflow-x: auto;
