@@ -21,8 +21,8 @@
       ></textarea>
     </div>
     <div class="form-item">
-      <p class="form-item-label">
-        <span class="form-item-label-Required">必須</span>調達金額
+      <p class="form-item-label mb-3">
+        <span class="form-item-label-Required">必須</span>調達金額プラン
       </p>
       <div class="radio-button-group w-full">
         <div class="item">
@@ -34,16 +34,7 @@
             id="button2"
             checked
           />
-          <label for="button2">
-            <p>シード</p>
-            <p>金額:{{ phaseDetail("seed").procurementTokenAmount }}千円</p>
-            <p>
-              条件:{{ phaseDetail("seed").minVoterCount }}人以上の投票{{
-                phaseDetail("seed").minAgreementCount
-              }}%の賛成
-            </p>
-            <p>投票期間:{{ phaseDetail("seed").limitDate }}日</p>
-          </label>
+          <label for="button2">シード</label>
         </div>
         <div class="item">
           <input
@@ -53,16 +44,7 @@
             value="middle"
             id="button1"
           />
-          <label for="button1">
-            <p>ミドル</p>
-            <p>金額:{{ phaseDetail("middle").procurementTokenAmount }}千円</p>
-            <p>
-              条件:{{ phaseDetail("middle").minVoterCount }}人以上の投票{{
-                phaseDetail("middle").minAgreementCount
-              }}%の賛成
-            </p>
-            <p>投票期間:{{ phaseDetail("middle").limitDate }}日</p>
-          </label>
+          <label for="button1">ミドル</label>
         </div>
         <div class="item">
           <input
@@ -72,19 +54,11 @@
             value="later"
             id="button3"
           />
-          <label for="button3">
-            <p>レイター</p>
-            <p>金額:{{ phaseDetail("later").procurementTokenAmount }}千円</p>
-            <p>
-              条件:{{ phaseDetail("later").minVoterCount }}人以上の投票{{
-                phaseDetail("later").minAgreementCount
-              }}%の賛成
-            </p>
-            <p>投票期間:{{ phaseDetail("later").limitDate }}日</p>
-          </label>
+          <label for="button3">レイター</label>
         </div>
       </div>
     </div>
+    <PhaseDetailTable />
     <div class="form-item">
       <p class="form-item-label">
         <span class="form-item-label-Required">必須</span>添付資料（PDF）
@@ -179,6 +153,8 @@
 import { useVuelidate } from "@vuelidate/core";
 import { required, maxLength } from "@vuelidate/validators";
 import { phaseStatus } from "../plugins/proposalPhase";
+import PhaseDetailTable from "@/components/parts/PhaseDetailTable.vue"
+
 export default {
   name: "proposal-form",
   setup() {
@@ -189,6 +165,9 @@ export default {
       showContentsType: this.$store.state.showContentsType,
       proposalPhase: String,
     };
+  },
+  components: {
+    PhaseDetailTable,
   },
   computed: {
     phaseDetail: function () {
