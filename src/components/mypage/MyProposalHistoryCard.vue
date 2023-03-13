@@ -37,7 +37,7 @@
           <div class="progBar">
             <p class="bar" :style="{ width: progBarSize }"></p>
           </div>
-          <small>資金調達の判断まであと {{ requiredVotesCount }}票 !</small>
+          <small>{{ progressBarFooterMessage }}</small>
         </div>
         <div class="hidden lg:block">
           <voters-comment-list :voteList="voteList"></voters-comment-list>
