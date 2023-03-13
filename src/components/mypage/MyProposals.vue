@@ -75,13 +75,13 @@ export default {
   overflow-y: scroll;
 }
 
-@media only screen and (max-width: 810px) {
+@media only screen and (max-width: 100%) {
   .horizontal-list {
     overflow-x: auto;
     white-space: nowrap;
   }
   .proposal-contents {
-    max-width: 330px;
+    max-width: 100%;
   }
 }
 </style>

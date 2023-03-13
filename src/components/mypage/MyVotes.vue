@@ -59,7 +59,7 @@ export default {
     white-space: nowrap;
   }
   .proposal-contents {
-    max-width: 330px;
+    max-width: 100%;
   }
 }
 </style>
