@@ -46,8 +46,15 @@
             class="form-item-textarea"
             @input="onDelayAction"
           ></textarea>
-          <div class="item">{{ judgementReasonScore }}</div>
         </div>
+        <div class="form-item">
+          <p class="form-item-label is-msg">
+          獲得できるトークン量 (1~10)
+          </p>
+            <span class="form-item-label-option">{{rewordToken}}</span>
+          {{ judgementReasonScore }}
+        </div>
+
         <!--≪TODO≫すぐvoteじゃなくて、確認画面＋ログイン確認してから投票-->
         <button
           class="form-btn"
@@ -194,15 +201,20 @@ export default {
       // 投票後の残高
       return this.$store.getters["proposalVoteStore/getBalance"];
     },
+    rewordToken(){
+      return this.score * 10
+    },
+    score(){
+      return this.$store.getters["proposalVoteStore/getJudgementReason"]
+    },
     judgementReasonScore() {
-      const score = this.$store.getters["proposalVoteStore/getJudgementReason"];
-      const baseMessage = `獲得予定トークン: ${score}`;
+      const score = this.score;
       if (score == 1) {
-        return `${baseMessage} 内容が充実しており良いメッセージです！`;
+        return `内容が充実しており良いメッセージです！`;
       } else if (score >= 0.6) {
-        return `${baseMessage} もうひといき！提案者のためにもう少し詳細に書きましょう！`;
+        return `もうひといき！提案者のためにもう少し詳細に書きましょう！`;
       } else if (score >= 0.1) {
-        return `${baseMessage} 内容が少なく、獲得できるトークンが少ないです。`;
+        return `内容が少なく、獲得できるトークンが少ないです。`;
       }
       return "";
     },
@@ -216,11 +228,15 @@ export default {
     this.getVoteDetail();
     this.getVoteStatus();
     this.getFile();
+    this.clearJudgementReason();
   },
   methods: {
     onDelayAction: debounce(function () {
       this.voteJudgementEnrichment();
-    }, 2000),
+    }, 1500),
+    clearJudgementReason(){
+      this.$store.commit("proposalVoteStore/clearJudgementReason");
+    },
     getProposal() {
       const proposalId = this.proposalId;
       return this.$store

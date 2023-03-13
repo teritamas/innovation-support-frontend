@@ -80,6 +80,16 @@ export default {
   },
   },
   mutations: {
+    clearJudgementReason(state){
+      state.extension = {
+        request: {
+          judgementReason: "",
+        },
+        response: {
+          score: 0,
+        }
+      }
+    },
     setVoteJudgementEnrichmentRequest(state, commit) {
       state.extension.request.judgementReason = commit.judgementReason;
     },
