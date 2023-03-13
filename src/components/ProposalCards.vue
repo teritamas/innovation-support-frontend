@@ -142,10 +142,9 @@ export default {
         limitDate = this.fundraisingCondition.limitDate;
       }
 
-      const startDate = moment(this.createdAt);
-      const expiredDate = startDate.clone().add(limitDate, "days");
-      const duration = moment(expiredDate).diff(startDate, "days");
-      console.log(expiredDate, startDate, duration, limitDate);
+      var startDate = moment.utc(this.createdAt);
+      startDate.add(limitDate, "days")
+      const duration = startDate.diff(moment(), "days");
       return duration > -1 ? duration : 0;
     },
     requiredVotesCount() {
@@ -158,7 +157,6 @@ export default {
     },
     voteMessageList(){
         var list =this.voteList
-        console.log(list)
         var rlist = list.reverse()
         return rlist.slice(0,5)
     }
