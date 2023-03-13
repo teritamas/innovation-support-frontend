@@ -24,7 +24,7 @@
       <div class="pt-1 px-5">
         <div class="flex justify-between">
           <span class="text-rose-700 text-bold mb-2 text-lg"
-            >あと {{ limitDate }} 日</span
+            >{{ limitDateMessage }}</span
           >
           <div class="text-gray-700 text-bold mb-2">
             調達目標トークン
@@ -69,10 +69,10 @@ export default {
     title: String,
     description: String,
     filePath: String,
-    targetAmount: String,
+    targetAmount: Number,
     isRecruitingTeammates: Boolean,
-    createdAt: Date,
-    tags: String,
+    createdAt: String,
+    tags: Array,
     proposalOwnType: String,
     proposalStatus: String,
     nftTokenId: String,
@@ -146,6 +146,13 @@ export default {
       startDate.add(limitDate, "days")
       const duration = startDate.diff(moment(), "days");
       return duration > -1 ? duration : 0;
+    },
+    limitDateMessage(){
+        if(this.limitDate === 0){
+            return this.proposalStatus === "accept" ? "可決" : "否認"
+        }else{
+            return `あと ${this.limitDate} 日`
+        }
     },
     requiredVotesCount() {
       const remainingVotesCount = this.minVoterCount - this.voteList.length;
