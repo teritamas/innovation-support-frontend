@@ -35,11 +35,14 @@ export default {
     token: String,
   },
   computed: {
+    userDetail() {
+      return this.$store.getters["userStore/detail"];
+    },
     userProposals() {
-      return this.detail.proposals;
+      return this.userDetail.proposals;
     },
     userProposalVotes() {
-      return this.detail.proposalVotes;
+      return this.userDetail.proposalVotes;
     },
   },
 };
