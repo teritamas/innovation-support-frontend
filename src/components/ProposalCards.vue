@@ -5,21 +5,26 @@
     <router-link
       :to="{ name: 'proposalDetail', params: { proposalId: proposalId } }"
     >
-      <img
-        class="rounded-t-sm"
-        alt="product image"
-        :src="thumbnailImageUrl"
-        @error="imageError = true"
-      />
+    <div class="proposal-status-badge-area">
+        <img
+            class="rounded-t-sm"
+            alt="product image"
+            :src="thumbnailImageUrl"
+            @error="imageError = true"
+        />
+        <div class="proposal-status-badge-object font-bold text-gray-700">
+            {{statusBadge}}
+        </div>
+    </div>
       <h4
-        class="text-xl py-2 font-bold tracking-tight text-gray-900 dark:text-white p-5"
+        class="text-xl py-2 font-bold tracking-tight text-gray-700 dark:text-white p-5"
       >
         {{ title }}
       </h4>
       <div class="pt-1 px-5">
         <div class="flex justify-between">
           <span class="text-rose-700 text-bold mb-2 text-lg"
-            >あと {{ limitDate }} 日</span
+            >{{ limitDateMessage }}</span
           >
           <div class="text-gray-700 text-bold mb-2">
             調達目標トークン
@@ -33,8 +38,15 @@
         <small>資金調達の判断まであと {{ requiredVotesCount }}票 !</small>
       </div>
     </router-link>
-
-    <voters-comment-list :voteList="voteList"></voters-comment-list>
+    <voters-comment-list 
+        v-if="showVoteResult"
+        :voteList="voteMessageList">
+    </voters-comment-list>
+    <div 
+        v-if="!showVoteResult"
+        class="not-show-vote-result mt-1 form-return-btn btn-font text-center text-gray-900">
+        {{showVoteResultFalseMessage}}
+    </div>
   </div>
 </template>
 
@@ -57,15 +69,57 @@ export default {
     title: String,
     description: String,
     filePath: String,
-    targetAmount: String,
+    targetAmount: Number,
     isRecruitingTeammates: Boolean,
-    createdAt: Date,
-    tags: String,
+    createdAt: String,
+    tags: Array,
+    proposalOwnType: String,
+    proposalStatus: String,
     nftTokenId: String,
     fundraisingCondition: Object,
-    voteList: Object,
+    voteList: Array,
   },
   computed: {
+    hasVotes (){
+        return this.voteList.length > 0;
+    },
+    showVoteResult(){
+        // 投票ステータスの表示可否を判断する
+        const role = this.proposalOwnType === "voted" || this.proposalOwnType === "owner";
+
+        return role && this.hasVotes
+    },
+    showVoteResultFalseMessage(){
+        if(this.proposalOwnType === "owner" && !this.hasVotes){
+            return "まだ投票されていません！周りの人に共有して投票を募りましょう！"
+        }
+        else if (!this.showVoteResult){
+            return "投票後、他の人の投票内容を確認できます。"
+        }
+        else {
+            return ""
+        }
+    },
+    statusBadge(){
+        let badge ="";
+        if(this.proposalStatus === "voting"){
+            if (this.proposalOwnType == "voted"){
+                badge = "投票済み"
+            }
+            else if (this.proposalOwnType == "unvoted"){
+                badge = "投票できます！"
+            }
+            else if (this.proposalOwnType == "owner"){
+                badge = "あなたの提案が投票中です！"
+            }
+            else {
+                badge = "投票受付中です！ログインして投票に参加しよう！"
+            }
+        } else {
+            badge = "投票結果を確認する"
+        }
+        return badge
+    },
     thumbnailImageUrl() {
       return this.imageError
         ? this.defaultImage
@@ -88,11 +142,17 @@ export default {
         limitDate = this.fundraisingCondition.limitDate;
       }
 
-      const startDate = moment(this.createdAt);
-      const expiredDate = startDate.clone().add(limitDate, "days");
-      const duration = moment(expiredDate).diff(startDate, "days");
-      console.log(expiredDate, startDate, duration, limitDate);
+      var startDate = moment.utc(this.createdAt);
+      startDate.add(limitDate, "days")
+      const duration = startDate.diff(moment(), "days");
       return duration > -1 ? duration : 0;
+    },
+    limitDateMessage(){
+        if(this.limitDate === 0){
+            return this.proposalStatus === "accept" ? "可決" : "否認"
+        }else{
+            return `あと ${this.limitDate} 日`
+        }
     },
     requiredVotesCount() {
       const remainingVotesCount = this.minVoterCount - this.voteList.length;
@@ -102,6 +162,11 @@ export default {
       const voteRate = this.voteList.length / this.minVoterCount;
       return (voteRate > 1 ? 1 : voteRate) * 100 + "%";
     },
+    voteMessageList(){
+        var list =this.voteList
+        var rlist = list.reverse()
+        return rlist.slice(0,5)
+    }
   },
 };
 </script>
@@ -135,5 +200,22 @@ export default {
   position: absolute;
   height: 100%;
   background-color: #ffca28;
+}
+.proposal-status-badge-area {
+  position: relative;
+}
+.not-show-vote-result{
+    height: 92px;
+    padding: 15px;
+}
+.proposal-status-badge-object {
+  position: absolute;
+  top: 0px;
+  right: 0;
+  background: #ffca28;
+  padding: 5px;
+  font-size: 14px;
+  text-align: center;
+  border-radius: 0 0 0 10px;
 }
 </style>

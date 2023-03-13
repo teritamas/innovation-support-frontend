@@ -15,6 +15,8 @@
         :isRecruitingTeammates="proposal.isRecruitingTeammates"
         :createdAt="proposal.createdAt"
         :tags="proposal.tags"
+        :proposalOwnType="proposal.proposalOwnType"
+        :proposalStatus="proposal.proposalStatus"
         :nftTokenId="proposal.nft_token_id"
         :fundraisingCondition="proposal.proposalFundraisingCondition"
         :voteList="proposal.votes"
