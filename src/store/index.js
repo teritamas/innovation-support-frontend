@@ -6,6 +6,7 @@ import createPersistedState from "vuex-persistedstate";
 import ProposalVoteStore from "./modules/ProposalVoteStore";
 import TimelineStore from "./modules/TimelineStore";
 import GiftStore from "./modules/GiftStore";
+import Web3Store from "./modules/Web3Store";
 
 export default createStore({
   plugins: [
@@ -46,5 +47,6 @@ export default createStore({
     proposalVoteStore: ProposalVoteStore,
     timelineStore: TimelineStore,
     giftStore: GiftStore,
+    web3Store: Web3Store,
   },
 });

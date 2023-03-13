@@ -1,49 +1,49 @@
 <template>
-    <div class="card card-one">
-      <div class="head">
-        <div class="avatar">
-          <img :src="avatarImage" alt="sayako" />
-        </div>
-      </div>
-
-      <h3>{{ detail.userName }}</h3>
-      <div class="stats px-5">
-        <div class="stat text-center">
-          <i>提案した回数</i>
-          <i class="grid">{{ proposalCount }}<span>tickets</span></i>
-        </div>
-        <div class="stat text-center">
-          <i>獲得したトークン</i>
-          <i class="grid">{{ detail.totalTokenAmount }}<span>points</span></i>
-        </div>
-        <div class="stat text-center">
-          <i>投票した回数</i>
-          <i class="grid">{{ proposalVoteCount }}<span>activities</span></i>
-        </div>
-      </div>
-
-      <div class="desc">
-        {{ detail.message }}
-      </div>
-      <div class="footer">
-        <p class="text-white" style="word-break: break-all;">{{ detail.walletAddress }}</p>
+  <div class="card card-one">
+    <div class="head">
+      <div class="avatar">
+        <img :src="avatarImage" alt="sayako" />
       </div>
     </div>
+
+    <h3>{{ detail.userName }}</h3>
+    <div class="stats px-5">
+      <div class="stat text-center">
+        <i>提案した回数</i>
+        <i class="grid">{{ proposalCount }}<span>回</span></i>
+      </div>
+      <div class="stat text-center">
+        <i>投票した回数</i>
+        <i class="grid">{{ proposalVoteCount }}<span>回</span></i>
+      </div>
+      <div class="stat text-center">
+        <i>保有トークン</i>
+        <i class="grid">{{ detail.totalTokenAmount }}<span>トークン</span></i>
+      </div>
+    </div>
+
+    <div class="desc">
+      {{ detail.message }}
+    </div>
+    <div class="footer">
+      <p class="text-white" style="word-break: break-all">
+        {{ detail.walletAddress }}
+      </p>
+    </div>
+  </div>
 </template>
 
 <script>
-import {generatorService} from '@/plugins/avatar'
+import { generatorService } from "@/plugins/avatar";
 
 export default {
   name: "proposal-form",
-  components: {
-  },
+  components: {},
   data() {
-    return {
-    };
+    return {};
   },
   props: {
-    token: String
+    token: String,
   },
   computed: {
     avatarImage() {
@@ -53,14 +53,14 @@ export default {
       return this.$store.getters["userStore/detail"];
     },
     proposalCount() {
-      if (!this.detail.proposals){
-        return 0
+      if (!this.detail.proposals) {
+        return 0;
       }
       return this.detail.proposals.length;
     },
     proposalVoteCount() {
-      if (!this.detail.proposalVotes){
-        return 0
+      if (!this.detail.proposalVotes) {
+        return 0;
       }
       return this.detail.proposalVotes.length;
     },
@@ -72,9 +72,7 @@ export default {
   methods: {
     // storeのactionsをたたきにいく
     getUserDetail() {
-      this.$store
-        .dispatch("userStore/getDetail", this.token)
-        .then(() => {});
+      this.$store.dispatch("userStore/getDetail", this.token).then(() => {});
     },
   },
 };

@@ -1,34 +1,32 @@
 <template>
-    <LoginStep v-if="!token"/>
-    <MyProfile
-      v-if="token"
-      :token="token"
-    />
-    <MyProposals
-      v-if="token"
-      :token="token"
-    />
-    <div class="lg:flex">
-        <MyVotes
-      v-if="token"
-      :token="token"
-    />
-    <MyGifts
-      v-if="token"
-      :token="token"
-    />
+  <LoginStep v-if="!token" />
+  <MyProfile v-if="token" :token="token" />
+  <div v-if="token">
+    <div v-for="contract in contracts" :key="contract.index">
+      <button
+        @click="registerMetamask(contract)"
+        class="text-center form-btn mb-1"
+      >
+        トークンをMetamaskと連携
+      </button>
     </div>
+  </div>
+  <MyProposals v-if="token" :token="token" />
+  <div class="lg:flex">
+    <MyVotes v-if="token" :token="token" />
+    <MyGifts v-if="token" :token="token" />
+  </div>
 </template>
 
 <script>
-import LoginStep from '../components/LoginStep.vue'
-import MyProfile from '../components/mypage/MyProfile.vue'
-import MyProposals from '../components/mypage/MyProposals.vue'
-import MyVotes from '../components/mypage/MyVotes.vue'
-import MyGifts from '../components/mypage/MyGifts.vue'
+import LoginStep from "../components/LoginStep.vue";
+import MyProfile from "../components/mypage/MyProfile.vue";
+import MyProposals from "../components/mypage/MyProposals.vue";
+import MyVotes from "../components/mypage/MyVotes.vue";
+import MyGifts from "../components/mypage/MyGifts.vue";
 
 export default {
-  name: 'mypage-',
+  name: "mypage-",
   components: {
     MyProfile,
     MyProposals,
@@ -37,14 +35,51 @@ export default {
     MyGifts,
   },
   data() {
-    return {
-    };
+    return {};
+  },
+  created() {
+    this.$store.dispatch("web3Store/getWeb3Info").then(() => {});
   },
   computed: {
     token() {
-        return this.$store.getters['userStore/token'];
+      return this.$store.getters["userStore/token"];
+    },
+    contracts() {
+      const contracts = this.$store.getters["web3Store/getContracts"];
+      return contracts.filter((m) => m.type == "ERC20");
     },
   },
-}
+  methods: {
+    async registerMetamask(contract) {
+      const type = contract.type;
+      const tokenAddress = contract.address;
+      const tokenSymbol = contract.symbol;
+      const tokenDecimals = contract.decimals;
+      const tokenImage = contract.image;
 
+      try {
+        const wasAdded = await window.ethereum.request({
+          method: "wallet_watchAsset",
+          params: {
+            type: type, // Initially only supports ERC20, but eventually more!
+            options: {
+              address: tokenAddress,
+              symbol: tokenSymbol,
+              decimals: tokenDecimals,
+              image: tokenImage,
+            },
+          },
+        });
+
+        if (wasAdded) {
+          console.log("Thanks for your interest!");
+        } else {
+          console.log("Your loss!");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+};
 </script>
