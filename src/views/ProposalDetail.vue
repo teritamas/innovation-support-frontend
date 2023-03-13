@@ -51,7 +51,7 @@
           <p class="form-item-label is-msg">
           獲得できるトークン量 (1~10)
           </p>
-            <span class="form-item-label-option">{{rewordToken}}</span>
+          <span class="form-item-label-option">{{rewordToken}}</span>
           {{ judgementReasonScore }}
         </div>
 
@@ -202,10 +202,16 @@ export default {
       return this.$store.getters["proposalVoteStore/getBalance"];
     },
     rewordToken(){
-      return this.score * 10
+      return this.verifyResult.expectedRewordTokenAmount
+    },
+    sentenceKeywords(){
+      return this.verifyResult.sentenceKeywords
+    },
+    verifyResult(){
+      return this.$store.getters["proposalVoteStore/getJudgementReason"]
     },
     score(){
-      return this.$store.getters["proposalVoteStore/getJudgementReason"]
+      return this.verifyResult.highLevelAnalytics ? this.verifyResult.objectiveScore : this.verifyResult.ruleScore
     },
     judgementReasonScore() {
       const score = this.score;
@@ -214,7 +220,7 @@ export default {
       } else if (score >= 0.6) {
         return `もうひといき！提案者のためにもう少し詳細に書きましょう！`;
       } else if (score >= 0.1) {
-        return `内容が少なく、獲得できるトークンが少ないです。`;
+        return `内容に具体性がなく、獲得できるトークンが少ないです。`;
       }
       return "";
     },
@@ -363,7 +369,6 @@ export default {
     flex-wrap: wrap;
   }
 }
-
 .form-item-label {
   width: 100%;
   max-width: 248px;

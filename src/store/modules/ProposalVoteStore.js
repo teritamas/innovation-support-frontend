@@ -9,7 +9,6 @@ export default {
         judgementReason: "",
       },
       response: {
-        score: 0,
       },
     },
     voteDetail: {
@@ -61,7 +60,7 @@ export default {
       return rootGetters['token'];
     },
     getJudgementReason(state) {
-      return state.extension.response.score;
+      return state.extension.response;
     },
     getVoteJudgementEnrichmentRequest(state){
       return state.extension.request
@@ -83,10 +82,8 @@ export default {
     clearJudgementReason(state){
       state.extension = {
         request: {
-          judgementReason: "",
         },
         response: {
-          score: 0,
         }
       }
     },
@@ -94,7 +91,7 @@ export default {
       state.extension.request.judgementReason = commit.judgementReason;
     },
     setVoteScore(state, commit) {
-      state.extension.response.score = commit.score;
+      state.extension.response = commit;
     },
     setVoteDetail(state, commit) {
         state.voteDetail = commit;
