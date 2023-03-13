@@ -74,15 +74,4 @@ export default {
 .relative {
   position: relative;
 }
-.absolute {
-  position: absolute;
-  top: 0px;
-  right: 0;
-  color: #000;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 10px;
-  font-size: 18px;
-  text-align: center;
-  border-radius: 0 0 0 10px;
-}
 </style>

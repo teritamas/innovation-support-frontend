@@ -56,7 +56,10 @@ export default {
   actions: {
     getProposalList(state) {
       const client = applyCaseMiddleware(axios.create());
-      const termRequestUri = process.env.VUE_APP_API_ENDPOINT + "proposal";
+      let termRequestUri = process.env.VUE_APP_API_ENDPOINT + "proposal";
+      if( state.getters.token !== ""){
+        termRequestUri += `?user_id=${state.getters.token}`;
+      }
       return client
         .get(termRequestUri, {
           withCredentials: false,
