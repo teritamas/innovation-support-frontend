@@ -175,11 +175,12 @@ export default {
      * 判断理由の充実度をAIで評価する
      */
     verifyVoteEnrichment(state) {
+      const client = applyCaseMiddleware(axios.create());
       const termRequestUri =
         process.env.VUE_APP_API_ENDPOINT + "extension/vote/enrichment";
       const body = state.getters['getVoteJudgementEnrichmentRequest'];
 
-      return axios
+      return client
         .post(termRequestUri, body, {
           withCredentials: false,
           headers: {},
