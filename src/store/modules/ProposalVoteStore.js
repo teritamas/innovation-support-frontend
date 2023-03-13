@@ -9,7 +9,6 @@ export default {
         judgementReason: "",
       },
       response: {
-        score: 0,
       },
     },
     voteDetail: {
@@ -61,7 +60,7 @@ export default {
       return rootGetters['token'];
     },
     getJudgementReason(state) {
-      return state.extension.response.score;
+      return state.extension.response;
     },
     getVoteJudgementEnrichmentRequest(state){
       return state.extension.request
@@ -80,11 +79,19 @@ export default {
   },
   },
   mutations: {
+    clearJudgementReason(state){
+      state.extension = {
+        request: {
+        },
+        response: {
+        }
+      }
+    },
     setVoteJudgementEnrichmentRequest(state, commit) {
       state.extension.request.judgementReason = commit.judgementReason;
     },
     setVoteScore(state, commit) {
-      state.extension.response.score = commit.score;
+      state.extension.response = commit;
     },
     setVoteDetail(state, commit) {
         state.voteDetail = commit;
@@ -175,11 +182,12 @@ export default {
      * 判断理由の充実度をAIで評価する
      */
     verifyVoteEnrichment(state) {
+      const client = applyCaseMiddleware(axios.create());
       const termRequestUri =
         process.env.VUE_APP_API_ENDPOINT + "extension/vote/enrichment";
       const body = state.getters['getVoteJudgementEnrichmentRequest'];
 
-      return axios
+      return client
         .post(termRequestUri, body, {
           withCredentials: false,
           headers: {},
