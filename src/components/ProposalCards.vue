@@ -12,7 +12,10 @@
             :src="thumbnailImageUrl"
             @error="imageError = true"
         />
-        <div class="proposal-status-badge-object font-bold text-gray-700">
+        <div 
+            class="proposal-status-badge-object font-bold"
+            :class="isVoting ? 'proposal-status-badge-voting' : 'proposal-status-badge-vote-end'"
+        >
             {{statusBadge}}
         </div>
     </div>
@@ -35,7 +38,7 @@
         <div class="progBar">
           <p class="bar" :style="{ width: progBarSize }"></p>
         </div>
-        <small>資金調達の判断まであと {{ requiredVotesCount }}票 !</small>
+        <small>{{progressBarFooterMessage}}</small>
       </div>
     </router-link>
     <voters-comment-list 
@@ -81,13 +84,19 @@ export default {
   },
   computed: {
     hasVotes (){
+        // 投票されている場合true
         return this.voteList.length > 0;
+    },
+    isVoting(){
+        // 提案が投票中の場合True
+        return this.proposalStatus === "voting"
     },
     showVoteResult(){
         // 投票ステータスの表示可否を判断する
         const role = this.proposalOwnType === "voted" || this.proposalOwnType === "owner";
 
-        return role && this.hasVotes
+        // 投票が終了している、または、投票結果が１件以上ありかつ自身が投票済みか提案者の場合、表示
+        return !this.isVoting || (role && this.hasVotes)
     },
     showVoteResultFalseMessage(){
         if(this.proposalOwnType === "owner" && !this.hasVotes){
@@ -100,9 +109,17 @@ export default {
             return ""
         }
     },
+    progressBarFooterMessage(){
+        if (this.isVoting){
+            return `資金調達の判断まであと ${this.requiredVotesCount}票 !`
+        } else {
+            return "投票期間は終了しました"
+        }
+    },
     statusBadge(){
+        // カードの右上のステータスバッジに掲載する内容
         let badge ="";
-        if(this.proposalStatus === "voting"){
+        if(this.isVoting){
             if (this.proposalOwnType == "voted"){
                 badge = "投票済み"
             }
@@ -116,7 +133,7 @@ export default {
                 badge = "投票受付中です！ログインして投票に参加しよう！"
             }
         } else {
-            badge = "投票結果を確認する"
+            badge = "投票終了"
         }
         return badge
     },
@@ -205,17 +222,26 @@ export default {
   position: relative;
 }
 .not-show-vote-result{
-    height: 92px;
+    height: 90px;
     padding: 15px;
 }
 .proposal-status-badge-object {
   position: absolute;
   top: 0px;
   right: 0;
-  background: #ffca28;
   padding: 5px;
   font-size: 14px;
   text-align: center;
   border-radius: 0 0 0 10px;
+}
+
+.proposal-status-badge-voting {
+    background: #ffca28;
+    color: rgba(55, 65, 81, var(--tw-text-opacity));
+}
+
+.proposal-status-badge-vote-end {
+    background: #939087;
+    color: rgba(55, 65, 81, var(--tw-text-opacity));
 }
 </style>
