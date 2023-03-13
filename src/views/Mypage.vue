@@ -1,6 +1,11 @@
 <template>
   <LoginStep v-if="!token" />
   <MyProfile v-if="token" :token="token" />
+  <MyProposals v-if="token" :token="token" />
+  <div class="lg:flex">
+    <MyVotes v-if="token" :token="token" />
+    <MyGifts v-if="token" :token="token" />
+  </div>
   <div v-if="token">
     <div v-for="contract in contracts" :key="contract.index">
       <button
@@ -10,11 +15,6 @@
         トークンをMetamaskと連携
       </button>
     </div>
-  </div>
-  <MyProposals v-if="token" :token="token" />
-  <div class="lg:flex">
-    <MyVotes v-if="token" :token="token" />
-    <MyGifts v-if="token" :token="token" />
   </div>
 </template>
 
@@ -26,7 +26,7 @@ import MyVotes from "../components/mypage/MyVotes.vue";
 import MyGifts from "../components/mypage/MyGifts.vue";
 
 export default {
-  name: "mypage-",
+  name: "MyPage",
   components: {
     MyProfile,
     MyProposals,
