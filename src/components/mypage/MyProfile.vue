@@ -1,10 +1,11 @@
 <template>
-  <div class="card card-one">
-    <div class="head">
-      <div class="avatar">
-        <img :src="avatarImage" alt="sayako" />
+    <div class="card card-one">
+      <div class="head">
+        <div class="avatar">
+          <img :src="avatarImage" alt="sayako" />
+        </div>
       </div>
-    </div>
+
 
     <h3>{{ detail.userName }}</h3>
     <div class="stats px-5">
@@ -32,9 +33,8 @@
     </div>
   </div>
 </template>
-
 <script>
-import { generatorService } from "@/plugins/avatar";
+import {generatorService} from '@/plugins/avatar'
 
 export default {
   name: "proposal-form",
