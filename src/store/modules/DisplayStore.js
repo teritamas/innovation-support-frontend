@@ -4,23 +4,26 @@
 export default {
   namespaced: true,
   state: {
-    showContentsType: 'proposal',
-    showContentsGiftType: 'study',
+    showContentsType: "proposal",
+    showContentsGiftType: "Training",
   },
   getters: {
+    showGiftType(state) {
+      return state.showContentsGiftType;
+    },
     //loading(state) {
     //    return state.loading;
     //},
   },
   mutations: {
     setLoading(state, loading) {
-        state.loading = loading;
+      state.loading = loading;
     },
     setShowContentsType(state, showContentsType) {
-        state.showContentsType = showContentsType;
+      state.showContentsType = showContentsType;
     },
     setShowContentsGiftType(state, showContentsGiftType) {
-        state.showContentsGiftType = showContentsGiftType;
+      state.showContentsGiftType = showContentsGiftType;
     },
   },
   actions: {
@@ -29,4 +32,4 @@ export default {
     //    state.commit('setLoading', commit);
     //},
   },
-}
+};
