@@ -41,20 +41,20 @@
             type="radio"
             v-model="newProposal.proposalPhase"
             class="radio-button"
-            value="middle"
+            value="early"
             id="button1"
           />
-          <label for="button1">ミドル</label>
+          <label for="button1">アーリー</label>
         </div>
         <div class="item">
           <input
             type="radio"
             v-model="newProposal.proposalPhase"
             class="radio-button"
-            value="later"
+            value="middle"
             id="button3"
           />
-          <label for="button3">レイター</label>
+          <label for="button3">ミドル</label>
         </div>
       </div>
     </div>
@@ -153,7 +153,7 @@
 import { useVuelidate } from "@vuelidate/core";
 import { required, maxLength } from "@vuelidate/validators";
 import { phaseStatus } from "../plugins/proposalPhase";
-import PhaseDetailTable from "@/components/parts/PhaseDetailTable.vue"
+import PhaseDetailTable from "@/components/parts/PhaseDetailTable.vue";
 
 export default {
   name: "proposal-form",
