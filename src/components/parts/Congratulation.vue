@@ -4,12 +4,16 @@
         <div class="bg-orange">
             <h3 class="font-bold text-center py-10">提案が可決されました！</h3>
             <div class="mt-1 mb-3 form-return-btn btn-font text-center text-gray-600">
-              <p>おめでとうございます！<br>事業化応援しています！</p>
+              <p>獲得額: {{`${reward} pt`}}</p>
+              <p>残高: {{`${previousBalance} pt`}} → {{`${balance} pt`}} </p>
             </div>
             <div class="sankaku1"></div>
         </div>
         <div class="bg-yellow pb-10">
-            <button class="form-return-btn mb-10" v-on:click="$emit('popClose')">閉じる</button>
+            <router-link class="mt-3 form-return-btn btn-font text-center text-gray-600" to="/mypage">
+                マイページでトークンを確認
+            </router-link>
+            <div class="mt-1 form-return-btn btn-font text-center text-gray-600" v-on:click="$emit('popClose')">閉じる</div>
         </div>
     </div>
     <CommonHanafubuki />
@@ -28,7 +32,6 @@ import CommonHanafubuki from '../parts/CommonHanafubuki.vue'
         }
     },
     props : {
-        proposalId : String,
         reward: Number,
         balance: Number
     },

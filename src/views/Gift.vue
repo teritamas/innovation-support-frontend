@@ -4,7 +4,7 @@
     <div v-for="gift in showGifts" :key="gift.index" class="p-1">
       <GiftCards
         :gift="gift"
-        img="25340787_s.jpg"
+        :img=giftImage(gift.name)
         :giftId="gift.prizeId"
         :title="gift.name"
         :description="gift.description"
@@ -43,6 +43,16 @@ export default {
   created() {
     this.$store.dispatch("giftStore/getGift");
   },
+  methods: {
+    giftImage(name) {
+        if (name.indexOf('休息') !== -1) return 'coffee.jpg';
+        if (name.indexOf('データ分析入門') !== -1) return 'syoshinsya.jpg';
+        if (name.indexOf('マーケティング') !== -1) return 'deskshiryou.jpg';
+        if (name.indexOf('プロジェクト') !== -1) return 'puromane.jpg';
+        if (name.indexOf('プレゼン') !== -1) return 'purezen.jpg';
+      return '25340787_s.jpg';
+    },
+  }
 };
 </script>
 
