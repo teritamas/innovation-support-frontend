@@ -202,7 +202,7 @@ export default {
       return this.$store.getters["proposalVoteStore/getBalance"];
     },
     rewordToken(){
-      return this.verifyResult.expectedRewordTokenAmount
+      return this.verifyResult.expectedRewordTokenAmount ? this.verifyResult.expectedRewordTokenAmount : 0
     },
     sentenceKeywords(){
       return this.verifyResult.sentenceKeywords
