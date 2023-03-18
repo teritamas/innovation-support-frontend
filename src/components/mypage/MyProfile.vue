@@ -10,6 +10,12 @@
     <h3>{{ detail.userName }}</h3>
     <div class="stats px-5">
       <div class="stat text-center">
+        <i>現金と交換可能なトークン</i>
+        <i class="grid">{{ exchangeableToken }}<span>pts</span></i>
+      </div>
+      </div>
+    <div class="stats px-5">
+      <div class="stat text-center">
         <i>提案した回数</i>
         <i class="grid">{{ proposalCount }}<span>回</span></i>
       </div>
@@ -19,7 +25,7 @@
       </div>
       <div class="stat text-center">
         <i>保有トークン</i>
-        <i class="grid">{{ detail.totalTokenAmount }}<span>トークン</span></i>
+        <i class="grid">{{ detail.totalTokenAmount }}<span>pts</span></i>
       </div>
     </div>
 
@@ -27,9 +33,11 @@
       {{ detail.message }}
     </div>
     <div class="footer">
-      <p class="text-white" style="word-break: break-all">
-        {{ detail.walletAddress }}
-      </p>
+      <i class="text-white" >ウォレットアドレス</i>
+        <v-icon @click="copyToClipboard(text)"><p class="text-white" style="word-break: break-all">
+          {{ detail.walletAddress }}
+        </p>
+      </v-icon>
     </div>
   </div>
 </template>
@@ -51,6 +59,10 @@ export default {
     },
     detail() {
       return this.$store.getters["userStore/detail"];
+    },
+    exchangeableToken(){
+      console.log(typeof(this.detail.totalExchangeableToken))
+      return this.detail.totalExchangeableToken === undefined ? 0 : this.detail.totalExchangeableToken
     },
     proposalCount() {
       if (!this.detail.proposals) {
@@ -101,7 +113,6 @@ $back-col: #c5cae9;
   .stat {
     width: 33.3333%;
     display: table-cell;
-    padding: 10px 0;
     letter-spacing: 0.5px;
     line-height: 1.7;
 
@@ -231,12 +242,6 @@ body {
       height: 1px;
       background: #000;
     }
-  }
-  .desc {
-    padding: 0 1rem 2rem;
-    text-align: center;
-    line-height: 1.5;
-    color: #777;
   }
 
   div.footer {
