@@ -1,5 +1,6 @@
 <template>
   <h2 class="font-bold text-center p-2">{{ proposal.title }}</h2>
+  <i class="block-explorer-badge"><a :href="blockExplorerUrl" target="_blank" rel="noopener noreferrer">ブロックエクスプローラーで確認する</a></i>
   <div class="form-item">
     <p class="form-item-label is-msg">
       <span class="form-item-List"></span>事業概要
@@ -13,7 +14,7 @@
       {{ phaseDetail.phaseJpName }}<br />
       金額:{{ phaseDetail.procurementTokenAmount }}千円<br />条件:{{
         phaseDetail.minVoterCount
-      }}人以上の投票{{ phaseDetail.minAgreementCount }}%の賛成 <br />投票期間:{{
+      }}人以上の投票{{ phaseDetail.minAgreementCount }}の賛成 <br />投票期間:{{
         phaseDetail.limitDate
       }}日
     </p>
@@ -67,6 +68,9 @@ export default {
         return this.proposal.proposalFundraisingCondition
           .procurementTokenAmount;
       }
+    },
+    blockExplorerUrl() {
+      return this.proposal.blockExplorerUrlPath;
     },
   },
 };
@@ -138,5 +142,13 @@ export default {
   background: rgb(251 191 36);
   color: #fff;
   font-size: 14px;
+}
+
+.block-explorer-badge {
+  font-size: 14px;
+  position: absolute;
+  right: 0;
+  top:0;
+  padding: 5px;
 }
 </style>
