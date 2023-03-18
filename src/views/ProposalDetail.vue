@@ -89,7 +89,12 @@
     :reward="reward"
     :balance="balance"
   />
-  <Congratulation @popClose="popClose" v-show="showCongratulation" />
+  <Congratulation 
+    :reward="proposerReword"
+    :balance="proposerBalance"
+    @popClose="popClose" 
+    v-show="showCongratulation"
+  />
 </template>
 
 <script>
@@ -200,6 +205,12 @@ export default {
     balance() {
       // 投票後の残高
       return this.$store.getters["proposalVoteStore/getBalance"];
+    },
+    proposerBalance(){
+      return this.$store.getters["userStore/detail"].totalTokenAmount
+    },
+    proposerReword(){
+      return this.proposal.proposalFundraisingCondition.procurementTokenAmount
     },
     rewordToken(){
       return this.verifyResult.expectedRewordTokenAmount
