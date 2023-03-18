@@ -66,6 +66,10 @@ export default {
         params: { giftId: giftId },
       });
     },
+    giftImage(name) {
+      if (name.indexOf('休息') !== -1) return 'coffee.jpg';
+      return '25340787_s.jpg';
+    },
   },
 };
 </script>

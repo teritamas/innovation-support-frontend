@@ -1,12 +1,7 @@
 <template>
   <div class="content-center">
     <div class="card card-one">
-      <img
-        class="rounded-t-sm img-box"
-        src="@/assets/img/24857414_s.jpg"
-        alt="product image"
-      />
-      <!--<img class="rounded-t-sm" :src="require(`@/assets/img/${img}`)" alt="product image" />-->
+      <img class="rounded-t-sm" :src="require(`@/assets/img/${giftImage}`)" alt="product image" />
       <div class="bg-orange">
         <h3 class="font-bold text-center py-4">
           {{ giftDetail.name }}
@@ -107,6 +102,14 @@ export default {
       } else {
         return "高";
       }
+    },
+    giftImage() {
+        if (this.giftDetail.name.indexOf('休息') !== -1) return 'coffee.jpg';
+        if (this.giftDetail.name.indexOf('データ分析入門') !== -1) return 'syoshinsya.jpg';
+        if (this.giftDetail.name.indexOf('マーケティング') !== -1) return 'deskshiryou.jpg';
+        if (this.giftDetail.name.indexOf('プロジェクト') !== -1) return 'puromane.jpg';
+        if (this.giftDetail.name.indexOf('プレゼン') !== -1) return 'purezen.jpg';
+      return '25340787_s.jpg';
     },
   },
   created() {
