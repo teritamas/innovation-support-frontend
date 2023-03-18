@@ -226,4 +226,14 @@ export default {
   height: 90px;
   padding: 15px;
 }
+
+.proposal-status-badge-voting {
+  background: #ffca28;
+  color: rgba(55, 65, 81, var(--tw-text-opacity));
+}
+
+.proposal-status-badge-vote-end {
+  background: #939087;
+  color: rgba(55, 65, 81, var(--tw-text-opacity));
+}
 </style>
