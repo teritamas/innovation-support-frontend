@@ -1,6 +1,12 @@
 <template>
   <div class="content-center">
     <div class="card card-one">
+        <div class="proposal-status-badge-area">
+            <ProposalStatusBadge 
+            :proposalOwnType="proposal.proposalOwnType"
+            :proposalStatus="proposal.proposalStatus"
+            />
+        </div>
       <div class="form mb-10">
         <ProposalInfo
           :proposal="proposal"
@@ -101,6 +107,7 @@ import Loading from "../components/parts/Loading.vue";
 import PageTransition from "../components/parts/PageTransitionVote.vue";
 import Congratulation from "../components/parts/Congratulation.vue";
 import { useVuelidate } from "@vuelidate/core";
+import ProposalStatusBadge from "@/components/parts/ProposalStatusBadge.vue";
 
 const validJudgement = (value) => (value === "" ? false : true);
 
@@ -116,6 +123,7 @@ export default {
     VotersCommentList,
     PageTransition,
     Congratulation,
+    ProposalStatusBadge,
   },
   data() {
     return {
@@ -167,6 +175,24 @@ export default {
         !this.voteDetail.isProposer &&
         !this.voteDetail.voted
       );
+    },
+    statusBadge() {
+      // カードの右上のステータスバッジに掲載する内容
+      let badge = "";
+      if (this.isVoting) {
+        if (this.proposalOwnType == "voted") {
+          badge = "投票済み";
+        } else if (this.proposalOwnType == "unvoted") {
+          badge = "投票できます！";
+        } else if (this.proposalOwnType == "owner") {
+          badge = "あなたの提案が投票中です！";
+        } else {
+          badge = "投票受付中です！ログインして投票に参加しよう！";
+        }
+      } else {
+        badge = "投票終了";
+      }
+      return badge;
     },
     proposalId() {
       return this.$route.params["proposalId"];
