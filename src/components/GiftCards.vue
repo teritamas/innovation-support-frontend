@@ -4,6 +4,9 @@
   >
     <button @click="moveDetailPage(giftId, gift, img)">
       <div class="relative">
+        <PurchasedStatusBadge 
+          :purchasedUsers="gift.purchasedUsers"
+        />
         <img
           class="rounded-t-sm"
           :src="require(`@/assets/img/${img}`)"
@@ -47,8 +50,12 @@
 </template>
 
 <script>
+import PurchasedStatusBadge from "@/components/parts/PurchasedStatusBadge.vue";
 export default {
   name: "giftCards",
+  components: {
+    PurchasedStatusBadge,
+  },
   props: {
     gift: {},
     giftId: String,

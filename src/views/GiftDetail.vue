@@ -1,6 +1,9 @@
 <template>
   <div class="content-center">
     <div class="card card-one">
+      <PurchasedStatusBadge 
+        :purchasedUsers="giftDetail.purchasedUsers"
+      />
       <img class="rounded-t-sm" :src="require(`@/assets/img/${giftImage}`)" alt="product image" />
       <div class="bg-orange">
         <h3 class="font-bold text-center py-4">
@@ -61,13 +64,15 @@
 import Loading from "../components/parts/Loading.vue";
 import PageTransition from "../components/parts/PageTransitionPurchaseGift.vue";
 import PageTransitionRequiredLogin from '../components/parts/PageTransitionRequiredLogin.vue'
+import PurchasedStatusBadge from "@/components/parts/PurchasedStatusBadge.vue";
 
 export default {
   name: "proposal-form",
   components: {
     Loading,
     PageTransition,
-    PageTransitionRequiredLogin
+    PageTransitionRequiredLogin,
+    PurchasedStatusBadge,
   },
   data() {
     return {
