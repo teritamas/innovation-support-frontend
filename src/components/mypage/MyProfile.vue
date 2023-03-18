@@ -11,7 +11,7 @@
     <div class="stats px-5">
       <div class="stat text-center">
         <i>現金と交換可能なトークン</i>
-        <i class="grid">{{ exchangeableToken }}<span>トークン</span></i>
+        <i class="grid">{{ exchangeableToken }}<span>pts</span></i>
       </div>
       </div>
     <div class="stats px-5">
@@ -25,7 +25,7 @@
       </div>
       <div class="stat text-center">
         <i>保有トークン</i>
-        <i class="grid">{{ detail.totalTokenAmount }}<span>トークン</span></i>
+        <i class="grid">{{ detail.totalTokenAmount }}<span>pts</span></i>
       </div>
     </div>
 
@@ -61,8 +61,8 @@ export default {
       return this.$store.getters["userStore/detail"];
     },
     exchangeableToken(){
-      console.log(typeof(this.detail.totalExchangeableTokenAmount))
-      return this.detail.totalExchangeableTokenAmount === undefined ? 0 : this.detail.totalExchangeableTokenAmount
+      console.log(typeof(this.detail.totalExchangeableToken))
+      return this.detail.totalExchangeableToken === undefined ? 0 : this.detail.totalExchangeableToken
     },
     proposalCount() {
       if (!this.detail.proposals) {
@@ -113,7 +113,6 @@ $back-col: #c5cae9;
   .stat {
     width: 33.3333%;
     display: table-cell;
-    padding: 10px 0;
     letter-spacing: 0.5px;
     line-height: 1.7;
 
@@ -243,12 +242,6 @@ body {
       height: 1px;
       background: #000;
     }
-  }
-  .desc {
-    padding: 0 1rem 2rem;
-    text-align: center;
-    line-height: 1.5;
-    color: #777;
   }
 
   div.footer {
