@@ -5,23 +5,17 @@
     <router-link
       :to="{ name: 'proposalDetail', params: { proposalId: proposalId } }"
     >
-      <div class="proposal-status-badge-area">
+      <div class="proposal-status-badge-area proposal-card-img">
         <img
           class="rounded-t-sm"
           alt="product image"
           :src="thumbnailImageUrl"
           @error="imageError = true"
         />
-        <div
-          class="proposal-status-badge-object font-bold"
-          :class="
-            isVoting
-              ? 'proposal-status-badge-voting'
-              : 'proposal-status-badge-vote-end'
-          "
-        >
-          {{ statusBadge }}
-        </div>
+        <ProposalStatusBadge 
+            :proposalOwnType="proposalOwnType"
+            :proposalStatus="proposalStatus"
+        />
       </div>
       <h4
         class="text-xl py-2 font-bold tracking-tight text-gray-700 dark:text-white p-5"
@@ -59,10 +53,13 @@
 <script>
 import VotersCommentList from "./parts/VotersCommentList.vue";
 import moment from "moment";
+import ProposalStatusBadge from "@/components/parts/ProposalStatusBadge.vue";
+
 export default {
   name: "proposalCards",
   components: {
     VotersCommentList,
+    ProposalStatusBadge,
   },
   data() {
     return {
@@ -188,6 +185,11 @@ export default {
 </script>
 
 <style lang=scss scoped>
+.proposal-card-img {
+    box-shadow: 0px 0px 5px 0px gray;
+    margin-bottom: 1rem;
+}
+
 .bg-btn {
   background: rgb(251 191 36);
   border-radius: 30px;
@@ -223,24 +225,5 @@ export default {
 .not-show-vote-result {
   height: 90px;
   padding: 15px;
-}
-.proposal-status-badge-object {
-  position: absolute;
-  top: 0px;
-  right: 0;
-  padding: 5px;
-  font-size: 14px;
-  text-align: center;
-  border-radius: 0 0 0 10px;
-}
-
-.proposal-status-badge-voting {
-  background: #ffca28;
-  color: rgba(55, 65, 81, var(--tw-text-opacity));
-}
-
-.proposal-status-badge-vote-end {
-  background: #939087;
-  color: rgba(55, 65, 81, var(--tw-text-opacity));
 }
 </style>

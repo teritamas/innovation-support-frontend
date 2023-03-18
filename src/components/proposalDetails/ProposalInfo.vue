@@ -1,15 +1,14 @@
 <template>
-  <h2 class="font-bold text-center p-2">{{ proposal.title }}</h2>
+  <h3 class="font-bold text-center p-2 ">{{ proposal.title }}</h3>
   <i class="block-explorer-badge"><a :href="blockExplorerUrl" target="_blank" rel="noopener noreferrer">ブロックエクスプローラーで確認する</a></i>
   <div class="form-item">
     <p class="form-item-label is-msg">
       <span class="form-item-List"></span>事業概要
     </p>
-    <p>{{ proposal.description }}</p>
+    <p style="max-width:430px;">{{ proposal.description }}</p>
   </div>
   <div class="form-item">
     <p class="form-item-label"><span class="form-item-List"></span>調達金額</p>
-    <!---TODO: レイアウト入れる-->
     <p>
       {{ phaseDetail.phaseJpName }}<br />
       金額:{{ phaseDetail.procurementTokenAmount }}千円<br />条件:{{
@@ -76,7 +75,26 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+h3{
+    font-size: 2rem;
+    font-weight: bold;
+    position: relative;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    &::after{
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      margin-left: -15px;
+      width: 30px;
+      height: 1px;
+      background: orange;
+    }
+  }
+
 .preview-item {
   width: 100%;
 }
