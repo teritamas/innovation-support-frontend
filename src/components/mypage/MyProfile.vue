@@ -10,6 +10,12 @@
     <h3>{{ detail.userName }}</h3>
     <div class="stats px-5">
       <div class="stat text-center">
+        <i>現金と交換可能なトークン</i>
+        <i class="grid">{{ exchangeableToken }}<span>トークン</span></i>
+      </div>
+      </div>
+    <div class="stats px-5">
+      <div class="stat text-center">
         <i>提案した回数</i>
         <i class="grid">{{ proposalCount }}<span>回</span></i>
       </div>
@@ -27,9 +33,11 @@
       {{ detail.message }}
     </div>
     <div class="footer">
-      <p class="text-white" style="word-break: break-all">
-        {{ detail.walletAddress }}
-      </p>
+      <i class="text-white" >ウォレットアドレス</i>
+        <v-icon @click="copyToClipboard(text)"><p class="text-white" style="word-break: break-all">
+          {{ detail.walletAddress }}
+        </p>
+      </v-icon>
     </div>
   </div>
 </template>
@@ -51,6 +59,10 @@ export default {
     },
     detail() {
       return this.$store.getters["userStore/detail"];
+    },
+    exchangeableToken(){
+      console.log(typeof(this.detail.totalExchangeableTokenAmount))
+      return this.detail.totalExchangeableTokenAmount === undefined ? 0 : this.detail.totalExchangeableTokenAmount
     },
     proposalCount() {
       if (!this.detail.proposals) {
