@@ -236,6 +236,9 @@ export default {
       return this.$store.getters["userStore/detail"].totalTokenAmount
     },
     proposerReword(){
+      if (this.proposal.proposalFundraisingCondition === undefined){
+        return 0
+      }
       return this.proposal.proposalFundraisingCondition.procurementTokenAmount
     },
     rewordToken(){
