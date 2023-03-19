@@ -1,7 +1,16 @@
 <template>
-  <div style="max-width: 660px">
-    <h2 class="text-center text-white font-bold text-xl mt-2.5">投票履歴</h2>
+  <div class="bg-glass" style="max-width: 800px">
+    <h2 class="title-underline text-center text-white font-bold text-xl mt-2.5">投票履歴</h2>
     <div class="proposal-contents horizontal-list">
+      <div 
+        v-if="userProposalVotes.length == 0"
+        class="text-white p-5 text-center">
+        <p>
+            投票の履歴がありません。<br>
+            提案一覧から投票をしてみてください！
+        </p>
+        <img class="w-full img-to-display-if-not" src="@/assets/img/noVoteImage.png" alt="投票がないときの画像">
+      </div>
       <div
         v-for="userVote in userProposalVotes"
         :key="userVote.index"
@@ -42,13 +51,14 @@ export default {
       return this.userDetail.proposals;
     },
     userProposalVotes() {
+      if (this.userDetail.proposalVotes === undefined) return [];
       return this.userDetail.proposalVotes;
     },
   },
 };
 </script>
   
-  <style>
+<style>
 .proposal-contents {
   overflow-y: scroll;
 }

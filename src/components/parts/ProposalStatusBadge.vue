@@ -35,7 +35,7 @@ export default {
         } else if (this.proposalOwnType == "owner") {
           badge = "あなたの提案が投票中です！";
         } else {
-          badge = "投票受付中です！ログインして投票に参加しよう！";
+          badge = "投票受付中です！";
         }
       } else {
         badge = "投票終了";

@@ -23,6 +23,38 @@
     background: white;
 }
 
+.bg-glass {
+    gap: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    background-color: rgba(255,255,255, 0.096);
+    box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px;
+    border: 2px rgba(255,255,255,0.4) solid;
+    border-bottom: 2px rgba(40,40,40,0.35) solid;
+    border-right: 2px rgba(40,40,40,0.35) solid;
+}
+
+.img-to-display-if-not {
+    max-width: 300px;
+    margin: 10px auto;
+}
+
+.title-underline {
+    position: relative;
+    text-align: center;
+}
+
+.title-underline::after{
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    margin-left: -15px;
+    width: 30px;
+    height: 1px;
+    background: white;
+}
+
 /*input radio*/
 .radio-button-group {
   display: flex;

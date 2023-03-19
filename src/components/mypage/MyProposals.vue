@@ -1,7 +1,16 @@
 <template>
-  <div style="">
-    <h2 class="text-center text-white font-bold text-xl mt-2.5">提案履歴</h2>
+  <div class="bg-glass">
+    <h2 class="title-underline text-center text-white font-bold text-xl mt-2.5">提案履歴</h2>
     <div class="proposal-contents horizontal-list">
+      <div 
+        v-if="userProposals.length === 0"
+        class="text-white p-5 text-center">
+        <p>
+            提案の履歴がありません。<br>
+            ぜひ提案をしてみてください！
+        </p>
+        <img class="w-full img-to-display-if-not" src="@/assets/img/noProposalImage.png" alt="提案がないときの画像">
+      </div>
       <div
         v-for="proposal in userProposals"
         :key="proposal.index"
@@ -54,6 +63,7 @@ export default {
       return this.detail.proposalVotes.length;
     },
     userProposals() {
+      if (this.detail.proposals === undefined) return [];
       return this.detail.proposals;
     },
   },
