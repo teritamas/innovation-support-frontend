@@ -1,6 +1,6 @@
 <template>
   <AppHeaderGift />
-  <div class="grid grid-cols-2 md:grid-cols-3">
+  <div class="grid grid-cols-2 md:grid-cols-3" style="max-width: 1200px; margin: 0 auto;">
     <div v-for="gift in showGifts" :key="gift.index" class="p-1">
       <GiftCards
         :gift="gift"
