@@ -1,19 +1,19 @@
 <template>
   <LoginStep v-if="!token" />
-  <MyProfile v-if="token" :token="token" />
-  <MyProposals v-if="token" :token="token" />
-  <div class="lg:flex">
-    <MyVotes v-if="token" :token="token" />
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-2 md:p-5" style="max-width:1200px; margin:0 auto;">
+    <MyProfile v-if="token" :token="token"/>
+    <MyProposals v-if="token" :token="token" class='md:col-span-2' />
+    <MyVotes v-if="token" :token="token" class='md:col-span-2' />
     <MyGifts v-if="token" :token="token" />
-  </div>
-  <div v-if="token">
-    <div v-for="contract in contracts" :key="contract.index">
-      <button
-        @click="registerMetamask(contract)"
-        class="text-center form-btn mb-1"
-      >
-        トークンをMetamaskと連携
-      </button>
+    <div v-if="token" class="md:col-span-3">
+        <div v-for="contract in contracts" :key="contract.index">
+        <button
+            @click="registerMetamask(contract)"
+            class="text-center form-btn mb-1"
+        >
+            トークンをMetamaskと連携
+        </button>
+        </div>
     </div>
   </div>
 </template>
