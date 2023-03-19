@@ -77,12 +77,14 @@ export default {
 
 <style lang="scss" scoped>
 
+
 h3{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
     font-size: 2rem;
     font-weight: bold;
     position: relative;
     text-align: center;
-    margin-bottom: 1.5rem;
     &::after{
       content: '';
       position: absolute;
@@ -93,7 +95,15 @@ h3{
       height: 1px;
       background: orange;
     }
+}
+
+@media screen and (max-width: 480px) {
+  h3{
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
   }
+}
 
 .preview-item {
   width: 100%;
