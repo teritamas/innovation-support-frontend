@@ -4,7 +4,7 @@
   >
     <button @click="moveDetailPage(giftId, gift, img)">
       <div class="relative">
-        <PurchasedStatusBadge 
+        <PurchasedStatusBadge
           :purchasedUsers="purchaseUsers"
         />
         <img

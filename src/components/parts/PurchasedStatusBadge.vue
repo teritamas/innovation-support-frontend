@@ -19,7 +19,6 @@ export default {
     },
     statusBadge() {
       let badge = false;
-
       if(this.purchasedUsers===undefined){
         return badge;
       }
