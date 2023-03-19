@@ -98,7 +98,7 @@ export default {
         },
         {
           checkTarget: "nft-check",
-          label: "NET作成完了",
+          label: "NFT作成完了",
         },
       ],
     };
