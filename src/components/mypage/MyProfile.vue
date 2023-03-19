@@ -61,7 +61,6 @@ export default {
       return this.$store.getters["userStore/detail"];
     },
     exchangeableToken(){
-      console.log(typeof(this.detail.totalExchangeableToken))
       return this.detail.totalExchangeableToken === undefined ? 0 : this.detail.totalExchangeableToken
     },
     proposalCount() {

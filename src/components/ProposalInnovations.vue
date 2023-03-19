@@ -112,10 +112,10 @@
             v-model="newProposal.isRecruitingTeammates"
             class="radio-button"
             value="false"
-            id="button2"
+            id="not-recruiting"
             checked
           />
-          <label for="button2">募集しない</label>
+          <label for="not-recruiting">募集しない</label>
         </div>
         <div class="item">
           <input
@@ -123,9 +123,9 @@
             v-model="newProposal.isRecruitingTeammates"
             class="radio-button"
             value="true"
-            id="button1"
+            id="recruiting"
           />
-          <label for="button1">募集する</label>
+          <label for="recruiting">募集する</label>
         </div>
       </div>
     </div>

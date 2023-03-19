@@ -45,6 +45,7 @@ export default {
   },
   methods: {
     giftImage(name) {
+        if (name === undefined) return '25340787_s.jpg';
         if (name.indexOf('休息') !== -1) return 'coffee.jpg';
         if (name.indexOf('データ分析入門') !== -1) return 'syoshinsya.jpg';
         if (name.indexOf('マーケティング') !== -1) return 'deskshiryou.jpg';
