@@ -1,45 +1,47 @@
 <template>
-    <div class="card card-one">
-      <div class="head">
-        <div class="avatar">
-          <img :src="avatarImage" alt="sayako" />
+    <div class="bg-glass">
+      <div class="card card-one">
+        <div class="head">
+            <div class="avatar">
+            <img :src="avatarImage" alt="sayako" />
+            </div>
+        </div>
+
+
+        <h3>{{ detail.userName }}</h3>
+        <div class="stats px-5">
+        <div class="stat text-center">
+            <i>現金と交換可能なトークン</i>
+            <i class="grid">{{ exchangeableToken }}<span>pts</span></i>
+        </div>
+        </div>
+        <div class="stats px-5">
+        <div class="stat text-center">
+            <i>提案した回数</i>
+            <i class="grid">{{ proposalCount }}<span>回</span></i>
+        </div>
+        <div class="stat text-center">
+            <i>投票した回数</i>
+            <i class="grid">{{ proposalVoteCount }}<span>回</span></i>
+        </div>
+        <div class="stat text-center">
+            <i>保有トークン</i>
+            <i class="grid">{{ detail.totalTokenAmount }}<span>pts</span></i>
+        </div>
+        </div>
+
+        <div class="desc">
+        {{ detail.message }}
+        </div>
+        <div class="footer">
+        <i class="text-white" >ウォレットアドレス</i>
+            <v-icon @click="copyToClipboard(text)"><p class="text-white" style="word-break: break-all">
+            {{ detail.walletAddress }}
+            </p>
+        </v-icon>
         </div>
       </div>
-
-
-    <h3>{{ detail.userName }}</h3>
-    <div class="stats px-5">
-      <div class="stat text-center">
-        <i>現金と交換可能なトークン</i>
-        <i class="grid">{{ exchangeableToken }}<span>pts</span></i>
-      </div>
-      </div>
-    <div class="stats px-5">
-      <div class="stat text-center">
-        <i>提案した回数</i>
-        <i class="grid">{{ proposalCount }}<span>回</span></i>
-      </div>
-      <div class="stat text-center">
-        <i>投票した回数</i>
-        <i class="grid">{{ proposalVoteCount }}<span>回</span></i>
-      </div>
-      <div class="stat text-center">
-        <i>保有トークン</i>
-        <i class="grid">{{ detail.totalTokenAmount }}<span>pts</span></i>
-      </div>
     </div>
-
-    <div class="desc">
-      {{ detail.message }}
-    </div>
-    <div class="footer">
-      <i class="text-white" >ウォレットアドレス</i>
-        <v-icon @click="copyToClipboard(text)"><p class="text-white" style="word-break: break-all">
-          {{ detail.walletAddress }}
-        </p>
-      </v-icon>
-    </div>
-  </div>
 </template>
 <script>
 import {generatorService} from '@/plugins/avatar'
