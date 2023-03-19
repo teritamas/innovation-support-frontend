@@ -11,21 +11,23 @@
 export default {
   name: "statusBadge",
     props: {
-        purchasedUsers: String,
+        purchasedUsers: Array,
   },
   computed: {
     detail() {
       return this.$store.getters["userStore/detail"];
     },
     statusBadge() {
+      let badge = false;
+      if(this.purchasedUsers===undefined){
+        return badge;
+      }
       const purchasedUsers = this.purchasedUsers.filter((x) => {
         if (x === this.detail.userId) {
           return x;
         }
       });
-
       // カードの右上のステータスバッジに掲載する内容
-      let badge = false;
       if (purchasedUsers.length === 1) return badge = "購入済み";
       return badge;
     },

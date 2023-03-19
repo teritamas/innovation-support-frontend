@@ -41,7 +41,7 @@ export default {
       return ["rgb(251 191 36)", "#a9a9a9", "#ececec"];
     },
     minVoterCount() {
-      if (this.proposal.proposalFundraisingCondition.minVoterCount === undefined) {
+      if (this.proposal.proposalFundraisingCondition === undefined) {
         return 10;
       }
       return this.proposal.proposalFundraisingCondition.minVoterCount;

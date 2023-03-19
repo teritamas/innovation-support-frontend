@@ -4,8 +4,8 @@
   >
     <button @click="moveDetailPage(giftId, gift, img)">
       <div class="relative">
-        <PurchasedStatusBadge 
-          :purchasedUsers="gift.purchasedUsers"
+        <PurchasedStatusBadge
+          :purchasedUsers="purchaseUsers"
         />
         <img
           class="rounded-t-sm"
@@ -63,8 +63,16 @@ export default {
     title: String,
     description: String,
     stars: Number,
-    points: String,
+    points: Number,
     evaluation: String,
+  },
+  computed:{
+    purchaseUsers(){
+      if (this.gift.purchasedUsers === undefined){
+        []
+      }
+      return this.gift.purchasedUsers
+    },
   },
   methods: {
     moveDetailPage(giftId) {

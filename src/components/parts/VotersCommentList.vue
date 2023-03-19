@@ -8,7 +8,7 @@
     >
       <img
         class="avatar"
-        src="@/assets/img/2754574_business_people_person_man_male_avatar_face_user.png"
+        :src="require(`@/assets/img/${avatarImage(vote.judgement)}`)"
         alt=""
       />
       <small>{{ convertedJudgement(vote.judgement) }}</small>
@@ -36,6 +36,11 @@ export default {
     voteList: Object,
   },
   computed: {
+    avatarImage() {
+      return (judgement) => {
+        return judgement ? "2754579_avatar_man_business man_avatar_face_user_business_people.png" : "2754580_people_female_business_user_face_avatar_woman_business_woman_avatar.png";
+      };
+    },
     convertedJudgement() {
       return (judgement) => {
         return judgement ? "賛成" : "反対";
