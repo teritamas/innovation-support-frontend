@@ -8,7 +8,9 @@
           <div></div>
           <div></div>
           <div></div>
-          <p v-for="data in loadingText" :key=data.index class="font-bold text-white">
+          <p class="font-bold text-white">この処理には</p>
+          <p class="font-bold text-white">最大1~2分かかります</p>
+          <p v-for="data in loadingText" :key=data.index class="font-bold text-center text-white">
             <LoadingCheck :checkTarget=data.checkTarget :label=data.label />
           </p>
         </div>
