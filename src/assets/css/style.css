@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+h2 {
+  letter-spacing: 0.05em;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.font-small {
+  font-size: .8rem
+}
+
 .content-center {
   display: flex;
   justify-content: center;
@@ -20,9 +30,13 @@
 }
 
 .bg-white {
-    background: white;
+  background: white;
 }
 
+.text-rose-700 {
+ color: rgb(190 18 60);
+ font-weight: bold;
+}
 .bg-glass {
     gap: 20px;
     border-radius: 10px;
@@ -322,3 +336,37 @@ label.file::before {
   text-align: center;
   border-radius: 0 0 0 10px;
 }
+
+.form-return-btn {
+    border-radius: 6px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 280px;
+    display: block;
+    letter-spacing: 0.05em;
+    background: #555;
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  @media screen and (max-width: 480px) {
+  
+    .form-return-btn {
+      margin-top: 12px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      width: 200px;
+      font-size: 16px;
+    }
+  }
+  .horizontal-list {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }

@@ -189,24 +189,6 @@ export default {
     box-shadow: 0px 0px 5px 0px gray;
     margin-bottom: 1rem;
 }
-
-.bg-btn {
-  background: rgb(251 191 36);
-  border-radius: 30px;
-  width: 160px;
-  font-weight: bolder;
-}
-.step-progress {
-  display: flex;
-  width: 100%;
-  height: 5px;
-  background-color: #00416a;
-  transition: 0.5s;
-}
-.text-rose-700 {
-  color: rgb(190 18 60);
-  font-weight: bold;
-}
 .prog-bar {
   height: 40px;
   background-color: #ececec;

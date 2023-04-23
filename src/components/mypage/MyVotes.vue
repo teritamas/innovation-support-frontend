@@ -1,6 +1,6 @@
 <template>
   <div class="bg-glass" style="max-width: 800px">
-    <h2 class="title-underline text-center text-white font-bold text-xl mt-2.5">投票履歴</h2>
+    <h2 class="title-underline text-center text-white text-xl mt-2.5">投票履歴</h2>
     <div class="proposal-contents horizontal-list">
       <div 
         v-if="userProposalVotes.length == 0"
@@ -64,10 +64,6 @@ export default {
 }
 
 @media only screen and (max-width: 810px) {
-  .horizontal-list {
-    overflow-x: auto;
-    white-space: nowrap;
-  }
   .proposal-contents {
     max-width: 100%;
   }

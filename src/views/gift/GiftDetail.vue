@@ -163,11 +163,6 @@ export default {
   line-height: 1.5;
   color: #777;
 }
-
-.img-box {
-  width: 100%;
-  /*padding: 1rem;*/
-}
 .card {
   float: left;
   margin-top: 1rem;
@@ -184,51 +179,4 @@ export default {
   box-shadow: 0 10px 7px -5px rgba(#000, 0.4);
 }
 
-.form-btn {
-  border-radius: 6px;
-  margin-top: 32px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  width: 280px;
-  display: block;
-  letter-spacing: 0.05em;
-  background: rgb(251 191 36);
-  color: #fff;
-  font-weight: bold;
-  font-size: 20px;
-}
-
-.form-return-btn {
-  border-radius: 6px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  width: 280px;
-  display: block;
-  letter-spacing: 0.05em;
-  background: #555;
-  color: #fff;
-  font-weight: bold;
-  font-size: 20px;
-}
-@media screen and (max-width: 480px) {
-  .form-btn {
-    margin-top: 24px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    width: 200px;
-    font-size: 16px;
-  }
-
-  .form-return-btn {
-    margin-top: 12px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    width: 200px;
-    font-size: 16px;
-  }
-}
 </style>

@@ -140,12 +140,6 @@ h3 {
   font-weight: bold;
 }
 @media screen and (max-width: 480px) {
-  .form-return-btn {
-    margin-top: 12px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    width: 200px;
-  }
 
   .btn-font {
     font-size: 16px;

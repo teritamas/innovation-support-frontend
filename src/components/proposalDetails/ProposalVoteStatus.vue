@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <h2 class="font-bold p-2">投票状況</h2>
+    <h2 class="p-2">投票状況</h2>
     <h4 class="font-bold p-3">投票者の合計 / 最低投票数</h4>
     <h4 class="font-bold p-3">{{ votersCount }} / {{ minVoterCount }}</h4>
     <div class="font-bold mt-2">

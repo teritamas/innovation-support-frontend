@@ -505,13 +505,4 @@ export default {
   font-weight: bold;
   font-size: 20px;
 }
-@media screen and (max-width: 480px) {
-  .form-return-btn {
-    margin-top: 12px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    width: 200px;
-    font-size: 16px;
-  }
-}
 </style>

@@ -152,7 +152,7 @@
 <script>
 import { useVuelidate } from "@vuelidate/core";
 import { required, maxLength } from "@vuelidate/validators";
-import { phaseStatus } from "../plugins/proposalPhase";
+import { phaseStatus } from "../../plugins/proposalPhase";
 import PhaseDetailTable from "@/components/parts/PhaseDetailTable.vue";
 
 export default {
@@ -229,13 +229,6 @@ export default {
 </script>
 
 <style scoped>
-::-webkit-scrollbar-track {
-  background-color: #ccc;
-}
-::-webkit-scrollbar-thumb {
-  background-color: #17585d;
-}
-
 .file {
   width: 100%;
   background: #fbfdff;

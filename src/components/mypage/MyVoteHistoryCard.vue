@@ -77,62 +77,6 @@ export default {
 </script>
   
 <style lang=scss scoped>
-.comment {
-  margin: 0.5rem;
-  padding: 0.5rem;
-  border-radius: 5px;
-  background: white;
-  font-size: 0.9rem;
-  white-space: normal;
-  display: inline-block;
-}
-.horizontal-list {
-  overflow-x: auto;
-  white-space: nowrap;
-}
-.avatar {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-}
-.step-progress {
-  display: flex;
-  width: 100%;
-  height: 5px;
-  background-color: #00416a;
-  transition: 0.5s;
-}
-.text-rose-700 {
-  color: rgb(190 18 60);
-  font-weight: bold;
-}
-.balloon1-left {
-  position: relative;
-  display: inline-block;
-  margin: 1.5em 0 1.5em 15px;
-  padding: 7px 10px;
-  min-width: 120px;
-  max-width: 100%;
-  color: #555;
-  font-size: 16px;
-  background: #e0edff;
-}
-
-.balloon1-left:before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: -30px;
-  margin-top: -15px;
-  border: 15px solid transparent;
-  border-right: 15px solid #e0edff;
-}
-
-.balloon1-left p {
-  margin: 0;
-  padding: 0;
-}
-
 .balloon5 {
   width: 100%;
   margin: 1.5em 0;

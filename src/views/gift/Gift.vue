@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import GiftCards from "../../components/GiftCards.vue";
-import AppHeaderGift from "../../components/AppHeaderGift.vue";
+import GiftCards from "../../components/gift/GiftCards.vue";
+import AppHeaderGift from "../../components/gift/AppHeaderGift.vue";
 
 export default {
   name: "proposa-list",
@@ -56,11 +56,3 @@ export default {
   }
 };
 </script>
-
-<style>
-h2 {
-  letter-spacing: 0.05em;
-  font-weight: bold;
-  font-size: 18px;
-}
-</style>

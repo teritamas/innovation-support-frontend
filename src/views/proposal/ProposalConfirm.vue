@@ -3,7 +3,7 @@
   <div class="content-center">
     <div class="card card-one">
       <div class="bg-orange">
-        <h2 class="font-bold text-center pt-5 pb-5">プレビュー</h2>
+        <h2 class="text-center pt-5 pb-5">プレビュー</h2>
       </div>
       <div class="form mb-10">
         <div class="form-item">
@@ -61,7 +61,7 @@
         <button class="form-btn" @click="registerProposal()">
           上記の内容で投稿する
         </button>
-        <button class="form-return-btn mb-10" @click="returnProposalView()">
+        <button class="form-return-btn mt-3 mb-10" @click="returnProposalView()">
           入力画面に戻る
         </button>
       </div>
@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import AppHeaderProposal from "../../components/AppHeaderProposal.vue";
+import AppHeaderProposal from "../../components/proposal/AppHeaderProposal.vue";
 import Loading from "../../components/parts/Loading.vue";
 import PageTransition from "../../components/parts/PageTransitionProposal.vue";
 import { phaseStatus } from "../../plugins/proposalPhase";
@@ -274,55 +274,6 @@ export default {
     padding-bottom: 4px;
     width: 32px;
     font-size: 10px;
-  }
-}
-
-.form-btn {
-  border-radius: 6px;
-  margin-top: 32px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  width: 280px;
-  display: block;
-  letter-spacing: 0.05em;
-  background: rgb(251 191 36);
-  color: #fff;
-  font-weight: bold;
-  font-size: 20px;
-}
-
-.form-return-btn {
-  border-radius: 6px;
-  margin-top: 32px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  width: 280px;
-  display: block;
-  letter-spacing: 0.05em;
-  background: #555;
-  color: #fff;
-  font-weight: bold;
-  font-size: 20px;
-}
-@media screen and (max-width: 480px) {
-  .form-btn {
-    margin-top: 24px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    width: 200px;
-    font-size: 16px;
-  }
-
-  .form-return-btn {
-    margin-top: 12px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    width: 200px;
-    font-size: 16px;
   }
 }
 </style>

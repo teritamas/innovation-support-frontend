@@ -68,9 +68,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.font-small {
-  font-size: 0.8rem;
-}
 .desc {
   padding: 1rem;
   font-size: 0.9rem;
@@ -152,31 +149,12 @@ h3 {
   padding-bottom: 10px;
   color: white;
 }
-.form-return-btn {
-  border-radius: 6px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  width: 280px;
-  display: block;
-  background: white;
-  color: gray;
-}
-
 .btn-font {
   letter-spacing: 0.05em;
   font-size: 20px;
   font-weight: bold;
 }
 @media screen and (max-width: 480px) {
-  .form-return-btn {
-    margin-top: 12px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    width: 200px;
-  }
-
   .btn-font {
     font-size: 16px;
   }

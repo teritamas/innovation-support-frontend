@@ -1,6 +1,6 @@
 <template>
   <div class="bg-glass">
-    <h2 class="title-underline text-center text-white font-bold text-xl mt-2.5">
+    <h2 class="title-underline text-center text-white text-xl mt-2.5">
       交換したギフト
     </h2>
     <div 
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import GiftCards from "@/components/GiftCards.vue";
+import GiftCards from "@/components/gift/GiftCards.vue";
 
 export default {
   name: "MyGift",
@@ -46,11 +46,3 @@ export default {
   },
 };
 </script>
-
-<style>
-h2 {
-  letter-spacing: 0.05em;
-  font-weight: bold;
-  font-size: 18px;
-}
-</style>

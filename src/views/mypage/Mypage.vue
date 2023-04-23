@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import LoginStep from "../../components/LoginStep.vue";
+import LoginStep from "../../components/login/LoginStep.vue";
 import MyProfile from "../../components/mypage/MyProfile.vue";
 import MyProposals from "../../components/mypage/MyProposals.vue";
 import MyVotes from "../../components/mypage/MyVotes.vue";

@@ -129,23 +129,6 @@ export default {
 </script>
   
   <style lang=scss scoped>
-.bg-btn {
-  background: rgb(251 191 36);
-  border-radius: 30px;
-  width: 160px;
-  font-weight: bolder;
-}
-.step-progress {
-  display: flex;
-  width: 100%;
-  height: 5px;
-  background-color: #00416a;
-  transition: 0.5s;
-}
-.text-rose-700 {
-  color: rgb(190 18 60);
-  font-weight: bold;
-}
 .prog-bar {
   height: 16px;
   background-color: #ececec;

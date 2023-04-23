@@ -3,7 +3,7 @@
         <div class="content-center">
             <div class="card card-one mt-10">
                 <div class="bg-orange">
-                    <h2 class="font-bold text-center pt-5 pb-5">提案登録フォーム</h2>
+                    <h2 class="text-center pt-5 pb-5">提案登録フォーム</h2>
                 </div>
                 <ProposalInnovations v-if="showContentsType === 'proposal'" />
                 <ProposalInnovations v-if="showContentsType === 'survey'" />
@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import AppHeaderProposal from '../../components/AppHeaderProposal.vue'
-import ProposalInnovations from '../../components/ProposalInnovations.vue'
+import AppHeaderProposal from '../../components/proposal/AppHeaderProposal.vue'
+import ProposalInnovations from '../../components/proposal/ProposalInnovations.vue'
 import PageTransitionRequiredLogin from '../../components/parts/PageTransitionRequiredLogin.vue'
 
 export default {

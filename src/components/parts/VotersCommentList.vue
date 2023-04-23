@@ -67,23 +67,3 @@ export default {
   },
 };
 </script>
-
-<style lang=scss scoped>
-.comment {
-  margin: 0.5rem;
-  padding: 0.5rem;
-  border-radius: 5px;
-  background: white;
-  font-size: 0.9rem;
-  white-space: normal;
-}
-.horizontal-list {
-  overflow-x: auto;
-  white-space: nowrap;
-}
-.avatar {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-}
-</style>
