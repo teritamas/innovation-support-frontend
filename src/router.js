@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 // import HomeView from './views/Home.vue'
-import ProposalListsView from './views/ProposalLists.vue'
-import ProposalView from './views/Proposal.vue'
-import ProposalDetailView from './views/ProposalDetail.vue'
-import ProposalConfirmView from './views/ProposalConfirm.vue'
-import MypageView from './views/Mypage.vue'
-import GiftView from './views/Gift.vue'
-import GiftDetailView from './views/GiftDetail.vue'
+import ProposalListsView from './views/lists/ProposalLists.vue'
+import ProposalView from './views/proposal/Proposal.vue'
+import ProposalDetailView from './views/lists/ProposalDetail.vue'
+import ProposalConfirmView from './views/proposal/ProposalConfirm.vue'
+import MypageView from './views/mypage/Mypage.vue'
+import GiftView from './views/gift/Gift.vue'
+import GiftDetailView from './views/gift/GiftDetail.vue'
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

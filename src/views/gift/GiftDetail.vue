@@ -61,9 +61,9 @@
 </template>
 
 <script>
-import Loading from "../components/parts/Loading.vue";
-import PageTransition from "../components/parts/PageTransitionPurchaseGift.vue";
-import PageTransitionRequiredLogin from '../components/parts/PageTransitionRequiredLogin.vue'
+import Loading from "../../components/parts/Loading.vue";
+import PageTransition from "../../components/parts/PageTransitionPurchaseGift.vue";
+import PageTransitionRequiredLogin from '../../components/parts/PageTransitionRequiredLogin.vue'
 import PurchasedStatusBadge from "@/components/parts/PurchasedStatusBadge.vue";
 
 export default {

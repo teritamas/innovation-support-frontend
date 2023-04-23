@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import ProposalCards from "../components/ProposalCards.vue";
+import ProposalCards from "../../components/ProposalCards.vue";
 
 export default {
   name: "app-top",

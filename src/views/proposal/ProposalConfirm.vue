@@ -75,10 +75,10 @@
 </template>
 
 <script>
-import AppHeaderProposal from "../components/AppHeaderProposal.vue";
-import Loading from "../components/parts/Loading.vue";
-import PageTransition from "../components/parts/PageTransitionProposal.vue";
-import { phaseStatus } from "../plugins/proposalPhase";
+import AppHeaderProposal from "../../components/AppHeaderProposal.vue";
+import Loading from "../../components/parts/Loading.vue";
+import PageTransition from "../../components/parts/PageTransitionProposal.vue";
+import { phaseStatus } from "../../plugins/proposalPhase";
 
 export default {
   name: "proposal-form",

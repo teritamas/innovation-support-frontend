@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import AppHeaderProposal from '../components/AppHeaderProposal.vue'
-import ProposalInnovations from '../components/ProposalInnovations.vue'
-import PageTransitionRequiredLogin from '../components/parts/PageTransitionRequiredLogin.vue'
+import AppHeaderProposal from '../../components/AppHeaderProposal.vue'
+import ProposalInnovations from '../../components/ProposalInnovations.vue'
+import PageTransitionRequiredLogin from '../../components/parts/PageTransitionRequiredLogin.vue'
 
 export default {
   name: 'proposal-form',

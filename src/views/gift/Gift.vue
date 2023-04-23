@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import GiftCards from "../components/GiftCards.vue";
-import AppHeaderGift from "../components/AppHeaderGift.vue";
+import GiftCards from "../../components/GiftCards.vue";
+import AppHeaderGift from "../../components/AppHeaderGift.vue";
 
 export default {
   name: "proposa-list",

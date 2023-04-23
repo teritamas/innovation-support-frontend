@@ -104,13 +104,13 @@
 </template>
 
 <script>
-import ProposalInfo from "../components/proposalDetails/ProposalInfo.vue";
-import VotersCommentList from "../components/parts/VotersCommentList.vue";
-import ProposalVoteStatus from "../components/proposalDetails/ProposalVoteStatus.vue";
+import ProposalInfo from "../../components/proposalDetails/ProposalInfo.vue";
+import VotersCommentList from "../../components/parts/VotersCommentList.vue";
+import ProposalVoteStatus from "../../components/proposalDetails/ProposalVoteStatus.vue";
 import { debounce } from "lodash";
-import Loading from "../components/parts/Loading.vue";
-import PageTransition from "../components/parts/PageTransitionVote.vue";
-import Congratulation from "../components/parts/Congratulation.vue";
+import Loading from "../../components/parts/Loading.vue";
+import PageTransition from "../../components/parts/PageTransitionVote.vue";
+import Congratulation from "../../components/parts/Congratulation.vue";
 import { useVuelidate } from "@vuelidate/core";
 import ProposalStatusBadge from "@/components/parts/ProposalStatusBadge.vue";
 

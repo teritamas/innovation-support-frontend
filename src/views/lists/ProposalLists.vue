@@ -26,8 +26,8 @@
 </template>
 
 <script>
-import ProposalCards from "../components/ProposalCards.vue";
-import AppHeaderProposal from "../components/AppHeaderProposal.vue";
+import ProposalCards from "../../components/ProposalCards.vue";
+import AppHeaderProposal from "../../components/AppHeaderProposal.vue";
 
 export default {
   name: "proposa-list",
