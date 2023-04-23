@@ -46,7 +46,7 @@
         <button @click="purchaseGift()" class="text-center form-btn mb-3">
           購入する
         </button>
-        <router-link to="/gift" class="text-center form-Return-btn mb-5"
+        <router-link to="/gift" class="text-center form-return-btn mb-5"
           >戻る</router-link
         >
       </div>
@@ -200,7 +200,7 @@ export default {
   font-size: 20px;
 }
 
-.form-Return-btn {
+.form-return-btn {
   border-radius: 6px;
   margin-left: auto;
   margin-right: auto;
@@ -223,7 +223,7 @@ export default {
     font-size: 16px;
   }
 
-  .form-Return-btn {
+  .form-return-btn {
     margin-top: 12px;
     padding-top: 8px;
     padding-bottom: 8px;

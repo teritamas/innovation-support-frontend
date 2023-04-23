@@ -1,5 +1,5 @@
 <template>
-    <div class="fullview">
+    <div class="full-view">
     <div class="loaders">
       <div class="loader">
         <div class="text-center loader-inner line-scale-pulse-out">
@@ -45,7 +45,7 @@ import LoadingCheck from './LoadingCheck.vue'
 </script>
 
   <style scoped>
-.fullview {
+.full-view {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.7);

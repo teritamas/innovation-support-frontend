@@ -8,20 +8,20 @@
       <div class="form mb-10">
         <div class="form-item">
           <p class="form-item-label">
-            <span class="form-item-label-Required">必須</span>事業名（30字以内）
+            <span class="form-item-label-required">必須</span>事業名（30字以内）
           </p>
           <p>{{ newProposal.title }}</p>
         </div>
         <div class="form-item">
           <p class="form-item-label is-msg">
-            <span class="form-item-label-Required">必須</span
+            <span class="form-item-label-required">必須</span
             >事業概要（300字以内）
           </p>
           <p>{{ newProposal.description }}</p>
         </div>
         <div class="form-item">
           <p class="form-item-label">
-            <span class="form-item-label-Required">必須</span>提案フェイズ
+            <span class="form-item-label-required">必須</span>提案フェイズ
           </p>
           <!---TODO: レイアウト入れる-->
           <p>
@@ -234,7 +234,7 @@ export default {
     margin-top: 0;
   }
 }
-.form-item-label-Required {
+.form-item-label-required {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;
@@ -260,7 +260,7 @@ export default {
   font-size: 14px;
 }
 @media screen and (max-width: 480px) {
-  .form-item-label-Required {
+  .form-item-label-required {
     border-radius: 4px;
     padding-top: 4px;
     padding-bottom: 4px;

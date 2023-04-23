@@ -2,7 +2,7 @@
   <div class="form">
     <div class="form-item">
       <p class="form-item-label">
-        <span class="form-item-label-Required">必須</span>事業名（30字以内）
+        <span class="form-item-label-required">必須</span>事業名（30字以内）
       </p>
       <input
         type="text"
@@ -13,7 +13,7 @@
     </div>
     <div class="form-item">
       <p class="form-item-label is-msg">
-        <span class="form-item-label-Required">必須</span>事業概要（300字以内）
+        <span class="form-item-label-required">必須</span>事業概要（300字以内）
       </p>
       <textarea
         v-model="newProposal.description"
@@ -22,7 +22,7 @@
     </div>
     <div class="form-item">
       <p class="form-item-label mb-3">
-        <span class="form-item-label-Required">必須</span>調達金額プラン
+        <span class="form-item-label-required">必須</span>調達金額プラン
       </p>
       <div class="radio-button-group w-full">
         <div class="item">
@@ -61,7 +61,7 @@
     <PhaseDetailTable />
     <div class="form-item">
       <p class="form-item-label">
-        <span class="form-item-label-Required">必須</span>添付資料（PDF）
+        <span class="form-item-label-required">必須</span>添付資料（PDF）
       </p>
       <div v-show="!newProposal.filePath" class="form-item-input-file">
         <label class="border file mt-2 input-item__label"

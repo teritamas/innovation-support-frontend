@@ -3,12 +3,12 @@
   <i class="block-explorer-badge"><a :href="blockExplorerUrl" target="_blank" rel="noopener noreferrer">ブロックエクスプローラーで確認する</a></i>
   <div class="form-item">
     <p class="form-item-label is-msg">
-      <span class="form-item-List"></span>事業概要
+      <span class="form-item-list"></span>事業概要
     </p>
     <p style="max-width:430px;">{{ proposal.description }}</p>
   </div>
   <div class="form-item">
-    <p class="form-item-label"><span class="form-item-List"></span>調達金額</p>
+    <p class="form-item-label"><span class="form-item-list"></span>調達金額</p>
     <p>
       {{ phaseDetail.phaseJpName }}<br />
       金額:{{ phaseDetail.procurementTokenAmount }}千円<br />条件:{{
@@ -20,7 +20,7 @@
   </div>
   <div class="form-item">
     <p class="form-item-label is-msg">
-      <span class="form-item-List"></span>添付資料
+      <span class="form-item-list"></span>添付資料
     </p>
     <div class="preview-item w-full mt-2">
       <embed
@@ -33,14 +33,14 @@
   </div>
   <div class="form-item">
     <p class="form-item-label mb-2">
-      <span class="form-item-List"></span>仲間募集
+      <span class="form-item-list"></span>仲間募集
     </p>
     <p v-if="proposal.isRecruitingTeammates">募集する</p>
     <p v-if="!proposal.isRecruitingTeammates">募集しない</p>
   </div>
   <div class="form-item">
     <p class="form-item-label is-msg">
-      <span class="form-item-List"></span>その他
+      <span class="form-item-list"></span>その他
     </p>
     <p>{{ proposal.otherContents }}</p>
   </div>
@@ -159,7 +159,7 @@ h3{
   }
 }
 
-.form-item-List {
+.form-item-list {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;

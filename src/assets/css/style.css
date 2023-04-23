@@ -164,7 +164,7 @@ label.file::before {
     margin-top: 0;
   }
 }
-.form-item-label-Required {
+.form-item-label-required {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;
@@ -190,7 +190,7 @@ label.file::before {
   font-size: 14px;
 }
 @media screen and (max-width: 480px) {
-  .form-item-label-Required {
+  .form-item-label-required {
     border-radius: 4px;
     padding-top: 4px;
     padding-bottom: 4px;

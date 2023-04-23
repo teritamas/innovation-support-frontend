@@ -34,8 +34,8 @@
               </div>
             </div>
           </div>
-          <div class="progBar">
-            <p class="bar" :style="{ width: progBarSize }"></p>
+          <div class="prog-bar">
+            <p class="bar" :style="{ width: prog-barSize }"></p>
           </div>
           <small>{{ progressBarFooterMessage }}</small>
         </div>
@@ -146,14 +146,14 @@ export default {
   color: rgb(190 18 60);
   font-weight: bold;
 }
-.progBar {
+.prog-bar {
   height: 16px;
   background-color: #ececec;
   position: relative;
   border-radius: 10px;
   overflow: hidden;
 }
-.progBar .bar {
+.prog-bar .bar {
   position: absolute;
   height: 100%;
   background-color: #ffca28;

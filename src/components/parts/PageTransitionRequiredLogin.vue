@@ -1,5 +1,5 @@
 <template>
-  <div class="fullview">
+  <div class="full-view">
     <div class="card bg-yellow">
       <div class="bg-orange">
         <h3 class="font-bold text-center py-10">
@@ -94,7 +94,7 @@ h3 {
   }
 }
 
-.fullview {
+.full-view {
   width: 100%;
   height: 100%;
   background: rgba(255, 255, 255, 0.8);

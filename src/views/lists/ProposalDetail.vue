@@ -18,7 +18,7 @@
       <div class="form mb-10 bg-beige" v-if="showVoteArea">
         <div class="form-item">
           <p class="form-item-label mb-2">
-            <span class="form-item-label-Required">必須</span>賛否
+            <span class="form-item-label-required">必須</span>賛否
           </p>
           <div class="radio-button-group mts w-full" style="margin-left: 0px">
             <div class="item">
@@ -82,7 +82,7 @@
         </div>
       </div>
       <div class="">
-        <button class="form-Return-btn mb-10" @click="returnProposalLists()">
+        <button class="form-return-btn mb-10" @click="returnProposalLists()">
           戻る
         </button>
       </div>
@@ -434,7 +434,7 @@ export default {
   }
 }
 
-.form-item-label-Required {
+.form-item-label-required {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;
@@ -460,7 +460,7 @@ export default {
   font-size: 14px;
 }
 
-.form-item-List {
+.form-item-list {
   border-radius: 6px;
   margin-right: 8px;
   padding-top: 8px;
@@ -473,7 +473,7 @@ export default {
   font-size: 14px;
 }
 @media screen and (max-width: 480px) {
-  .form-item-label-Required {
+  .form-item-label-required {
     border-radius: 4px;
     padding-top: 4px;
     padding-bottom: 4px;
@@ -490,7 +490,7 @@ export default {
   }
 }
 
-.form-Return-btn {
+.form-return-btn {
   border-radius: 6px;
   margin-top: 32px;
   margin-left: auto;
@@ -506,7 +506,7 @@ export default {
   font-size: 20px;
 }
 @media screen and (max-width: 480px) {
-  .form-Return-btn {
+  .form-return-btn {
     margin-top: 12px;
     padding-top: 8px;
     padding-bottom: 8px;
