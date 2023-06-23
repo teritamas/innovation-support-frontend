@@ -4,7 +4,7 @@
 
 イノサポのサービスには下記の URL からアクセスしてください
 
-- [イノサポ - InnovationSupport](https://innovation-support-d391e.web.app)
+- ~[イノサポ - InnovationSupport](https://innovation-support-d391e.web.app)~ 公開は終了しました
 
 <div align="center">
   <img src="./docs/app.png" height="500">
